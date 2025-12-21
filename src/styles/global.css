@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../assets/mono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@theme {
+    --color-bg-800: #131313;
+    --color-bg-700: #1b1b1b;
+    --color-bg-600: #272727;
+    --color-bg-500: #3d3d3d;
+    --color-bg-400: #5d5d5d;
+    --color-bg-300: #858585;
+    --color-bg-200: #b4b4b4;
+    --color-bg-150: #f2f2f2;
+    /* Not in the original */
+    --color-bg-100: #ffffff;
+
+    --color-error: #f5555d;
+
+    --color-p-red-500: #571c27;
+    --color-p-red-400: #891e2b;
+    --color-p-red-300: #c42430;
+    --color-p-red-200: #ea323c;
+    --color-p-red-100: #f5555d;
+
+    --color-p-purple-500: #3b1443;
+    --color-p-purple-400: #622461;
+    --color-p-purple-300: #93388f;
+    --color-p-purple-200: #ca52c9;
+    --color-p-purple-100: #c85086;
+
+    --color-p-blue-500: #00396d;
+    --color-p-blue-400: #0069aa;
+    --color-p-blue-300: #0098dc;
+    --color-p-blue-200: #00cdf9;
+    --color-p-blue-100: #0cf1ff;
+
+    --color-p-orange-500: #8e251d;
+    --color-p-orange-400: #ff5000;
+    --color-p-orange-300: #ed7614;
+    --color-p-orange-200: #ffa214;
+    --color-p-orange-100: #ffc825;
+
+    --color-p-yellow-500: #a67c00;
+    --color-p-yellow-450: #c69800;
+    /* Not in the original */
+    --color-p-yellow-400: #d4a500;
+    --color-p-yellow-300: #f5c400;
+    --color-p-yellow-200: #ffe600;
+    --color-p-yellow-100: #ffff00;
+
+    --color-p-brown-500: #57231c;
+    /* Not in the original */
+    --color-p-brown-400: #89301e;
+    /* Not in the original */
+    --color-p-brown-300: #8a4836;
+    --color-p-brown-200: #bf6f4a;
+    --color-p-brown-100: #e69c69;
+
+    --color-p-green-400: #1e6f50;
+    --color-p-green-300: #33984b;
+    --color-p-green-200: #5ac54f;
+    --color-p-green-100: #99e65f;
+
+    --font-mono: 'JetBrains Mono', monospace;
+}

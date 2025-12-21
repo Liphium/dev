@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from "astro:content";
+import Wrapper from "../../components/Wrapper.astro";
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+    const posts = await getCollection("specs");
+    return posts.map((post: any) => ({
+        params: { id: post.id },
+        props: { post },
+    }));
+}
+
+// 2. For your template, you can get the entry directly from the prop
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Wrapper>
+    <div class="flex items-center justify-center p-6">
+        <div class="flex flex-col gap-2 font-mono max-w-4xl w-full prose-spec">
+            <Content />
+        </div>
+    </div>
+</Wrapper>
+
+<style is:global>
+    .prose-spec {
+        color: var(--color-bg-200);
+    }
+
+    .prose-spec h1 {
+        color: var(--color-bg-100);
+        font-weight: bold;
+        font-size: 1.875rem;
+        margin-bottom: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .prose-spec h1:first-child {
+        margin-top: 0;
+    }
+
+    .prose-spec h2 {
+        color: var(--color-bg-100);
+        font-weight: bold;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        margin-top: 1.25rem;
+    }
+
+    .prose-spec h3 {
+        color: var(--color-bg-100);
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .prose-spec h4,
+    .prose-spec h5,
+    .prose-spec h6 {
+        color: var(--color-bg-100);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .prose-spec p {
+        color: var(--color-bg-200);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 0.75rem;
+    }
+
+    .prose-spec a {
+        color: var(--color-p-blue-100);
+        text-decoration: underline;
+    }
+
+    .prose-spec a:hover {
+        color: var(--color-p-blue-200);
+    }
+
+    .prose-spec ul,
+    .prose-spec ol {
+        margin-bottom: 0.75rem;
+    }
+
+    .prose-spec ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        list-style-position: outside;
+    }
+
+    .prose-spec ol {
+        list-style-type: decimal;
+        padding-left: 0;
+        list-style-position: inside;
+    }
+
+    .prose-spec li {
+        color: var(--color-bg-200);
+        margin-bottom: 0.25rem;
+        padding-left: 0.25rem;
+    }
+
+    .prose-spec li::marker {
+        color: var(--color-bg-100);
+    }
+
+    .prose-spec code {
+        background-color: var(--color-bg-700);
+        color: var(--color-p-yellow-200);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+    }
+
+    .prose-spec pre {
+        background-color: var(--color-bg-700);
+        color: var(--color-bg-150);
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        margin-bottom: 0.75rem;
+    }
+
+    .prose-spec pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+        border-radius: 0;
+        font-size: 0.875rem;
+    }
+
+    .prose-spec blockquote {
+        border-left: 4px solid var(--color-bg-500);
+        padding-left: 1rem;
+        color: var(--color-bg-300);
+        font-style: italic;
+        margin-bottom: 0.75rem;
+    }
+
+    .prose-spec table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0.75rem;
+    }
+
+    .prose-spec th {
+        background-color: var(--color-bg-700);
+        color: var(--color-bg-100);
+        font-weight: bold;
+        padding: 0.75rem;
+        text-align: left;
+        border: 1px solid var(--color-bg-600);
+    }
+
+    .prose-spec td {
+        padding: 0.75rem;
+        border: 1px solid var(--color-bg-600);
+        color: var(--color-bg-200);
+    }
+
+    .prose-spec tr:nth-child(even) {
+        background-color: var(--color-bg-700);
+    }
+
+    .prose-spec hr {
+        border: none;
+        border-top: 1px solid var(--color-bg-600);
+        margin: 1.5rem 0;
+    }
+
+    .prose-spec strong {
+        color: var(--color-bg-100);
+        font-weight: bold;
+    }
+
+    .prose-spec em {
+        font-style: italic;
+    }
+</style>

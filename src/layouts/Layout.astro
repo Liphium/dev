@@ -1,0 +1,27 @@
+---
+import "../styles/global.css";
+import favicon from "../assets/favicon.png";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href={favicon.src} />
+		<meta name="generator" content={Astro.generator} />
+		<title>Liphium Development Tools</title>
+	</head>
+	<body class="bg-bg-800">
+		<slot />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		min-height: 100%;
+	}
+</style>
