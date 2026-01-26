@@ -1,16 +1,25 @@
 ---
 import "../styles/global.css";
 import favicon from "../assets/favicon.png";
+
+const { language, title, summary } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href={favicon.src} />
 		<meta name="generator" content={Astro.generator} />
-		<title>Liphium Development Tools</title>
+		<title>{title} - liphium.dev</title>
+
+		<!-- Discord embed and stuff -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="liphium.dev" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={summary} />
+		<meta property="og:image" content={new URL(favicon.src, Astro.url)} />
 	</head>
 	<body class="bg-bg-800">
 		<slot />

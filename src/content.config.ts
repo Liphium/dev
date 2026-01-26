@@ -1,12 +1,12 @@
-import { glob } from "astro/loaders";
-import { defineCollection } from "astro:content";
+import { defineCollection, z } from "astro:content";
 
-// Import all the specifications
-const specs = defineCollection({
-    loader: glob({
-        pattern: "**/*.md",
-        base: "./specifications"
-    })
-})
+const magicCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+	}),
+});
 
-export const collections = { specs };
+export const collections = {
+	magic: magicCollection,
+};

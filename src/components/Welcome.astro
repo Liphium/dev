@@ -1,5 +1,8 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="flex items-center justify-center">
@@ -7,14 +10,18 @@
 		class="flex flew-row justify-center text-center p-6 gap-8 w-full font-mono items-start max-lg:flex-col max-lg:items-center"
 	>
 		<div class="flex flex-col justify-center max-w-xl gap-4 shrink-0">
-			<h1 class="text-bg-100 font-bold text-3xl mb-6 max-lg:mb-3">
-				Build with Liphium's development tools & platforms
+			<h1
+				class="text-bg-100 font-bold leading-normal text-3xl mb-6 max-lg:mb-3"
+			>
+				{t("welcome.header")}
 			</h1>
 
 			<p class="text-bg-200 text-lg text-justify">
-				On this website, you'll find documentation on how to use or
-				interact with all of Liphium's services, development tools &
-				platforms.
+				{t("welcome.description")}
+			</p>
+
+			<p class="text-bg-200 text-lg text-justify">
+				{t("welcome.warning")}
 			</p>
 		</div>
 	</div>
