@@ -13,19 +13,11 @@ export default defineConfig({
 	i18n: {
 		locales: ["en"],
 		defaultLocale: "en",
-		routing: {
-			prefixDefaultLocale: true,
-			redirectToDefaultLocale: false,
-		},
 	},
 	redirects: {
 		"/magic": {
 			status: 302,
-			destination: "/en/magic/introduction",
-		},
-		"/": {
-			status: 302,
-			destination: "/en",
+			destination: "/magic/introduction",
 		},
 	},
 

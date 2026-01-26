@@ -1,0 +1,16 @@
+---
+import Welcome from "../components/Welcome.astro";
+import Wrapper from "../components/Wrapper.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Wrapper
+	title={t("welcome.header")}
+	summary={t("welcome.description")}
+	language={lang}
+>
+	<Welcome />
+</Wrapper>
