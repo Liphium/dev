@@ -18,7 +18,10 @@ export default defineConfig({
 		},
 	},
 	redirects: {
-		"/magic": "/en/magic/introduction",
+		"/magic": {
+			status: 302,
+			destination: "/en/magic/introduction",
+		},
 	},
 
 	integrations: [svelte()],
