@@ -1,0 +1,41 @@
+---
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+let links: {
+	name: string;
+	link: string;
+}[] = [
+	{
+		name: t("footer.impressum"),
+		link: "https://liphium.com/documents/impressum",
+	},
+	{
+		name: t("footer.terms-and-privacy"),
+		link: "https://liphium.com/documents/terms-and-privacy",
+	},
+];
+---
+
+<div class="flex flex-row justify-center p-4">
+	<div class="flex gap-8 font-mono">
+		<p
+			class="border-b-2 text-bg-100 border-transparent font-bold hover:border-b-2 hover:border-bg-100"
+		>
+			{t("footer.copyright")}
+		</p>
+		{
+			links.map((link) => (
+				<a
+					class="border-b-2 border-transparent text-p-blue-100 hover:border-b-2 hover:border-p-blue-100"
+					href={link.link}
+				>
+					{link.name}
+				</a>
+			))
+		}
+	</div>
+</div>
