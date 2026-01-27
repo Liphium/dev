@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import { getLangFromUrl } from "../../i18n/utils";
-import Wrapper from "../../components/Wrapper.astro";
+import PanelWrapper from "../../components/PanelWrapper.astro";
 
 export async function getStaticPaths() {
 	const pages = await getCollection("magic");
@@ -21,19 +21,27 @@ const { slug } = Astro.params;
 const page = Astro.props;
 const { Content } = await render(page);
 const lang = getLangFromUrl(Astro.url);
+
+// Load sidebar data based on language
+const sidebarData = await import(`../../content/magic/${lang}/sidebar.json`);
+const sections = sidebarData.default;
 ---
 
-<Wrapper
-	title={page.data.title}
+<PanelWrapper
+	title={page.data.title + " - Magic Docs"}
 	summary={page.data.description}
 	language={lang}
+	linkPrefix={lang != "en" ? `/${lang}/magic` : "/magic"}
+	software="Magic v2.0.4"
+	sections={sections}
 >
-	<div class="flex items-center justify-center p-6">
+	<div class="flex items-center justify-center px-6">
 		<div class="flex flex-col gap-2 font-mono max-w-4xl w-full prose-spec">
+			<h1>{page.data.title}</h1>
 			<Content />
 		</div>
 	</div>
-</Wrapper>
+</PanelWrapper>
 
 <style is:global>
 	.prose-spec {

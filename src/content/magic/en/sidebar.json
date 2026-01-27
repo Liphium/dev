@@ -1,0 +1,24 @@
+[
+	{
+		"name": "Getting Started",
+		"links": [
+			{
+				"name": "Introduction",
+				"link": "/getting-started/introduction"
+			},
+			{
+				"name": "Frequently asked",
+				"link": "/getting-started/frequently-asked"
+			}
+		]
+	},
+	{
+		"name": "Links",
+		"links": [
+			{
+				"name": "GitHub",
+				"link": "https://github.com/Liphium/magic"
+			}
+		]
+	}
+]

@@ -1,5 +1,5 @@
 ---
-import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
+import { getAbsoluteLocaleUrl } from "astro:i18n";
 import favicon from "../assets/favicon.png";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
@@ -12,7 +12,7 @@ let links: {
 }[] = [
 	{
 		name: t("nav.magic"),
-		link: getAbsoluteLocaleUrl(lang, "/magic/introduction"),
+		link: getAbsoluteLocaleUrl(lang, "/magic/getting-started/introduction"),
 	},
 ];
 ---

@@ -1,9 +1,7 @@
 ---
 title: "Introduction"
-description: "Learn the basics of Magic."
+description: "An introduction to what Magic is, how to use it, the system and application requirements as well as why we made it in the first place."
 ---
-
-# Introduction
 
 **This project is still experimental and in early stages. Feel free to test it out, but expect major changes, bugs and of course also new features.**
 

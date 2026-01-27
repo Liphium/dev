@@ -17,7 +17,7 @@ export default defineConfig({
 	redirects: {
 		"/magic": {
 			status: 302,
-			destination: "/magic/introduction",
+			destination: "/magic/getting-started/introduction",
 		},
 	},
 

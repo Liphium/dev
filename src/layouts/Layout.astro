@@ -19,7 +19,7 @@ const { language, title, summary } = Astro.props;
 		<meta property="og:site_name" content="liphium.dev" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={summary} />
-		<meta property="og:image" content={new URL(favicon.src, Astro.url)} />
+		<meta content="#00cdf9" data-react-helmet="true" name="theme-color" />
 	</head>
 	<body class="bg-bg-800">
 		<slot />

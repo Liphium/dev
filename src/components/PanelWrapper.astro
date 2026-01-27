@@ -1,0 +1,82 @@
+---
+import Wrapper from "./Wrapper.astro";
+import favicon from "../assets/favicon.png";
+
+const {
+	language,
+	title,
+	summary,
+	software,
+	linkPrefix,
+	sections: sectionsUnparsed,
+} = Astro.props;
+
+const sections: {
+	name: string;
+	linkPrefix: string;
+	links: {
+		name: string;
+		link: string;
+	}[];
+}[] = sectionsUnparsed;
+
+const currentPath = Astro.url.pathname;
+---
+
+<Wrapper {language} {title} {summary}>
+	<div class="flex w-full justify-center">
+		<div class="flex w-full max-w-6xl font-mono text-bg-100">
+			<!-- Navigation sidebar -->
+			<div
+				class="sticky inset-0 flex h-screen min-w-60 justify-center p-4"
+			>
+				<!-- Sidebar content -->
+				<div
+					class="flex w-full flex-col justify-between gap-8 font-mono"
+				>
+					<div class="flex w-full flex-col gap-6">
+						<!-- Version and software indicator -->
+						<div class="align-center flex gap-2">
+							<img
+								src={favicon.src}
+								alt="Planet logo"
+								class="h-6 w-6 rounded-sm"
+							/>
+							<p class="font-bold text-bg-200">{software}</p>
+						</div>
+
+						<!-- Links at the top of the sidebar -->
+						{
+							sections.map((section) => (
+								<div class="flex flex-col gap-3">
+									{section.name && (
+										<p class="font-bold text-bg-100">
+											{section.name}
+										</p>
+									)}
+
+									{section.links.map((link) => (
+										<a
+											class={`w-max border-b-2 ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
+											href={linkPrefix + link.link}
+										>
+											{link.name}
+										</a>
+									))}
+								</div>
+							))
+						}
+					</div>
+				</div>
+
+				<!-- Separator between sidebar and main content -->
+				<div class="w-0.5 bg-bg-500"></div>
+			</div>
+
+			<!-- Content for the page -->
+			<div class="w-full p-4">
+				<slot />
+			</div>
+		</div>
+	</div>
+</Wrapper>
