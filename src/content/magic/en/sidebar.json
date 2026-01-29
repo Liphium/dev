@@ -13,6 +13,19 @@
 		]
 	},
 	{
+		"name": "Documentation",
+		"links": [
+			{
+				"name": "Integrating Magic",
+				"link": "/documentation/integrating-magic"
+			},
+			{
+				"name": "Integration tests",
+				"link": "/documentation/integration-tests"
+			}
+		]
+	},
+	{
 		"name": "Links",
 		"links": [
 			{
