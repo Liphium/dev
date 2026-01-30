@@ -3,8 +3,6 @@ title: "Integrating Magic into your app"
 description: "How you might want to integrate Magic into your app: The process of doing it and what you need to modify."
 ---
 
-**This article is not complete yet, please don't follow it until this warning is gone.**
-
 When using Magic, it's important that all the parts of Magic you're using are in proper locations for you to easily integrate features like [Testing](/magic/documentation/integration-tests).
 
 This is a comprehensive guide on where to put your things when you want to properly use Magic in real projects.
@@ -31,4 +29,112 @@ Before actually getting into adding Magic to your project, make sure you have [D
 go get -u github.com/Liphium/magic/v2@latest
 ```
 
-**2.** Create a new folder for a package (we'll go with `starter`) that will contain your current `main` function (the function that's currently the entrypoint to your program).
+**2.** Create a new folder for a package (we'll go with `starter`) that will contain your current `main` function (the function that's currently the entrypoint to your program), or create a new function that will be your `main` function in there. You could do it like this:
+
+```go
+package starter
+
+// ...
+
+// This function needs to be public (more context below)
+func Start() {
+	// Your code here...
+}
+
+// ...
+```
+
+**3.** In the folder where you created the file containing your new entrypoint function, create a file named `config.go` (the name doesn't matter).
+
+**4.** In this file, create a function for building the `magic.Config` for running your project like this:
+
+```go
+package starter
+
+// ...
+
+func BuildMagicConfig() magic.Config {
+	return magic.Config{
+		AppName: "your-app-name",
+
+		// This is the function Magic will call when starting your app.
+		// Make this the main function you created earlier here.
+		StartFunction: start,
+		// ...
+	}
+}
+
+// ...
+
+```
+
+For filling the config with actual content, we'll soon have another guide. For now, you can look at the struct definition and the comments in the code. We've added a lot of comments and hope they help for now.
+
+**5.** For your actual program entrypoint that Magic will use, let's create a new `main_magic.go` file in your root directory:
+
+Just as a quick explainer, we're using [Go build tags](https://www.digitalocean.com/community/tutorials/customizing-go-binaries-with-build-tags) here to make sure we can build the app normally without it spinning up with Magic. How to actually do this is covered later.
+
+```go
+//go:build !release
+// +build !release
+
+package main
+
+import (
+	"your-project-name/starter"
+
+	"github.com/Liphium/magic/v2"
+)
+
+func main() {
+	magic.Start(starter.BuildMagicConfig())
+}
+```
+
+**6.** For the actual entrypoint of your program, let's create a new `main.go` file in your project root:
+
+```go
+//go:build release
+// +build release
+
+package main
+
+import "your-project-name/starter"
+
+func main() {
+	starter.Start()
+}
+```
+
+**7.** You're done. This is how you set up Magic properly. Now let's learn how to use this setup.
+
+## Using this setup
+
+With this setup, as explained earlier, you're using Go build tags to essentially be able to toggle between running your app with Magic and without it. Let's learn how this works.
+
+### Starting your app
+
+If you remember your `main_magic.go` file, you'll see the following at the top of it:
+
+```go
+//go:build !release
+// +build !release
+```
+
+This means that when the build tag `release` is not activated, we want this file to be included.
+
+This means you can just run your app like normal and Magic will run before your actual app starts:
+
+```sh
+go run .
+```
+
+If you want to run your app normally without Magic, you can just use enable the `release` tag:
+
+```sh
+go run -tags=release .
+```
+
+### How to build your app
+
+**Instructions coming soon.**
