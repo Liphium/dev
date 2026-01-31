@@ -72,11 +72,10 @@ For filling the config with actual content, we'll soon have another guide. For n
 
 **5.** For your actual program entrypoint that Magic will use, let's create a new `main_magic.go` file in your root directory:
 
-Just as a quick explainer, we're using [Go build tags](https://www.digitalocean.com/community/tutorials/customizing-go-binaries-with-build-tags) here to make sure we can build the app normally without it spinning up with Magic. How to actually do this is covered later.
+Just as a quick explainer, we're using [Go build tags](https://pkg.go.dev/cmd/go#hdr-Build_constraints) here to make sure we can build the app normally without it spinning up with Magic. How to actually do this is covered later.
 
 ```go
 //go:build !release
-// +build !release
 
 package main
 
@@ -95,7 +94,6 @@ func main() {
 
 ```go
 //go:build release
-// +build release
 
 package main
 
@@ -129,12 +127,30 @@ This means you can just run your app like normal and Magic will run before your 
 go run .
 ```
 
-If you want to run your app normally without Magic, you can just use enable the `release` tag:
+If you want to run your app normally without Magic, you can just enable the `release` tag:
 
 ```sh
-go run -tags=release .
+go run -tags release .
 ```
 
 ### How to build your app
 
-**Instructions coming soon.**
+Building actually works just like running the binary with the `release` tag. You can simply do the following:
+
+```sh
+go build -tags release . # Put any other arguments here #
+```
+
+**Note: When you build your app without the `release` tag, your app will run with Magic just like when doing `go run .`!**
+
+### How to share a development version of your app
+
+The fun thing when you built your app with Magic is that you can now also send someone a version of your app that can run anywhere where anything compatible with the Docker socket is installed. **DO NOT DO THIS IN PRODUCTION ENVIRONMENTS AS MAGIC USES EASY TO GUESS CREDENTIALS SINCE IT IS A DEVELOPMENT TOOL!**
+
+To prevent you from ruining their development environment with an unfinished version however, here are a few things to keep in mind before you send the file to them:
+
+- Change the `AppName` property in your `magic.Config` to something different (the safest being a random string). This prevents Docker containers with similar names potentially being overwritten (Magic always names containers like this: `mgc-%appName%-%profile%-%serviceName%`)
+- Magic will create a `.magic` folder like normal. Tell them to clean it up after.
+- Magic does not [stop containers after your app has finished](/magic/getting-started/frequently-asked#why-does-magic-not-stop-containers-after-shutdown).
+
+Have fun with Magic, let's become great wizards together.

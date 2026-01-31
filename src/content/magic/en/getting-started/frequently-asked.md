@@ -21,7 +21,7 @@ But please be careful with parallel tests.
 
 ## Is there a recommended project structure?
 
-Yes, of course! While there isn't any documentation on how to set it up completely from scratch, *yet*, we do want to add it eventually.
+Yes, of course! While there isn't any documentation on how to set it up completely from scratch, _yet_, we do want to add it eventually.
 
 For now, you can take a look at our [real project example](https://github.com/Liphium/magic/tree/main/examples/real-project) to get a basic idea of our recommended architecture. All of the files contain comments and explanations + the README has a nice explanation, too.
 
@@ -42,3 +42,15 @@ Unfortunately, running tests in parallel is currently **not supported**. While i
 However, Magic will detect when tests are trying to be run in parallel and waits until the other test runner has stopped.
 
 If you want to add it, feel free to discuss how you may do so in our [issue tracker](https://github.com/Liphium/magic/issues).
+
+## Why does Magic not stop containers after shutdown?
+
+While Magic does properly stop containers when you use `go test .`, we don't do it when you simply run your app. This is our reasoning:
+
+- Scripts may want to use the services or databases even after the app has stopped running
+- Shutdown hooks are unstable and don't work properly a lot of the time (at least from my (Unbreathable's) testing)
+  - When your app panics, they often don't get executed
+  - Getting a cross-platform solution to work is rather tedious
+- The better solution (in my eyes) is outlined below
+
+Because of this, in the future, we'll try to provide you with a command that can stop the containers.

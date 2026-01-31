@@ -27,6 +27,20 @@ const sidebarData = await import(`../../content/magic/${lang}/sidebar.json`);
 const sections = sidebarData.default;
 ---
 
+<script>
+	const anchorHeadings = document.querySelectorAll("h2, h3, h4, h5, h6");
+
+	[...anchorHeadings]
+		.filter((heading: Element) => heading.id !== "table-of-contents")
+		.forEach((heading) => {
+			const anchor = document.createElement("a");
+			anchor.className = "hidden-link";
+			anchor.href = `#${heading.id}`;
+			heading.parentNode!.insertBefore(anchor, heading);
+			anchor.appendChild(heading);
+		});
+</script>
+
 <PanelWrapper
 	title={page.data.title + " - Magic Docs"}
 	summary={page.data.description}
@@ -58,6 +72,16 @@ const sections = sidebarData.default;
 
 	.prose-spec h1:first-child {
 		margin-top: 0;
+	}
+
+	.prose-spec h1:target,
+	.prose-spec h2:target,
+	.prose-spec h3:target,
+	.prose-spec h4:target,
+	.prose-spec h5:target,
+	.prose-spec h6:target {
+		color: var(--color-p-blue-100) !important;
+		text-decoration: underline;
 	}
 
 	.prose-spec h2 {
@@ -92,13 +116,13 @@ const sections = sidebarData.default;
 		margin-bottom: 0.75rem;
 	}
 
-	.prose-spec a {
+	.prose-spec a:not(.hidden-link) {
 		color: var(--color-p-blue-100);
 		text-decoration: underline;
-	}
 
-	.prose-spec a:hover {
-		color: var(--color-p-blue-200);
+		&:hover {
+			color: var(--color-p-blue-200);
+		}
 	}
 
 	.prose-spec ul,
