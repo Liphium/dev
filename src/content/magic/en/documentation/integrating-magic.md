@@ -116,7 +116,6 @@ If you remember your `main_magic.go` file, you'll see the following at the top o
 
 ```go
 //go:build !release
-// +build !release
 ```
 
 This means that when the build tag `release` is not activated, we want this file to be included.
