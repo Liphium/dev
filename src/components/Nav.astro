@@ -1,40 +1,14 @@
 ---
-import { getAbsoluteLocaleUrl } from "astro:i18n";
-import favicon from "../assets/favicon.png";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import NavComponent from "./Nav.svelte";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-let links: {
-	name: string;
-	link: string;
-}[] = [
-	{
-		name: t("nav.magic"),
-		link: getAbsoluteLocaleUrl(lang, "/magic/getting-started/introduction"),
-	},
-];
+const translations = {
+	name: t("nav.name"),
+	magic: t("nav.magic"),
+};
 ---
 
-<div class="flex flex-row justify-center p-4">
-	<div class="flex gap-8 text-bg-100 font-mono">
-		<div class="flex align-center gap-2">
-			<img src={favicon.src} class="w-6 h-6 rounded-sm" />
-			<a
-				class="border-b-2 border-transparent font-bold hover:border-b-2 hover:border-bg-100"
-				href="/">{t("nav.name")}</a
-			>
-		</div>
-		{
-			links.map((link) => (
-				<a
-					class="border-b-2 border-transparent hover:border-b-2 hover:border-bg-100"
-					href={link.link}
-				>
-					{link.name}
-				</a>
-			))
-		}
-	</div>
-</div>
+<NavComponent lang={lang} translations={translations} client:load />

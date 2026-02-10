@@ -21,16 +21,18 @@ let links: {
 ---
 
 <div class="flex flex-row justify-center p-4">
-	<div class="flex gap-8 font-mono">
+	<div
+		class="flex flex-wrap gap-4 sm:gap-8 font-mono text-sm sm:text-base justify-center items-center"
+	>
 		<p
-			class="border-b-2 text-bg-100 border-transparent font-bold hover:border-b-2 hover:border-bg-100"
+			class="border-b-2 text-bg-100 border-transparent font-bold hover:border-b-2 hover:border-bg-100 transition-colors"
 		>
 			{t("footer.copyright")}
 		</p>
 		{
 			links.map((link) => (
 				<a
-					class="border-b-2 border-transparent text-p-blue-100 hover:border-b-2 hover:border-p-blue-100"
+					class="border-b-2 border-transparent text-p-blue-100 hover:border-b-2 hover:border-p-blue-100 transition-colors"
 					href={link.link}
 				>
 					{link.name}
