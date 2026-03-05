@@ -13,16 +13,21 @@ The idea of integration testing with Magic is essentially the following:
 
 Before you can use Magic for integration testing, please make sure you have [set up Magic properly](/magic/documentation/integrating-magic).
 
-Next, their is literally only one step: Magic needs to run before any of your tests, so integrate it like this:
+From here on, it assumed that you know how to test projects in Go. If not, you may wanna research how to do that first.
+
+Next, there is literally only one step: Go to any of your `[something]_test.go` files and integrate Magic like this:
 
 ```go
 func TestMain(m *testing.M) {
-	magic.PrepareTesting(m, starter.BuildMagicConfig())
+	magic.PrepareTesting(m, /* the build function for your Magic config */)
 }
 ```
 
+If you want some inspiration and see real tests written with Magic, you can take a look at the ones in our [real project example](https://github.com/Liphium/magic/blob/main/examples/real-project/starter/start_test.go).
+
 What you can now do:
 
+- Create tests like normal, your app is running in the same process in a different goroutine.
 - All of the environment variables are shared with your app, meaning `os.Getenv` will return the same in your app as in your tests (you can use this to get the path to your API if you're creating a web service for example).
 - You can call scripts you have created to simplify some of your tests (as any other function).
   - If your scripts need the **Magic runner**, read below.
