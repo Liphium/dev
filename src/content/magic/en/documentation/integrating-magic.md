@@ -137,7 +137,7 @@ go run -tags release .
 Building actually works just like running the binary with the `release` tag. You can simply do the following:
 
 ```sh
-go build -tags release . # Put any other arguments here #
+go build -tags release .
 ```
 
 **Note: When you build your app without the `release` tag, your app will run with Magic just like when doing `go run .`!**
@@ -155,7 +155,7 @@ To prevent you from ruining their development environment with an unfinished ver
 The way to do this, with this setup, is to just build your app without the release tag (**DO NOT DO THIS FOR PRODUCTION ENVIRONMENTS**):
 
 ```sh
-go build . # Put any other arguments here #
+go build .
 ```
 
 Have fun with Magic, let's become great wizards together.

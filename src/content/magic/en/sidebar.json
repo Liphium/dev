@@ -20,6 +20,10 @@
 				"link": "/documentation/integrating-magic"
 			},
 			{
+				"name": "Configuring Magic",
+				"link": "/documentation/configuring-magic"
+			},
+			{
 				"name": "Integration tests",
 				"link": "/documentation/integration-tests"
 			}
