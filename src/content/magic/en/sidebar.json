@@ -50,6 +50,10 @@
 		"name": "Links",
 		"links": [
 			{
+				"name": "Report an issue",
+				"link": "https://github.com/Liphium/dev/issues"
+			},
+			{
 				"name": "GitHub",
 				"link": "https://github.com/Liphium/magic"
 			}
