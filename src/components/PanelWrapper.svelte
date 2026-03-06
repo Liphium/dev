@@ -163,10 +163,10 @@
 				<div class="align-center flex gap-2">
 					<img
 						src={favicon.src}
-						alt="Planet logo"
+						alt="Software logo"
 						class="h-6 w-6 rounded-sm"
 					/>
-					<p class="font-bold text-bg-200">{software}</p>
+					<p class="font-bold text-p-blue-100">{software}</p>
 				</div>
 
 				<!-- Links -->
