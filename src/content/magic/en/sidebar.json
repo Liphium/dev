@@ -9,6 +9,10 @@
 			{
 				"name": "Frequently asked",
 				"link": "/getting-started/frequently-asked"
+			},
+			{
+				"name": "Concepts",
+				"link": "/getting-started/concepts"
 			}
 		]
 	},
@@ -22,6 +26,10 @@
 			{
 				"name": "Configuring Magic",
 				"link": "/documentation/configuring-magic"
+			},
+			{
+				"name": "Magic scripts",
+				"link": "/documentation/magic-scripts"
 			},
 			{
 				"name": "Integration tests",

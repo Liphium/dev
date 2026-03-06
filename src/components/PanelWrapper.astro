@@ -17,8 +17,19 @@ const sections: {
 	links: {
 		name: string;
 		link: string;
+		href: string;
+		external: boolean;
 	}[];
 }[] = sectionsUnparsed;
+
+for (const section of sections) {
+	for (const link of section.links) {
+		const external =
+			link.link.startsWith("https://") || link.link.startsWith("http://");
+		link.href = external ? link.link : linkPrefix + link.link;
+		link.external = external;
+	}
+}
 
 const currentPath = Astro.url.pathname;
 ---
@@ -39,10 +50,10 @@ const currentPath = Astro.url.pathname;
 						<div class="align-center flex gap-2">
 							<img
 								src={favicon.src}
-								alt="Planet logo"
+								alt="Software logo"
 								class="h-6 w-6 rounded-sm"
 							/>
-							<p class="font-bold text-bg-200">{software}</p>
+							<p class="font-bold text-p-blue-100">{software}</p>
 						</div>
 
 						<!-- Links at the top of the sidebar -->
@@ -58,7 +69,17 @@ const currentPath = Astro.url.pathname;
 									{section.links.map((link) => (
 										<a
 											class={`w-max border-b-2 ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
-											href={linkPrefix + link.link}
+											href={link.href}
+											target={
+												link.external
+													? "_blank"
+													: undefined
+											}
+											rel={
+												link.external
+													? "noopener noreferrer"
+													: undefined
+											}
 										>
 											{link.name}
 										</a>

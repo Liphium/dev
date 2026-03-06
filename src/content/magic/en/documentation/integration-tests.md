@@ -13,9 +13,28 @@ The idea of integration testing with Magic is essentially the following:
 
 Before you can use Magic for integration testing, please make sure you have [set up Magic properly](/magic/documentation/integrating-magic).
 
+### Adding the startup hook
+
+After that, there is actually one more thing that's required to get your app and running with Magic. Magic has to wait for your app to start up before any of the integration tests can begin. So what you need to do is call `magic.AppStarted()` once after your app has been started. If you're using the web framework Fiber, your code for this could look like this:
+
+```go
+// Add a startup hook to notify Magic of the app start
+app.Hooks().OnListen(func(listenData fiber.ListenData) error {
+	if fiber.IsChild() {
+		return nil
+	}
+
+	// Tell Magic the app has started: Makes sure tests start to run after this.
+	magic.AppStarted()
+	return nil
+})
+```
+
+### Setting up the testing runtime
+
 From here on, it assumed that you know how to test projects in Go. If not, you may wanna research how to do that first.
 
-Next, there is literally only one step: Go to any of your `[something]_test.go` files and integrate Magic like this:
+There is literally only one step to integrate Magic with your tests: Go to one of your `[something]_test.go` files where you want to integrate Magic and add a `TestMain` function like this:
 
 ```go
 func TestMain(m *testing.M) {
@@ -38,7 +57,7 @@ You may want to know more about how Magic runs your tests internally, since we o
 
 ### How it works under the hood
 
-Magic has [profiles](/magic/getting-started/frequently-asked#can-i-run-multiple-instances-of-my-app-with-magic) that allow you to create multiple instances of your app (that can run in parallel with different database containers, etc.) and the same is done when you run your tests. For this, we use the `test` profile. So what happens before your tests run is essentially just `go run . --profile test` in a different goroutine. Your tests and your app are sharing the same process and same memory (in a way).
+Magic has [profiles](/magic/getting-started/concepts#profiles) that allow you to create multiple instances of your app and we use the `test` profile for the testing runtime. So what happens before your tests run is essentially just `go run . --profile test` in a different goroutine. Your tests and your app are sharing the same process and same memory (in a way).
 
 **Hint:** You can use `ctx.Profile()` to check which profile is currently being used in your `PlanDeployment` function in the config. This allows you to also set different environment variables specifically for testing by simple checking `ctx.Profile() == "test"`.
 
