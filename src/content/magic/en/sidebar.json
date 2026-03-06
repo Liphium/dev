@@ -9,6 +9,10 @@
 			{
 				"name": "Frequently asked",
 				"link": "/getting-started/frequently-asked"
+			},
+			{
+				"name": "Concepts",
+				"link": "/getting-started/concepts"
 			}
 		]
 	},
@@ -20,8 +24,25 @@
 				"link": "/documentation/integrating-magic"
 			},
 			{
+				"name": "Configuring Magic",
+				"link": "/documentation/configuring-magic"
+			},
+			{
+				"name": "Magic scripts",
+				"link": "/documentation/magic-scripts"
+			},
+			{
 				"name": "Integration tests",
 				"link": "/documentation/integration-tests"
+			}
+		]
+	},
+	{
+		"name": "Databases",
+		"links": [
+			{
+				"name": "PostgreSQL",
+				"link": "/databases/postgresql"
 			}
 		]
 	},
