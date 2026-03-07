@@ -8,6 +8,8 @@
 		translations: {
 			name: string;
 			magic: string;
+			main: string;
+			github: string;
 		};
 	}
 
@@ -17,11 +19,19 @@
 
 	const links = [
 		{
+			name: translations.main,
+			link: "https://liphium.com",
+		},
+		{
 			name: translations.magic,
 			link: getAbsoluteLocaleUrl(
 				lang,
 				"/magic/getting-started/introduction",
 			),
+		},
+		{
+			name: translations.github,
+			link: "https://github.com/Liphium/dev",
 		},
 	];
 
