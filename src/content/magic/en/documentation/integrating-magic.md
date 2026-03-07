@@ -59,7 +59,7 @@ func BuildMagicConfig() magic.Config {
 
 		// This is the function Magic will call when starting your app.
 		// Make this the main function you created earlier here.
-		StartFunction: start,
+		StartFunction: Start,
 		// ...
 	}
 }

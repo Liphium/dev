@@ -20,18 +20,18 @@ While you can find documentation for the different services in the sidebar, here
 
 ### The context
 
-The only argument you're getting in the `PlayDeployment` function is the `mconfig.Context`. This context includes a lot of useful information you might want to use. Below it's abbreviated as `ctx`. Here are some useful functions (more is explained in the sections below as well):
+The only argument you're getting in the `PlanDeployment` function is the `mconfig.Context`. This context includes a lot of useful information you might want to use. Below it's abbreviated as `ctx`. Here are some useful functions (more is explained in the sections below as well):
 
 - `ctx.Profile()` gives you the current [profile](/magic/getting-started/concepts#profiles).
 - `ctx.ProjectDirectory()` is the directory of your project.
 
-You could for example use `ctx.ProjectDirectory()` to create a new directory for some files that you might wanna use for testing. You could check specifically for the `test` profile to make sure it's the testing runtime.
+You could for example use `ctx.ProjectDirectory()` to create a new directory for some files that you might wanna use for testing. You could check specifically for the `test-default` profile to make sure it's the testing runtime.
 
 ### Environment variables
 
 Magic handles environment variables not as strings, but as functions. We call these functions before your app starts to "generate the environment variables".
 
-You specify environment variables in the `PlayDeployment` function by using `ctx.WithEnvironment()`. If you want to load environment variables from a file, you can also use `ctx.LoadSecretsToEnvironment("path/to/file")`.
+You specify environment variables in the `PlanDeployment` function by using `ctx.WithEnvironment()`. If you want to load environment variables from a file, you can also use `ctx.LoadSecretsToEnvironment("path/to/file")`.
 
 Additionally, a lot of [service drivers](/magic/getting-started/concepts#service-drivers) have functions that let you retrieve some values that you can pass directly into `ctx.WithEnvironment()`.
 
@@ -54,7 +54,7 @@ func PlanDeployment(ctx *mconfig.Context) {
 		// Additionally, you can create environment variables based on others (index in []mconfig.EnvironmentValue = index in []string)
 		"LISTEN": mconfig.ValueWithBase([]mconfig.EnvironmentValue{port}, func(args []string) string {
 			return fmt.Sprintf("127.0.0.1:%s", args[0])
-		})
+		}),
 	})
 }
 ```
@@ -65,7 +65,7 @@ Using environment values you can actually also allocate ports for your app to us
 
 ```go
 func PlanDeployment(ctx *mconfig.Context) {
-	port := mconfig.ValuePort(8080) // 8080 will be used when the port is open
+	port := ctx.ValuePort(8080) // 8080 will be used when the port is open
 
 	ctx.WithEnvironment(mconfig.Environment{
 
@@ -75,7 +75,7 @@ func PlanDeployment(ctx *mconfig.Context) {
 		// You can use your port to generate other values
 		"LISTEN": mconfig.ValueWithBase([]mconfig.EnvironmentValue{port}, func(args []string) string {
 			return fmt.Sprintf("127.0.0.1:%s", args[0])
-		})
+		}),
 	})
 }
 ```

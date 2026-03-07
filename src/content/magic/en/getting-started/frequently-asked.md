@@ -9,7 +9,7 @@ All of your basic questions about Magic should be answered here. If they aren't,
 
 Yes, in fact, that's **one of the reasons we created Magic in the first place**.
 
-When you run your app with Magic, just use `go run . --profile <name>` to create another instance. The database will also be persistent. Please just don't call it `test` since that's the profile we use for our test runtime (any databases may be cleared when you run tests).
+When you run your app with Magic, just use `go run . --profile <name>` to create another instance. The database will also be persistent. Please just don't call it `test-default` since that's the profile we use for our test runtime (any databases may be cleared when you run tests).
 
 **Hint:** You can use `-p <name>` to set the profile as well.
 

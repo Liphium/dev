@@ -57,9 +57,9 @@ You may want to know more about how Magic runs your tests internally, since we o
 
 ### How it works under the hood
 
-Magic has [profiles](/magic/getting-started/concepts#profiles) that allow you to create multiple instances of your app and we use the `test` profile for the testing runtime. So what happens before your tests run is essentially just `go run . --profile test` in a different goroutine. Your tests and your app are sharing the same process and same memory (in a way).
+Magic has [profiles](/magic/getting-started/concepts#profiles) that allow you to create multiple instances of your app and we use the `test-default` profile for the testing runtime. So what happens before your tests run is essentially just `go run . --profile test-default` in a different goroutine. Your tests and your app are sharing the same process and same memory (in a way).
 
-**Hint:** You can use `ctx.Profile()` to check which profile is currently being used in your `PlanDeployment` function in the config. This allows you to also set different environment variables specifically for testing by simple checking `ctx.Profile() == "test"`.
+**Hint:** You can use `ctx.Profile()` to check which profile is currently being used in your `PlanDeployment` function in the config. This allows you to also set different environment variables specifically for testing by simply checking `ctx.Profile() == "test-default"`.
 
 The only exception is that in this test profile all of your containers are **deleted** before your tests run, we do this to give you a predictable testing environment. **This is not done before every test, just before ALL of your tests within the same module run**.
 
@@ -83,7 +83,7 @@ magic.GetTestRunner()
 
 One of the things you may wanna do with it is, for example, drop all of the tables in your test database. For this reason, the runner provides you with some convenient methods:
 
-- `runner.ClearTables()` will clear all tables in all databases. It just clears the content of the tables, they won't be dropped.
-- `runner.DropTables()` will, as the name suggests, drop all tables in all databases.
+- `runner.DropTables()` will drop all tables in all databases (the tables themselves are removed).
+- `runner.ClearTables()` will clear all tables in all databases. It just truncates the content of the tables, they won't be dropped.
 
 If there is still anything you don't understand about Magic's testing runtime, let us know and we'll expand this section and, of course, hopefully explain it to you in a better way. If there is some functionality you are missing, you can always create feature requests in our repository.
