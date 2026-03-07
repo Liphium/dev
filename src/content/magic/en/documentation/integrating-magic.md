@@ -68,7 +68,7 @@ func BuildMagicConfig() magic.Config {
 
 ```
 
-For filling the config with actual content, we'll soon have another guide. For now, you can look at the struct definition and the comments in the code. We've added a lot of comments and hope they help for now.
+For how the config itself works and what all the values do, you can go over to [this page](/magic/documentation/configuring-magic).
 
 **5.** For your actual program entrypoint that Magic will use, let's create a new `main_magic.go` file in your root directory:
 
