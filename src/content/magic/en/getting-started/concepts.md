@@ -7,7 +7,7 @@ Here you'll find a few common words often used in this documentation, explained 
 
 ## Profiles
 
-Magic has [profiles](/magic/getting-started/frequently-asked#can-i-run-multiple-instances-of-my-app-with-magic) that allow you to create multiple instances of your app (that can run in parallel with different database containers, etc.).
+Magic has **profiles** that allow you to create multiple instances of your app (that can run in parallel with different database containers, etc.).
 
 This is particularly useful when you need to test with multiple instances of your app.
 

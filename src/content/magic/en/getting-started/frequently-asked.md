@@ -9,15 +9,7 @@ All of your basic questions about Magic should be answered here. If they aren't,
 
 Yes, in fact, that's **one of the reasons we created Magic in the first place**.
 
-When you run your app with Magic, just use `go run . --profile <name>` to create another instance. The database will also be persistent. Please just don't call it `test-default` since that's the profile we use for our test runtime (any databases may be cleared when you run tests).
-
-**Hint:** You can use `-p <name>` to set the profile as well.
-
-## Can I get access to the Magic runner in integration tests?
-
-Yes, use `magic.GetTestRunner()`. Should be as easy as that.
-
-But please be careful with parallel tests.
+The feature you can use for it is called **profiles**, you can learn more about it [here](/magic/getting-started/concepts#profiles).
 
 ## Is there a recommended project structure?
 
@@ -26,14 +18,6 @@ Yes, of course! While there isn't any documentation on how to set it up complete
 For now, you can take a look at our [real project example](https://github.com/Liphium/magic/tree/main/examples/real-project) to get a basic idea of our recommended architecture. All of the files contain comments and explanations + the README has a nice explanation, too.
 
 Another way to learn more about our use of Magic is by literally just looking into our projects. One of the easiest to understand ones is the recently released [Hytale Matchmaking](https://github.com/Liphium/hytale-matchmaking).
-
-## Can Magic run in CI/CD?
-
-**Yes**, but the environment for your CI/CD pipeline needs Docker, or anything Socket-compatible to Docker (like Podman), installed.
-
-We require it even when no Docker containers are started to guarantee that you'll always be able to run your tests with Magic, no matter what you add to your project and no matter what we may add in the future.
-
-You can take a look at how we do it on GitHub by looking at [this file](https://github.com/Liphium/hytale-matchmaking/blob/main/.github/workflows/go.yml).
 
 ## Can Magic run tests in parallel?
 

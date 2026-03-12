@@ -34,6 +34,10 @@
 			{
 				"name": "Integration tests",
 				"link": "/documentation/integration-tests"
+			},
+			{
+				"name": "Magic in CI/CD",
+				"link": "/documentation/ci-cd"
 			}
 		]
 	},
