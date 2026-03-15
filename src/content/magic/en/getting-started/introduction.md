@@ -3,8 +3,6 @@ title: "Introduction"
 description: "An introduction to what Magic is, how to use it, the system and application requirements as well as why we made it in the first place."
 ---
 
-**This project is still experimental and in early stages. Feel free to test it out, but expect major changes, bugs and of course also new features.**
-
 Liphium Magic is a suite of tools for **Golang developers** to help build tests and provide a better developer experience, especially for complex web services with databases and multiple other dependent services. It helps you and your team easily jump from project to project without learning anything new.
 
 We made it because we felt like it the barrier of making a contribution to our own projects was too high. When working on applications in a team, it's important that everyone can easily start the project and also use the same tools. When someone first joins your project, they should be able to get the app running within seconds instead of reading your deployment instructions.
