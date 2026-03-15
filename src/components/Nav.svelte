@@ -8,6 +8,8 @@
 		translations: {
 			name: string;
 			magic: string;
+			main: string;
+			github: string;
 		};
 	}
 
@@ -17,11 +19,19 @@
 
 	const links = [
 		{
+			name: translations.main,
+			link: "https://liphium.com",
+		},
+		{
 			name: translations.magic,
 			link: getAbsoluteLocaleUrl(
 				lang,
 				"/magic/getting-started/introduction",
 			),
+		},
+		{
+			name: translations.github,
+			link: "https://github.com/Liphium/dev",
 		},
 	];
 
@@ -40,35 +50,50 @@
 	}
 </script>
 
-<nav class="flex flex-row justify-center p-4">
+<!-- Desktop nav -->
+<div class="hidden md:flex justify-center sticky top-2 left-0 z-10 px-4 py-2">
 	<div
-		class="flex w-full max-w-6xl items-center justify-center text-bg-100 font-mono"
+		class="flex items-center gap-6 rounded-full border-2 border-bg-500 px-4 py-2 font-mono text-bg-100 backdrop-blur-2xl"
 	>
 		<!-- Logo and brand -->
 		<div class="flex items-center gap-2">
-			<img src={favicon.src} alt="Logo" class="w-6 h-6 rounded-sm" />
+			<img src={favicon.src} alt="Logo" class="w-5 h-5 rounded-sm" />
 			<a
-				class="border-b-2 border-transparent font-bold hover:border-b-2 hover:border-bg-100 transition-colors"
+				class="border-b-2 border-transparent font-bold hover:border-bg-100 transition-colors"
 				href="/">{translations.name}</a
 			>
 		</div>
 
 		<!-- Desktop navigation links -->
-		<div class="hidden md:flex gap-8 ml-8">
-			{#each links as link}
-				<a
-					class="border-b-2 border-transparent hover:border-b-2 hover:border-bg-100 transition-colors"
-					href={link.link}
-				>
-					{link.name}
-				</a>
-			{/each}
+		{#each links as link}
+			<a
+				class="border-b-2 border-transparent hover:border-bg-100 transition-colors"
+				href={link.link}
+			>
+				{link.name}
+			</a>
+		{/each}
+	</div>
+</div>
+
+<!-- Mobile nav -->
+<div class="md:hidden sticky top-2 left-0 z-50 px-4 py-2">
+	<div
+		class="flex w-full items-center justify-between rounded-full border-2 border-bg-500 px-4 py-2 font-mono text-bg-100 backdrop-blur-2xl"
+	>
+		<!-- Logo and brand -->
+		<div class="flex items-center gap-2">
+			<img src={favicon.src} alt="Logo" class="w-5 h-5 rounded-sm" />
+			<a
+				class="border-b-2 border-transparent font-bold hover:border-bg-100 transition-colors"
+				href="/">{translations.name}</a
+			>
 		</div>
 
 		<!-- Mobile menu button -->
 		<button
 			onclick={toggleMenu}
-			class="md:hidden relative flex justify-center items-center w-8 h-8 cursor-pointer z-50 ml-auto"
+			class="relative flex justify-center items-center w-8 h-8 cursor-pointer"
 			aria-label="Toggle menu"
 		>
 			<Menu
@@ -83,7 +108,7 @@
 			/>
 		</button>
 	</div>
-</nav>
+</div>
 
 <!-- Mobile menu overlay -->
 <div
@@ -110,7 +135,7 @@
 		{#each links as link}
 			<a
 				onclick={closeMenu}
-				class="text-2xl border-b-2 border-transparent hover:border-b-2 hover:border-bg-100 transition-colors"
+				class="text-2xl border-b-2 border-transparent hover:border-bg-100 transition-colors"
 				href={link.link}
 			>
 				{link.name}

@@ -8,10 +8,19 @@
 		link: string;
 	}
 
+	interface ProcessedLinkItem extends LinkItem {
+		href: string;
+		external: boolean;
+	}
+
 	interface Section {
 		name: string;
 		linkPrefix: string;
 		links: LinkItem[];
+	}
+
+	interface ProcessedSection extends Section {
+		links: ProcessedLinkItem[];
 	}
 
 	interface Props {
@@ -24,6 +33,22 @@
 
 	let { software, linkPrefix, children, sections, currentPath }: Props =
 		$props();
+
+	const processedSections: ProcessedSection[] = $derived(
+		sections.map((section) => ({
+			...section,
+			links: section.links.map((link) => {
+				const external =
+					link.link.startsWith("https://") ||
+					link.link.startsWith("http://");
+				return {
+					...link,
+					href: external ? link.link : linkPrefix + link.link,
+					external,
+				};
+			}),
+		})),
+	);
 
 	let isSidebarOpen = $state(false);
 
@@ -63,14 +88,14 @@
 					<div class="align-center flex gap-2">
 						<img
 							src={favicon.src}
-							alt="Planet logo"
+							alt="Software logo"
 							class="h-6 w-6 rounded-sm"
 						/>
-						<p class="font-bold text-bg-200">{software}</p>
+						<p class="font-bold text-p-blue-100">{software}</p>
 					</div>
 
 					<!-- Links at the top of the sidebar -->
-					{#each sections as section}
+					{#each processedSections as section}
 						<div class="flex flex-col gap-3">
 							{#if section.name}
 								<p class="font-bold text-bg-100">
@@ -81,7 +106,13 @@
 							{#each section.links as link}
 								<a
 									class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
-									href={linkPrefix + link.link}
+									href={link.href}
+									target={link.external
+										? "_blank"
+										: undefined}
+									rel={link.external
+										? "noopener noreferrer"
+										: undefined}
 								>
 									{link.name}
 								</a>
@@ -132,14 +163,14 @@
 				<div class="align-center flex gap-2">
 					<img
 						src={favicon.src}
-						alt="Planet logo"
+						alt="Software logo"
 						class="h-6 w-6 rounded-sm"
 					/>
-					<p class="font-bold text-bg-200">{software}</p>
+					<p class="font-bold text-p-blue-100">{software}</p>
 				</div>
 
 				<!-- Links -->
-				{#each sections as section}
+				{#each processedSections as section}
 					<div class="flex flex-col gap-3">
 						{#if section.name}
 							<p class="font-bold text-bg-100">
@@ -151,7 +182,11 @@
 							<a
 								onclick={closeSidebar}
 								class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
-								href={linkPrefix + link.link}
+								href={link.href}
+								target={link.external ? "_blank" : undefined}
+								rel={link.external
+									? "noopener noreferrer"
+									: undefined}
 							>
 								{link.name}
 							</a>
@@ -169,7 +204,7 @@
 <!-- Floating Action Button (Mobile only) -->
 <button
 	onclick={toggleSidebar}
-	class="fixed bottom-6 right-6 w-14 h-14 bg-bg-600 hover:bg-bg-500 text-bg-100 rounded-full shadow-lg lg:hidden flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 z-[60]"
+	class="fixed bottom-6 right-6 w-14 h-14 bg-bg-600 hover:bg-bg-500 text-bg-100 rounded-full shadow-lg lg:hidden flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 z-60"
 	aria-label={isSidebarOpen
 		? "Close documentation sidebar"
 		: "Open documentation sidebar"}

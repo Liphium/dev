@@ -8,7 +8,9 @@ export const ui = {
 	en: {
 		// Translations for the navigation bar
 		"nav.name": "liphium.dev",
+		"nav.main": "For users",
 		"nav.magic": "Magic",
+		"nav.github": "GitHub",
 
 		// Translations for the footer
 		"footer.copyright": "Copyright © 2023-2026 Liphium",

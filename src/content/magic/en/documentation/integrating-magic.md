@@ -26,7 +26,7 @@ Before actually getting into adding Magic to your project, make sure you have [D
 **1.** In your project folder, use the following command to add Magic to your `go.mod` file:
 
 ```sh
-go get -u github.com/Liphium/magic/v2@latest
+go get -u github.com/Liphium/magic/v3@latest
 ```
 
 **2.** Create a new folder for a package (we'll go with `starter`) that will contain your current `main` function (the function that's currently the entrypoint to your program), or create a new function that will be your `main` function in there. You could do it like this:
@@ -59,7 +59,7 @@ func BuildMagicConfig() magic.Config {
 
 		// This is the function Magic will call when starting your app.
 		// Make this the main function you created earlier here.
-		StartFunction: start,
+		StartFunction: Start,
 		// ...
 	}
 }
@@ -68,7 +68,7 @@ func BuildMagicConfig() magic.Config {
 
 ```
 
-For filling the config with actual content, we'll soon have another guide. For now, you can look at the struct definition and the comments in the code. We've added a lot of comments and hope they help for now.
+For how the config itself works and what all the values do, you can go over to [this page](/magic/documentation/configuring-magic).
 
 **5.** For your actual program entrypoint that Magic will use, let's create a new `main_magic.go` file in your root directory:
 
@@ -82,7 +82,7 @@ package main
 import (
 	"your-project-name/starter"
 
-	"github.com/Liphium/magic/v2"
+	"github.com/Liphium/magic/v3"
 )
 
 func main() {
@@ -137,7 +137,7 @@ go run -tags release .
 Building actually works just like running the binary with the `release` tag. You can simply do the following:
 
 ```sh
-go build -tags release . # Put any other arguments here #
+go build -tags release .
 ```
 
 **Note: When you build your app without the `release` tag, your app will run with Magic just like when doing `go run .`!**
@@ -151,5 +151,11 @@ To prevent you from ruining their development environment with an unfinished ver
 - Change the `AppName` property in your `magic.Config` to something different (the safest being a random string). This prevents Docker containers with similar names potentially being overwritten (Magic always names containers like this: `mgc-%appName%-%profile%-%serviceName%`)
 - Magic will create a `.magic` folder like normal. Tell them to clean it up after.
 - Magic does not [stop containers after your app has finished](/magic/getting-started/frequently-asked#why-does-magic-not-stop-containers-after-shutdown).
+
+The way to do this, with this setup, is to just build your app without the release tag (**DO NOT DO THIS FOR PRODUCTION ENVIRONMENTS**):
+
+```sh
+go build .
+```
 
 Have fun with Magic, let's become great wizards together.
