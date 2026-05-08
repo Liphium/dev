@@ -4,10 +4,10 @@ import { getLangFromUrl } from "../../i18n/utils";
 import DocsLayout from "../../components/DocsLayout.astro";
 
 export async function getStaticPaths() {
-	const pages = await getCollection("magic");
+	const pages = await getCollection("scaff");
 
 	const paths = pages.map((page) => {
-		const [lang, ...slug] = page.slug.split("/");
+		const [_, ...slug] = page.slug.split("/");
 		return {
 			params: { slug: slug.join("/") || undefined },
 			props: page,
@@ -17,23 +17,22 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-const { slug } = Astro.params;
 const page = Astro.props;
 const { Content } = await render(page);
 const lang = getLangFromUrl(Astro.url);
 
 // Load sidebar data based on language
-const sidebarData = await import(`../../content/magic/${lang}/sidebar.json`);
+const sidebarData = await import(`../../content/scaff/${lang}/sidebar.json`);
 const sections = sidebarData.default;
 ---
 
 <DocsLayout
-	title={page.data.title + " - Magic Docs"}
+	title={page.data.title + " - Scaff Engine Docs"}
 	pageTitle={page.data.title}
 	summary={page.data.description}
 	language={lang}
-	linkPrefix={lang != "en" ? `/${lang}/magic` : "/magic"}
-	software="Magic v3"
+	linkPrefix={lang != "en" ? `/${lang}/scaff` : "/scaff"}
+	software="Scaff (alpha)"
 	sections={sections}
 >
 	<Content />

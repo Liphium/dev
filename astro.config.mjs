@@ -19,6 +19,10 @@ export default defineConfig({
 			status: 302,
 			destination: "/magic/getting-started/introduction",
 		},
+		"/scaff": {
+			status: 302,
+			destination: "/scaff/getting-started/introduction",
+		},
 	},
 
 	integrations: [svelte()],

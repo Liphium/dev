@@ -1,0 +1,20 @@
+[
+	{
+		"name": "Getting Started",
+		"links": [
+			{
+				"name": "Introduction",
+				"link": "/getting-started/introduction"
+			}
+		]
+	},
+	{
+		"name": "Scenes",
+		"links": [
+			{
+				"name": "Architecture",
+				"link": "/scenes/architecture"
+			}
+		]
+	}
+]

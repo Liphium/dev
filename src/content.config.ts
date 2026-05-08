@@ -7,6 +7,14 @@ const magicCollection = defineCollection({
 	}),
 });
 
+const scaffCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+	}),
+});
+
 export const collections = {
 	magic: magicCollection,
+	scaff: scaffCollection,
 };

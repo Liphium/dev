@@ -8,6 +8,7 @@
 		translations: {
 			name: string;
 			magic: string;
+			scaff: string;
 			main: string;
 			github: string;
 		};
@@ -19,8 +20,11 @@
 
 	const links = [
 		{
-			name: translations.main,
-			link: "https://liphium.com",
+			name: translations.scaff,
+			link: getAbsoluteLocaleUrl(
+				lang,
+				"/scaff/getting-started/introduction",
+			),
 		},
 		{
 			name: translations.magic,
@@ -28,6 +32,10 @@
 				lang,
 				"/magic/getting-started/introduction",
 			),
+		},
+		{
+			name: translations.main,
+			link: "https://liphium.com",
 		},
 		{
 			name: translations.github,

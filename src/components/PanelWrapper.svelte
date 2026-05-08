@@ -86,12 +86,7 @@
 				<div class="flex w-full flex-col gap-6">
 					<!-- Version and software indicator -->
 					<div class="align-center flex gap-2">
-						<img
-							src={favicon.src}
-							alt="Software logo"
-							class="h-6 w-6 rounded-sm"
-						/>
-						<p class="font-bold text-p-blue-100">{software}</p>
+						<p class="font-bold text-p-blue-200">{software}</p>
 					</div>
 
 					<!-- Links at the top of the sidebar -->
@@ -161,12 +156,7 @@
 			<div class="flex flex-col gap-6 font-mono text-bg-100">
 				<!-- Version and software indicator -->
 				<div class="align-center flex gap-2">
-					<img
-						src={favicon.src}
-						alt="Software logo"
-						class="h-6 w-6 rounded-sm"
-					/>
-					<p class="font-bold text-p-blue-100">{software}</p>
+					<p class="font-bold text-p-blue-200">{software}</p>
 				</div>
 
 				<!-- Links -->
