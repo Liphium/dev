@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Menu, X } from "@lucide/svelte";
-	import favicon from "../assets/favicon.png";
 	import type { Snippet } from "svelte";
 
 	interface LinkItem {
@@ -79,11 +78,13 @@
 	<div class="flex w-full max-w-6xl font-mono text-bg-100">
 		<!-- Desktop Navigation sidebar -->
 		<div
-			class="hidden lg:flex sticky inset-0 h-screen min-w-60 justify-center pl-4 pr-2 py-4 bg-bg-800"
+			class="hidden lg:flex sticky inset-0 h-screen min-w-60 justify-center pl-4 pr-2 bg-bg-800"
 		>
 			<!-- Sidebar content -->
-			<div class="flex w-full flex-col justify-between gap-8 font-mono">
-				<div class="flex w-full flex-col gap-6">
+			<div
+				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-2"
+			>
+				<div class="flex w-full flex-col gap-6 py-4">
 					<!-- Version and software indicator -->
 					<div class="align-center flex gap-2">
 						<p class="font-bold text-p-blue-200">{software}</p>
@@ -118,7 +119,7 @@
 			</div>
 
 			<!-- Separator between sidebar and main content -->
-			<div class="w-0.5 bg-bg-500"></div>
+			<div class="w-0.5 bg-bg-500 my-4"></div>
 		</div>
 
 		<!-- Content for the page -->
@@ -205,3 +206,22 @@
 		<Menu class="transition-opacity duration-300" />
 	{/if}
 </button>
+
+<style>
+	.sidebar-scroll {
+		-webkit-mask-image: linear-gradient(
+			180deg,
+			transparent 0,
+			black 16px,
+			black calc(100% - 16px),
+			transparent 100%
+		);
+		mask-image: linear-gradient(
+			180deg,
+			transparent 0,
+			black 16px,
+			black calc(100% - 16px),
+			transparent 100%
+		);
+	}
+</style>
