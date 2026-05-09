@@ -36,11 +36,10 @@ const t = useTranslations(lang);
 </style>
 
 <div
-	class="flex items-center justify-center bg-bg-800 overflow-hidden relative w-full mb-30"
-	style="min-height: calc(100vh - 7.5rem);"
+	class="flex items-center justify-center bg-bg-800 overflow-hidden relative w-full mb-10 min-h-[calc(100vh-5rem)] sm:mb-30 sm:min-h-[calc(100vh-7.5rem)]"
 >
 	<div
-		class="flex flex-col justify-center items-center p-6 gap-10 w-full font-mono"
+		class="flex flex-col justify-center items-center gap-10 w-full font-mono"
 	>
 		<div
 			class="relative shrink-0 flex items-center justify-center animate-float"
@@ -56,7 +55,7 @@ const t = useTranslations(lang);
 			class="flex flex-col items-center justify-center max-w-4xl w-full gap-5 shrink-0 z-10 text-center px-4"
 		>
 			<h1
-				class="text-bg-100 font-bold leading-normal text-3xl lg:text-4xl mb-2 whitespace-nowrap"
+				class="text-bg-100 font-bold leading-normal text-3xl lg:text-4xl mb-2"
 			>
 				{t("welcome.header")}
 			</h1>
