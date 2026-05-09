@@ -5,24 +5,118 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<div class="flex items-center justify-center">
+<style>
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(-2deg);
+		}
+		50% {
+			transform: translateY(-20px) rotate(2deg);
+		}
+	}
+	@keyframes color-shift {
+		0%,
+		100% {
+			filter: hue-rotate(-15deg);
+		}
+		50% {
+			filter: hue-rotate(25deg);
+		}
+	}
+	.animate-float {
+		animation: float 8s ease-in-out infinite;
+	}
+	#matrix-logo {
+		/* Adjusted so letters don't collide. Monospace fonts use ~2:1 height/width ratio, so standard line-height often works best for ASCII block art */
+		line-height: 1;
+		letter-spacing: normal;
+		animation: color-shift 6s ease-in-out infinite;
+	}
+</style>
+
+<div
+	class="flex items-center justify-center bg-bg-800 overflow-hidden relative w-full mb-30"
+	style="min-height: calc(100vh - 7.5rem);"
+>
 	<div
-		class="flex flew-row justify-center text-center p-6 gap-8 w-full font-mono items-start max-lg:flex-col max-lg:items-center"
+		class="flex flex-col justify-center items-center p-6 gap-10 w-full font-mono"
 	>
-		<div class="flex flex-col justify-center max-w-xl gap-4 shrink-0">
+		<div
+			class="relative shrink-0 flex items-center justify-center animate-float"
+		>
+			<pre
+				id="matrix-logo"
+				class="text-p-blue-200 font-bold text-2xl lg:text-3xl select-none"
+				style="text-shadow: 0 0 8px var(--color-p-blue-400); line-height: 1.25;">
+			</pre>
+		</div>
+
+		<div
+			class="flex flex-col items-center justify-center max-w-4xl w-full gap-5 shrink-0 z-10 text-center px-4"
+		>
 			<h1
-				class="text-bg-100 font-bold leading-normal text-3xl mb-6 max-lg:mb-3"
+				class="text-bg-100 font-bold leading-normal text-3xl lg:text-4xl mb-2 whitespace-nowrap"
 			>
 				{t("welcome.header")}
 			</h1>
 
-			<p class="text-bg-200 text-lg text-justify">
+			<p class="text-bg-200 text-lg max-w-3xl">
 				{t("welcome.description")}
 			</p>
 
-			<p class="text-bg-200 text-lg text-justify">
+			<p class="text-bg-200 text-lg max-w-3xl">
 				{t("welcome.warning")}
 			</p>
 		</div>
 	</div>
 </div>
+
+<script>
+	const template = [
+		"██  ████      ",
+		"██    ████████",
+		"██  ████      ",
+		"██        ████",
+		"██  ██        ",
+		"██████████████",
+	];
+	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>?";
+
+	const matrixLogo = document.getElementById("matrix-logo");
+
+	if (matrixLogo) {
+		let currentState = template.map((row) => row.split(""));
+
+		// Initial random fill
+		for (let r = 0; r < template.length; r++) {
+			for (let c = 0; c < template[r].length; c++) {
+				if (template[r][c] !== " ") {
+					currentState[r][c] = chars.charAt(
+						Math.floor(Math.random() * chars.length),
+					);
+				}
+			}
+		}
+
+		setInterval(() => {
+			let result = "";
+
+			for (let r = 0; r < template.length; r++) {
+				for (let c = 0; c < template[r].length; c++) {
+					if (template[r][c] !== " ") {
+						// Pure random chance to change on any given frame (5% probability)
+						if (Math.random() < 0.05) {
+							currentState[r][c] = chars.charAt(
+								Math.floor(Math.random() * chars.length),
+							);
+						}
+					}
+					result += currentState[r][c];
+				}
+				if (r < template.length - 1) result += "\n";
+			}
+			matrixLogo.textContent = result;
+		}, 50);
+	}
+</script>
