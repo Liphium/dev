@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 	const pages = await getCollection("scaff");
 
 	const paths = pages.map((page) => {
-		const [_, ...slug] = page.slug.split("/");
+		const [_, ...slug] = page.id.split("/");
 		return {
 			params: { slug: slug.join("/") || undefined },
 			props: page,

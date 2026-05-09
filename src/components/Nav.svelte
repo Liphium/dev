@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { getAbsoluteLocaleUrl } from "astro:i18n";
 	import { Menu, X } from "@lucide/svelte";
 	import favicon from "../assets/favicon.png";
+	import { getLocalUrl } from "../i18n/utils";
 
 	interface Props {
 		lang: string;
@@ -21,17 +21,11 @@
 	const links = [
 		{
 			name: translations.scaff,
-			link: getAbsoluteLocaleUrl(
-				lang,
-				"/scaff/getting-started/introduction",
-			),
+			link: getLocalUrl(lang, "/scaff/getting-started/introduction"),
 		},
 		{
 			name: translations.magic,
-			link: getAbsoluteLocaleUrl(
-				lang,
-				"/magic/getting-started/introduction",
-			),
+			link: getLocalUrl(lang, "/magic/getting-started/introduction"),
 		},
 		{
 			name: translations.main,
@@ -59,7 +53,7 @@
 </script>
 
 <!-- Desktop nav -->
-<div class="hidden md:flex justify-center sticky top-2 left-0 z-10 px-4 py-2">
+<div class="hidden md:flex justify-center sticky top-1 left-0 z-10 px-4 py-2">
 	<div
 		class="flex items-center gap-6 rounded-full border-2 border-bg-500 px-4 py-2 font-mono text-bg-100 backdrop-blur-2xl"
 	>

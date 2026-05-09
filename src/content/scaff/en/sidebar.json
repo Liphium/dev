@@ -9,11 +9,24 @@
 		]
 	},
 	{
-		"name": "Scenes",
+		"name": "Architecture",
 		"links": [
 			{
-				"name": "Architecture",
-				"link": "/scenes/architecture"
+				"name": "Game entrypoint",
+				"link": "/architecture/game-entrypoint"
+			}
+		]
+	},
+	{
+		"name": "Links",
+		"links": [
+			{
+				"name": "Report an issue",
+				"link": "https://github.com/Liphium/scaff/issues"
+			},
+			{
+				"name": "GitHub",
+				"link": "https://github.com/Liphium/scaff"
 			}
 		]
 	}
