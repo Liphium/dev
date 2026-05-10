@@ -33,7 +33,7 @@
 		},
 		{
 			name: translations.github,
-			link: "https://github.com/Liphium/dev",
+			link: "https://github.com/Liphium",
 		},
 	];
 
