@@ -11,6 +11,7 @@ export const ui = {
 		"nav.main": "For users",
 		"nav.magic": "Magic",
 		"nav.scaff": "Scaff",
+		"nav.neoroute": "Neoroute",
 		"nav.github": "GitHub",
 
 		// Translations for the footer

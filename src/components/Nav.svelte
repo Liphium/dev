@@ -8,6 +8,7 @@
 		translations: {
 			name: string;
 			magic: string;
+			neoroute: string;
 			scaff: string;
 			main: string;
 			github: string;
@@ -22,6 +23,10 @@
 		{
 			name: translations.scaff,
 			link: getLocalUrl(lang, "/scaff/getting-started/introduction"),
+		},
+		{
+			name: translations.neoroute,
+			link: getLocalUrl(lang, "/neoroute/getting-started/introduction"),
 		},
 		{
 			name: translations.magic,

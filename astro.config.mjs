@@ -23,6 +23,10 @@ export default defineConfig({
 			status: 302,
 			destination: "/scaff/getting-started/introduction",
 		},
+		"/neoroute": {
+			status: 302,
+			destination: "/neoroute/getting-started/introduction",
+		},
 	},
 
 	integrations: [svelte()],

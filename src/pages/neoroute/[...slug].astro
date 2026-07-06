@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from "astro:content";
+import { getLangFromUrl } from "../../i18n/utils";
+import DocsLayout from "../../components/DocsLayout.astro";
+
+export async function getStaticPaths() {
+	const pages = await getCollection("neoroute");
+
+	const paths = pages.map((page) => {
+		const [_, ...slug] = page.id.split("/");
+		return {
+			params: { slug: slug.join("/") || undefined },
+			props: page,
+		};
+	});
+
+	return paths;
+}
+
+const page = Astro.props;
+const { Content } = await render(page);
+const lang = getLangFromUrl(Astro.url);
+
+// Load sidebar data based on language
+const sidebarData = await import(`../../content/neoroute/${lang}/sidebar.json`);
+const sections = sidebarData.default;
+---
+
+<DocsLayout
+	title={page.data.title + " - Neoroute Docs"}
+	pageTitle={page.data.title}
+	summary={page.data.description}
+	language={lang}
+	linkPrefix={lang != "en" ? `/${lang}/neoroute` : "/neoroute"}
+	software="Neoroute"
+	sections={sections}
+>
+	<Content />
+</DocsLayout>
