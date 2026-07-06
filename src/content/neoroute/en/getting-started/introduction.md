@@ -19,7 +19,7 @@ Get the http transporter:
 go get github.com/Liphium/neoroute/transporter/http@latest
 ```
 Create a `server.go` file with for a simple http application:
-```golang
+```go
 package main
 
 import (
@@ -60,7 +60,7 @@ go get github.com/Liphium/neoroute/client@latest
 go get github.com/Liphium/neoroute/client/transporter/http@latest
 ```
 To check the the server is working, you need a client that uses Neoroute, for this create a file `client.go` in a `client` subfolder:
-```golang
+```go
 package main
 
 import (
