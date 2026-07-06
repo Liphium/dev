@@ -18,7 +18,7 @@ Get the http transporter:
 ```bash
 go get github.com/Liphium/neoroute/transporter/http@latest
 ```
-Create a `server.go` file with for a simple http application:
+Create a `server.go` file for a simple http application:
 ```go
 package main
 
@@ -51,7 +51,7 @@ And run it:
 ```bash
 go run server.go
 ```
-Don't worry you see no print, this just means the server is running.
+If you see no print don't worry, it just means that the server is running.
 
 ## Client
 Get the http transporter and client:
@@ -59,7 +59,7 @@ Get the http transporter and client:
 go get github.com/Liphium/neoroute/client@latest
 go get github.com/Liphium/neoroute/client/transporter/http@latest
 ```
-To check the the server is working, you need a client that uses Neoroute, for this create a file `client.go` in a `client` subfolder:
+To check that the server is working, you need a client that uses Neoroute, for this create a file `client.go` in a `client` subfolder:
 ```go
 package main
 
