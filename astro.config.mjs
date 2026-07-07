@@ -5,11 +5,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 import svelte from "@astrojs/svelte";
 
+import mdx from '@astrojs/mdx';
+
 // https://astro.build/config
 export default defineConfig({
-	vite: {
-		plugins: [tailwindcss()],
-	},
 	i18n: {
 		locales: ["en"],
 		defaultLocale: "en",
@@ -28,6 +27,8 @@ export default defineConfig({
 			destination: "/neoroute/getting-started/introduction",
 		},
 	},
-
-	integrations: [svelte()],
+	integrations: [svelte(), mdx()],
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
