@@ -38,6 +38,10 @@
 			{
 				"name": "Magic in CI/CD",
 				"link": "/documentation/ci-cd"
+			},
+			{
+				"name": "Custom drivers",
+				"link": "/documentation/custom-drivers"
 			}
 		]
 	},
