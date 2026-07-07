@@ -5,14 +5,14 @@ description: "Routing with Neoroute."
 
 # When to use which routing type
 There are 6 different routing types. These are needed to ensure type safety, while supporting all request use cases.The table below lists all existing Route functions and their differences.
-| Routing function                  | Has request data | Has response data | Can error | Has response |
-| --------------------------------- | ---------------- | ----------------- | --------- | ------------ |
-| [Route](#route)                   | ✅                | ✅                 | ✅         | ✅            |
-| [RouteNoRequest](#routenorequest) | ❌                | ✅                 | ✅         | ✅            |
-| RouteOk                           | ✅                | ❌                 | ✅         | ✅            |
-| RouteOkNoRequest                  | ❌                | ❌                 | ✅         | ✅            |
-| RouteNoResponse                   | ✅                | ❌                 | ❌         | ❌            |
-| RoutePing                         | ❌                | ❌                 | ❌         | ❌            |
+| Routing function                      | Has request data | Has response data | Can error | Has response |
+| ------------------------------------- | ---------------- | ----------------- | --------- | ------------ |
+| [Route](#route)                       | ✅                | ✅                 | ✅         | ✅            |
+| [RouteNoRequest](#routenorequest)     | ❌                | ✅                 | ✅         | ✅            |
+| [RouteOk](#routeok)                   | ✅                | ❌                 | ✅         | ✅            |
+| [RouteOkNoRequest](#routeoknorequest) | ❌                | ❌                 | ✅         | ✅            |
+| [RouteNoResponse](#routenoresponse)   | ✅                | ❌                 | ❌         | ❌            |
+| [RoutePing](#routeping)               | ❌                | ❌                 | ❌         | ❌            |
 
 For example you might not have any return data, but the request can still fail, then you could use RouteOk. Or you are using udp and just sending data to the server, in this case you want to neither send nor wait to receive a response, then RouteNoResponse is the type you should use. 
 
@@ -126,7 +126,7 @@ Example use case: Connection heartbeats over UDP, where the client periodically 
 ```go
 // ... Other code and router creation
 
-neoroute.RoutePing(<ROUTER>, "some-route", func(c *neoroute.OkCtx[<SESSION_DATA_TYPE>]) {
+neoroute.RoutePing(<ROUTER>, "some-route", func(c *neoroute.Ctx[<SESSION_DATA_TYPE>]) {
     fmt.Println("received request on some-route")
 })
 ```
