@@ -7,5 +7,14 @@
 				"link": "/getting-started/introduction"
 			}
 		]
+	},
+	{
+		"name": "Guides",
+		"links": [
+			{
+				"name": "Routing",
+				"link": "/guides/routing"
+			}
+		]
 	}
 ]
