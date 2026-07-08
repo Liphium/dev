@@ -14,6 +14,22 @@
 			{
 				"name": "Routing",
 				"link": "/guides/routing"
+			},
+			{
+				"name": "Route Variants",
+				"link": "/guides/route-variants"
+			},
+			{
+				"name": "Grouping",
+				"link": "/guides/grouping"
+			},
+			{
+				"name": "Router Grouping",
+				"link": "/guides/router-grouping"
+			},
+			{
+				"name": "Middleware",
+				"link": "/guides/middleware"
 			}
 		]
 	}
