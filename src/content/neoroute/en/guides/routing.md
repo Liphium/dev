@@ -21,7 +21,7 @@ Below is a list of all allowed characters:
 * ~
 * .
 * a-z
-* A-Z
 * 0-9
 
 If your route contains illegal characters or has bad formatting in any other way, Neoroute will clean the route for you when adding a handler or middleware.
+Uppercase letters will be lowered, all other illegal characters will be removed, this applies to separators without a subroute between too, only one of those will remain.
