@@ -15,7 +15,7 @@ This documentation focuses on the newer driver as that one will be actively main
 **1.** Import the `postgres` package from Magic that provides the driver using the following command:
 
 ```sh
-go get -u github.com/Liphium/magic/v3/pkg/databases/postgres@latest
+go get -u github.com/Liphium/magic/pkg/databases/postgres@latest
 ```
 
 **2.** You can now use the driver in your code like this:
