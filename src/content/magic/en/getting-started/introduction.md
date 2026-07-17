@@ -3,11 +3,11 @@ title: "Introduction"
 description: "An introduction to what Magic is, how to use it, the system and application requirements as well as why we made it in the first place."
 ---
 
-Magic is a suite of tools for **Golang developers** to help build tests and provide a better developer experience, especially for complex web services with databases and multiple other dependent services. It helps you and your team easily jump from project to project without learning anything new.
+Magic is a suite of tools for **Golang developers** to help build tests and provide a better developer experience, especially for complex web services with databases and other dependent services. It helps you and your team easily jump from project to project without learning anything new.
 
 We made it because we felt like it the barrier of making a contribution to our own projects was too high. When working on applications in a team, it's important that everyone can easily start the project and also use the same tools. When someone first joins your project, they should be able to get the app running within seconds instead of reading your deployment instructions.
 
-That's the vision of Magic, our **all-in-one developer experience toolkit**. For testing your app, both automatically and manually (with scripts), as well as making your app runnable on your own (or any other) machine without complex setup.
+That's the vision of Magic, our **all-in-one developer experience toolkit**. One command to start your app and one command to test your app. You can keep using the `go` CLI like normal. With additional features allowing you to share tools (scripts) and easily build integration tests.
 
 ## System requirements
 
@@ -17,24 +17,27 @@ That's the vision of Magic, our **all-in-one developer experience toolkit**. For
 
 ## Application limitations
 
-Magic only supports specific services, and while we do plan on increasing the amount of supported services, for now we only support the services listed below. If your application needs anything else, you're currently not the target audience for Magic.
+Magic only supports specific services, and while we do plan on increasing the amount of supported services, for now we only support the services listed below. If your application needs anything else, using it might be a little bit more difficult.
 
 ### Supported databases
 
-- PostgreSQL v18 or above
+- PostgreSQL 18
+- Redis 7-8
 
 ### Deprecated
 
-- PostgreSQL v14-17
+- PostgreSQL 14-17
 
-Other services may be supported in the future.
+If you want another service to be supported, you can easily create a [custom driver](/magic/documentation/custom-drivers).
+
+We would also love to upstream your driver, so feel free to **create a pull request** in case you made one for a service that isn't listed here yet!
 
 ## Features
 
 - Make your app runnable with one command on any machine that meets the System requirements
-- Develop scripts that interact with your application or the database
+- Develop [scripts](/magic/documentation/magic-scripts) that interact with your application or the database
   - Allows sharing of tools you're using for testing
-- Test your application using integration tests (they can also call your scripts)
+- Test your application using [integration tests](/magic/documentation/integration-tests) (they can also call your scripts)
   - Test with a real database using a real connection
 
 ## Add Magic to your project

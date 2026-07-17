@@ -35,7 +35,15 @@ driver := postgres.NewDriver("postgres:18").
 	NewDatabase("test2")
 ```
 
-For environment values this driver provides, read more below. If you want to now **register the driver** and don't know how to do that yet, [learn more here](/magic/documentation/configuring-magic).
+If you want to now **register the driver**, it is just the following code in your `PlanDeployment` function:
+
+```go
+ctx.Register(driver)
+```
+
+[Learn more here](/magic/documentation/configuring-magic) if you don't know what that is yet.
+
+For environment values this driver provides, read more below.
 
 ## Environment values
 

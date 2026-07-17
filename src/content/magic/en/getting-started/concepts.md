@@ -19,4 +19,4 @@ The `test` profile is reserved for the [testing runtime](/magic/documentation/in
 
 All of the databases and other services you start using Magic are started by a **service driver**. It's what we call the thing managing the container and executing instructions on it.
 
-Under the hood, this is just a common interface that all of the service drivers shipping with Magic implement, so you could also create your own one.
+Under the hood, this is just a common interface that all of the service drivers shipping with Magic implement, so you [could also create your own one](/magic/documentation/custom-drivers). It's easier than you might think.
