@@ -17,6 +17,7 @@ export const ui = {
 		"footer.copyright": "Copyright © 2023-2026 Liphium",
 		"footer.impressum": "Impressum",
 		"footer.terms-and-privacy": "Privacy Policy & Terms of Service",
+		"footer.ai": "AI Disclosure",
 
 		// Translations for the welcome section
 		"welcome.header": "Build with our platforms & tools",
