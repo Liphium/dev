@@ -14,16 +14,6 @@ export default defineConfig({
 		locales: ["en"],
 		defaultLocale: "en",
 	},
-	redirects: {
-		"/magic": {
-			status: 302,
-			destination: "/magic/getting-started/introduction",
-		},
-		"/scaff": {
-			status: 302,
-			destination: "/scaff/getting-started/introduction",
-		},
-	},
 
 	integrations: [svelte()],
 });
