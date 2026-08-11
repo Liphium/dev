@@ -142,10 +142,11 @@ Instructions are Magic's standard to clearing state or performing other basic op
 
 Below is a table of all instructions that currently exist. Depending on the kind of service you're creating, it may make sense to implement them / simply ignore them.
 
-| Instruction                    | Description                                                               |
-| ------------------------------ | ------------------------------------------------------------------------- |
-| mconfig.InstructionDropTables  | Should drop all tables in a database                                      |
-| mconfig.InstructionClearTables | Should clear all tables in the database (but not delete the actual table) |
+| Instruction                    | Description                                                                                  |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| mconfig.InstructionDropTables  | Should drop all tables in a database                                                         |
+| mconfig.InstructionClearTables | Should clear all tables in the database (but not delete the actual table)                    |
+| mconfig.InstructionClearFiles  | Should clear only file/object storage on the service, leaving databases and caches untouched |
 
 You can also contribute new instructions if you feel like anything is missing, please [create an issue](https://github.com/Liphium/magic/issues) first in case you want to.
 
