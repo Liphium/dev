@@ -5,6 +5,8 @@ description: "A guide on how to set up Magic so it automatically starts a Seawee
 
 Using [SeaweedFS](https://seaweedfs.com/) with Magic is really simple. Magic handles the lifecycle of the SeaweedFS container so you can focus on your application logic.
 
+We also have an [official example](https://github.com/Liphium/magic/tree/main/examples/file-sharing) you can check out to learn more about using the driver.
+
 ## Usage
 
 **1.** Import the `seaweedfs` package from Magic that provides the driver using the following command:
