@@ -59,6 +59,15 @@
 		]
 	},
 	{
+		"name": "Services",
+		"links": [
+			{
+				"name": "SeaweedFS",
+				"link": "/services/seaweedfs"
+			}
+		]
+	},
+	{
 		"name": "Links",
 		"links": [
 			{
