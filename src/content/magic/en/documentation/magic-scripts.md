@@ -18,11 +18,11 @@ Valid functions could be:
 func CreateSomething(something SomeStruct) error
 func SomeList() ([]string, error)
 func SomeRunnerScript(runner *mrunner.Runner) error
-func SomeScript([]database.Post, runner *mrunner.Runner) error
+func SomeScript(post database.Post, runner *mrunner.Runner) error
 func SomeScript2(runner *mrunner.Runner, something SomeStruct) error
 ```
 
-Lists of structs are not allowed.
+Lists of structs are not allowed. Please also note that only the error (in case you return one) is actually printed. You will have to print any other output yourself. The return types are just allowed to make the functions more reusable.
 
 ### Requirements for the struct
 
