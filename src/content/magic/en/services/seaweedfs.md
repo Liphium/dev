@@ -18,7 +18,7 @@ go get -u github.com/Liphium/magic/pkg/services/seaweedfs@latest
 **2.** You can now use the driver in your code like this (use the latest version, the `latest` tag is not supported due to new major versions of SeaweedFS potentially causing problems with the container):
 
 ```go
-driver := redis.NewDriver("chrislusf/seaweedfs:4.41") // Supports SeaweedFS 4.41 and above
+driver := seaweedfs.NewDriver("chrislusf/seaweedfs:4.41") // Supports SeaweedFS 4.41 and above
 ```
 
 If you want to now **register the driver**, it is just the following code in your `PlanDeployment` function:
