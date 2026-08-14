@@ -15,8 +15,8 @@ type ServiceDriver interface {
 	// later to load / save it.
 	GetUniqueId() string
 
-	// Should return the amount of ports required to start the container.
-	GetRequiredPortAmount() int
+	// Should return the ports required to be exposed to the host (e.g. 5432/tcp).
+	GetRequiredPorts() []string
 
 	// Should return the image. Magic will pull it automatically.
 	GetImage() string
@@ -81,9 +81,7 @@ mservices.CreateContainer(ctx, pgLog, c, a, mservices.ManagedContainerOptions{
 	//
 	// These ports are the ones you want to expose from the container to the host system.
 	//
-	// The length of the ports list needs to be equivalent to the return value of
-	// GetRequiredPortAmount() as all of the ports will automatically be mapped by this
-	// function.
+	// This should be the exact same list of ports you return for GetRequiredPorts().
 	Ports: []string{
 		"1234/tcp",
 	},
@@ -132,7 +130,7 @@ func init() {
 }
 ```
 
-- Your driver properly uses the port that is given to it by Magic (a random one is assigned all the time, available through `ContainerInformation.Ports` (index matches the one in the `mservices.CreateContainer` ports option, in case you're using that))
+- Your driver properly uses the port that is given to it by Magic (a random one is assigned all the time, available through `ContainerInformation.Ports` (index matches the one in your `GetRequiredPorts` function))
 - Any **instructions** you might want to support are implemented (read below)
   - Full list [here](https://github.com/Liphium/magic/tree/main/mconfig/services.go) (at the start of the file)
 
