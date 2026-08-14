@@ -26,7 +26,7 @@ Before actually getting into adding Magic to your project, make sure you have [D
 **1.** In your project folder, use the following command to add Magic to your `go.mod` file:
 
 ```sh
-go get -u github.com/Liphium/magic/v3@latest
+go get -u github.com/Liphium/magic/v4@latest
 ```
 
 **2.** Create a new folder for a package (we'll go with `starter`) that will contain your current `main` function (the function that's currently the entrypoint to your program), or create a new function that will be your `main` function in there. You could do it like this:
@@ -82,7 +82,7 @@ package main
 import (
 	"your-project-name/starter"
 
-	"github.com/Liphium/magic/v3"
+	"github.com/Liphium/magic/v4"
 )
 
 func main() {

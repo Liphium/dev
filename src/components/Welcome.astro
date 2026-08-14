@@ -47,8 +47,12 @@ const t = useTranslations(lang);
 			<pre
 				id="matrix-logo"
 				class="text-p-blue-200 font-bold text-2xl lg:text-3xl select-none"
-				style="text-shadow: 0 0 8px var(--color-p-blue-400); line-height: 1.1;">
-			</pre>
+				style="text-shadow: 0 0 8px var(--color-p-blue-400); line-height: 1.1;">LI  PHIU
+M.    SPACEI
+SO  URNE
+XT      ADVE
+NT  UR
+ESEEYOUTHERE</pre>
 		</div>
 
 		<div
@@ -73,12 +77,12 @@ const t = useTranslations(lang);
 
 <script>
 	const template = [
-		"██  ████    ",
-		"██    ██████",
-		"██  ████    ",
-		"██      ████",
-		"██  ██      ",
-		"████████████",
+		"LI  PHIU    ",
+		"M.    SPACEI",
+		"SO  URNE    ",
+		"XT      ADVE",
+		"NT  UR      ",
+		"ESEEYOUTHERE",
 	];
 	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>?";
 
@@ -86,17 +90,6 @@ const t = useTranslations(lang);
 
 	if (matrixLogo) {
 		let currentState = template.map((row) => row.split(""));
-
-		// Initial random fill
-		for (let r = 0; r < template.length; r++) {
-			for (let c = 0; c < template[r].length; c++) {
-				if (template[r][c] !== " ") {
-					currentState[r][c] = chars.charAt(
-						Math.floor(Math.random() * chars.length),
-					);
-				}
-			}
-		}
 
 		setInterval(() => {
 			let result = "";
