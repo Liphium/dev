@@ -1,0 +1,67 @@
+name: Upload documentation to R2
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+env:
+  AWS_REGION: auto
+  AWS_ENDPOINT_URL: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+  AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+  R2_BUCKET: ${{ secrets.R2_BUCKET }}
+
+jobs:
+  upload-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Markdown docs
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          chmod +x scripts/build-markdown.sh
+          scripts/build-markdown.sh src/content/magic/en Magic
+          scripts/build-markdown.sh src/content/neoroute/en Neoroute
+
+          if [[ "$BRANCH_NAME" == "main" ]]; then
+            prefix=""
+          else
+            prefix="$BRANCH_NAME/"
+          fi
+
+          printf '%s' "$prefix" > markdown-dist/upload-prefix
+
+      - name: Upload Markdown docs
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [[ "$BRANCH_NAME" == "main" ]]; then
+            prefix=""
+          else
+            prefix="$BRANCH_NAME/"
+          fi
+
+          magic_prefix="${prefix}magic/"
+          neoroute_prefix="${prefix}neoroute/"
+
+          aws s3 rm "s3://$R2_BUCKET/$magic_prefix" \
+            --recursive \
+            --endpoint-url "$AWS_ENDPOINT_URL"
+          aws s3 rm "s3://$R2_BUCKET/$neoroute_prefix" \
+            --recursive \
+            --endpoint-url "$AWS_ENDPOINT_URL"
+
+          aws s3 sync markdown-dist/magic "s3://$R2_BUCKET/$magic_prefix" \
+            --endpoint-url "$AWS_ENDPOINT_URL"
+          aws s3 sync markdown-dist/neoroute "s3://$R2_BUCKET/$neoroute_prefix" \
+            --endpoint-url "$AWS_ENDPOINT_URL"
