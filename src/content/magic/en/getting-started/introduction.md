@@ -17,12 +17,16 @@ That's the vision of Magic, our **all-in-one developer experience toolkit**. One
 
 ## Application limitations
 
-Magic only supports specific services, and while we do plan on increasing the amount of supported services, for now we only support the services listed below. If your application needs anything else, using it might be a little bit more difficult.
+Magic only officially supports a limited list of services, but you can easily integrate your own services using a custom driver. If you don't find a service you like to use in the list below, writing a custom driver for it [using our documentation](/magic/documentation/custom-drivers) should not be so difficult. As long as that service can run inside of a Docker container.
 
 ### Supported databases
 
-- PostgreSQL 18
-- Redis 7-8
+- [PostgreSQL](/magic/databases/postgresql/) v18
+- [Redis](/magic/databases/redis/) v7-8
+
+### Supported S3 Storage
+
+- [SeaweedFS](/magic/services/seaweedfs) v4
 
 ### Deprecated
 
@@ -39,6 +43,8 @@ We would also love to upstream your driver, so feel free to **create a pull requ
   - Allows sharing of tools you're using for testing
 - Test your application using [integration tests](/magic/documentation/integration-tests) (they can also call your scripts)
   - Test with a real database using a real connection
+- [CI/CD Support](/magic/documentation/ci-cd/)
+- Run any dockerized services along with your app using [custom drivers](/magic/documentation/custom-drivers/)
 
 ## Add Magic to your project
 
@@ -47,7 +53,7 @@ We would also love to upstream your driver, so feel free to **create a pull requ
 **1.** Add Magic to your project:
 
 ```sh
-go get -u github.com/Liphium/magic/v3@latest
+go get -u github.com/Liphium/magic/v4@latest
 ```
 
 **2.** Wrap your main function with `magic.Start` (please take a look at the [real project example](https://github.com/Liphium/magic/tree/main/examples/real-project) for how to really to do this, this just serves as a showcase):

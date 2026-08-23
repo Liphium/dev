@@ -96,15 +96,6 @@ func PlanDeployment(ctx *mconfig.Context) {
 }
 ```
 
-**Hint:** `ctx.Register(driver)` actually gives you the driver right back, meaning you can also use it like this:
-
-```go
-func PlanDeployment(ctx *mconfig.Context) {
-	// Example with the PostgreSQL driver
-	driver := ctx.Register(postgres.NewDriver("postgres:18").NewDatabase("posts"))
-}
-```
-
 ## Scripts
 
 While scripts have [their own documentation](/magic/documentation/magic-scripts) where you can more about how to actually write them, here is how you actually register them in your config.
