@@ -45,7 +45,7 @@ Containers will also not be started, you have to start your app for that to happ
 
 ### Registering your script
 
-Now that you have a function you can register as a script, you can learn how to register it over in the [config documentation](magic/documentation/configuring-magic#scripts).
+Now that you have a function you can register as a script, you can learn how to register it over in the [config documentation](/magic/documentation/configuring-magic#scripts).
 
 ## Using scripts
 

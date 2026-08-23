@@ -15,7 +15,7 @@ This documentation focuses on the newer driver as that one will be actively main
 **1.** Import the `postgres` package from Magic that provides the driver using the following command:
 
 ```sh
-go get -u github.com/Liphium/magic/v3/pkg/databases/postgres@latest
+go get -u github.com/Liphium/magic/pkg/databases/postgres@latest
 ```
 
 **2.** You can now use the driver in your code like this:
@@ -35,7 +35,15 @@ driver := postgres.NewDriver("postgres:18").
 	NewDatabase("test2")
 ```
 
-For environment values this driver provides, read more below. If you want to now **register the driver** and don't know how to do that yet, [learn more here](/magic/documentation/configuring-magic).
+If you want to now **register the driver**, it is just the following code in your `PlanDeployment` function:
+
+```go
+ctx.Register(driver)
+```
+
+[Learn more here](/magic/documentation/configuring-magic) if you don't know what that is yet.
+
+For environment values this driver provides, read more below.
 
 ## Environment values
 
@@ -49,3 +57,7 @@ As with every driver in Magic, the PostgreSQL driver also provides some environm
 While some of the values might seem redundant as they always return the same, it's still **best practice** to use them instead of defining them yourself as the defaults might change in the future. We don't have any plans to do this kind of thing, but it _could_ happen.
 
 If you're wondering what the database name will be, that's just the thing you passed into `driver.NewDatabase(/* into here */)`.
+
+## Instructions
+
+The PostgreSQL driver supports Magic's [instruction system](/magic/documentation/custom-drivers#instructions) for managing table data during tests. Both clearing tables and dropping all tables are supported.
