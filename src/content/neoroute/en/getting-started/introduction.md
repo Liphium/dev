@@ -3,22 +3,27 @@ title: "Introduction"
 description: "Neoroute."
 ---
 
-# Introduction
-TODO
+Welcome to neoroute. **TODO**
 
-# Installation
+## Installation
+
 To use Neoroute you need Go version `1.26` or higher. <br>
 Then you can install Neoroute using
+
 ```bash
 go get github.com/Liphium/neoroute@latest
 ```
 
-# Hello World
+## Hello World
+
 Get the http transporter:
+
 ```bash
 go get github.com/Liphium/neoroute/transporter/http@latest
 ```
+
 Create a `server.go` file for a simple http application:
+
 ```go
 package main
 
@@ -47,19 +52,26 @@ func main() {
 	log.Fatal(http.ListenAndServe(":6121", mux))
 }
 ```
+
 And run it with
+
 ```bash
 go run server.go
 ```
+
 If you see no print don't worry, it just means that the server is running.
 
 ## Client
+
 Get the http transporter and client:
+
 ```bash
 go get github.com/Liphium/neoroute/client@latest
 go get github.com/Liphium/neoroute/client/transporter/http@latest
 ```
+
 To check that the server is working, you need a client that uses Neoroute, for this create a file named `client.go` in a `client` subfolder:
+
 ```go
 package main
 
@@ -89,19 +101,23 @@ func main() {
 ```
 
 And run it with
+
 ```bash
 go run client.go
 ```
 
 Now you should see a log that looks like this:
+
 ```
 2026/07/07 01:08:29 Successfully sent ok.
 ```
 
-# MessagePack
+## MessagePack
+
 For fast and small messages we are using a binary format called [MessagePack](https://msgpack.org/) for request and response data encoding and for go specifically the [msgp](https://github.com/tinylib/msgp) implementation. <br>
 If you want to sent or receive messages that contain data, you have to install the msgp binary application. For a detailed and up-to-date installation instruction consult the readme on their GitHub page. <br>
 To use a struct in with Neoroute you have to do add msgp support to them, this can be achieved by adding `//go:generate msgp` in a source file and add the field names to structs just like you would with json.
+
 ```go
 type Person struct {
 	Name       string `msg:"name"`
@@ -111,4 +127,5 @@ type Person struct {
 	unexported bool             // this field is also ignored
 }
 ```
+
 After that run `go generate ./...` to code generate the un/marshalling functions needed to use it with Neoroute.

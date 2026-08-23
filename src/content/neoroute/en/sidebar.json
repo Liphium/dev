@@ -9,6 +9,10 @@
 		]
 	},
 	{
+		"name": "Your first server (TODO)",
+		"links": []
+	},
+	{
 		"name": "Guides",
 		"links": [
 			{
@@ -30,6 +34,23 @@
 			{
 				"name": "Middleware",
 				"link": "/guides/middleware"
+			}
+		]
+	},
+	{
+		"name": "Utility",
+		"links": []
+	},
+	{
+		"name": "Client libraries",
+		"links": [
+			{
+				"name": "TypeScript",
+				"link": "/client/typescript"
+			},
+			{
+				"name": "Golang",
+				"link": "/client/go"
 			}
 		]
 	}

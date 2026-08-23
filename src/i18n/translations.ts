@@ -10,7 +10,6 @@ export const ui = {
 		"nav.name": "liphium.dev",
 		"nav.main": "For users",
 		"nav.magic": "Magic",
-		"nav.scaff": "Scaff",
 		"nav.neoroute": "Neoroute",
 		"nav.github": "GitHub",
 
