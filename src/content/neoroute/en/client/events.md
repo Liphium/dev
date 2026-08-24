@@ -3,22 +3,22 @@ title: "Receiving events from Neoroute"
 description: "How to receive events from Neoroute servers using any of the Neoroute client SDKs."
 ---
 
-```ts
+```ts prefix="sdk"
 const event = await client.waitForEvent("example-event");
 console.log(event.payload);
 ```
 
-```go
+```go prefix="sdk"
 result := client.WaitForEvent("example-event")
 fmt.Println(result.Payload)
 ```
 
 Some text and here are the install guidelines:
 
-```sh name="TypeScript SDK" key="ts"
+```sh prefix="sdk" name="TypeScript SDK" key="ts"
 const value: number = 1;
 ```
 
-```sh name="Go" key="go"
+```sh prefix="sdk" name="Go" key="go"
 value := 1
 ```

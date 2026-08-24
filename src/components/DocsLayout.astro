@@ -39,7 +39,6 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 	};
 
 	const initCodeTabs = () => {
-		const savedLanguage = readSavedLanguage();
 
 		document
 			.querySelectorAll("[data-code-tabs]")
@@ -53,12 +52,13 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 				const available = buttons
 					.map((button) => button.dataset.codeTab)
 					.filter(Boolean);
-				const initial =
-					savedLanguage && available.includes(savedLanguage)
-						? savedLanguage
-						: available[0];
+				const prefix = buttons[0]?.dataset.codePrefix || null;
+				const groupStorageKey = prefix ? `${storageKey}:${prefix}` : null;
+				let savedLanguage = null;
+				try { savedLanguage = groupStorageKey ? localStorage.getItem(groupStorageKey) : null; } catch {}
+				const initial = savedLanguage && available.includes(savedLanguage) ? savedLanguage : available[0];
 
-				const select = (language) => {
+				const select = (language, broadcast = false) => {
 					if (!available.includes(language)) return;
 					buttons.forEach((button) => {
 						const active = button.dataset.codeTab === language;
@@ -68,25 +68,24 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 					panels.forEach((panel) => {
 						panel.hidden = panel.dataset.codePanel !== language;
 					});
-					saveLanguage(language);
+					if (groupStorageKey) {
+						try { localStorage.setItem(groupStorageKey, language); } catch {}
+					}
+					if (broadcast && prefix) document.dispatchEvent(new CustomEvent("code-tab-select", { detail: { prefix, language } }));
 				};
 
 				buttons.forEach((button) => {
 					button.addEventListener("click", () => {
 						const language = button.dataset.codeTab;
 						if (language) {
-							document.dispatchEvent(
-								new CustomEvent("code-tab-select", {
-									detail: language,
-								}),
-							);
+							select(language, true);
 						}
 					});
 				});
 
 				document.addEventListener("code-tab-select", (event) => {
-					const language = event.detail;
-					if (available.includes(language)) select(language);
+					const { prefix: eventPrefix, language } = event.detail;
+					if (prefix && eventPrefix === prefix && available.includes(language)) select(language);
 				});
 
 				if (initial) select(initial);

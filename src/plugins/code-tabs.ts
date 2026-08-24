@@ -52,19 +52,21 @@ function languageName(language: string | null | undefined) {
 type TabOptions = {
 	name: string;
 	key: string;
+	prefix: string | null;
 };
 
 function parseTabOptions(node: CodeNode): TabOptions {
 	const language = node.lang ?? "text";
-	const defaults = { name: languageName(language), key: language };
+	const defaults: TabOptions = { name: languageName(language), key: language, prefix: null };
 	const meta = node.meta ?? "";
-	const values = [...meta.matchAll(/(?:^|\s)(name|key)=(?:"([^"]*)"|'([^']*)'|(\S+))/g)];
+	const values = [...meta.matchAll(/(?:^|\s)(name|key|prefix)=(?:"([^"]*)"|'([^']*)'|(\S+))/g)];
 
 	for (const [, property, doubleQuoted, singleQuoted, unquoted] of values) {
 		const value = doubleQuoted ?? singleQuoted ?? unquoted;
 		if (!value) continue;
 		if (property === "name") defaults.name = value;
 		if (property === "key") defaults.key = value;
+		if (property === "prefix") defaults.prefix = value;
 	}
 
 	return defaults;
@@ -73,16 +75,18 @@ function parseTabOptions(node: CodeNode): TabOptions {
 function tabMarkup(nodes: CodeNode[]) {
 	const options = nodes.map(parseTabOptions);
 	const tabs = options
-		.map(({ name, key }) => {
-			return `<button type="button" class="code-tab" role="tab" aria-selected="false" data-code-tab="${escapeHtml(key)}">${escapeHtml(name)}</button>`;
+		.map(({ name, key, prefix }) => {
+			const prefixAttribute = prefix ? ` data-code-prefix="${escapeHtml(prefix)}"` : "";
+			return `<button type="button" class="code-tab" role="tab" aria-selected="false" data-code-tab="${escapeHtml(key)}"${prefixAttribute}>${escapeHtml(name)}</button>`;
 		})
 		.join("");
 
 	const panels = nodes
 		.map((node, index) => {
 			const language = node.lang ?? "text";
-			const { key } = options[index];
-			return `<pre class="code-tab-panel" role="tabpanel" data-code-panel="${escapeHtml(key)}" hidden><code class="language-${escapeHtml(language)}">${escapeHtml(node.value)}</code></pre>`;
+			const { key, prefix } = options[index];
+			const prefixAttribute = prefix ? ` data-code-prefix="${escapeHtml(prefix)}"` : "";
+			return `<pre class="code-tab-panel" role="tabpanel" data-code-panel="${escapeHtml(key)}"${prefixAttribute} hidden><code class="language-${escapeHtml(language)}">${escapeHtml(node.value)}</code></pre>`;
 		})
 		.join("");
 	return `<div class="code-tabs" data-code-tabs><div class="code-tab-list" role="tablist">${tabs}</div>${panels}</div>`;
