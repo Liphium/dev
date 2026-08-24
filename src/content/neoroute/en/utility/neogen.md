@@ -46,7 +46,7 @@ g := neoschema.NewGenerator()
 g.Transporter("<NAME>", t) // t is any transporter you created
 
 // Then let the program panic and print the schema when --neo-generate is set
-g.PrintAndPanic()
+g.PrintIfDesired()
 ```
 
 When you now do the following command in your project folder, a (probably giant) JSON should be printed.
