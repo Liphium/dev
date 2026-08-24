@@ -19,18 +19,20 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 		});
 </script>
 
-<script>
+<script define:vars={{ software }}>
+	const storageKey = `docs-code-language:${software ?? "default"}`;
+
 	const readSavedLanguage = () => {
 		try {
-			return localStorage.getItem("docs-code-language");
+			return localStorage.getItem(storageKey);
 		} catch {
 			return null;
 		}
 	};
 
-	const saveLanguage = (language: string) => {
+	const saveLanguage = (language) => {
 		try {
-			localStorage.setItem("docs-code-language", language);
+			localStorage.setItem(storageKey, language);
 		} catch {
 			// Storage unavailable. Tab selection still works for current page.
 		}
@@ -40,27 +42,23 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 		const savedLanguage = readSavedLanguage();
 
 		document
-			.querySelectorAll<HTMLElement>("[data-code-tabs]")
+			.querySelectorAll("[data-code-tabs]")
 			.forEach((group) => {
 				const buttons = [
-					...group.querySelectorAll<HTMLButtonElement>(
-						"[data-code-tab]",
-					),
+					...group.querySelectorAll("[data-code-tab]"),
 				];
 				const panels = [
-					...group.querySelectorAll<HTMLElement>("[data-code-panel]"),
+					...group.querySelectorAll("[data-code-panel]"),
 				];
 				const available = buttons
 					.map((button) => button.dataset.codeTab)
-					.filter((language): language is string =>
-						Boolean(language),
-					);
+					.filter(Boolean);
 				const initial =
 					savedLanguage && available.includes(savedLanguage)
 						? savedLanguage
 						: available[0];
 
-				const select = (language: string) => {
+				const select = (language) => {
 					if (!available.includes(language)) return;
 					buttons.forEach((button) => {
 						const active = button.dataset.codeTab === language;
@@ -76,9 +74,21 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 				buttons.forEach((button) => {
 					button.addEventListener("click", () => {
 						const language = button.dataset.codeTab;
-						if (language) select(language);
+						if (language) {
+							document.dispatchEvent(
+								new CustomEvent("code-tab-select", {
+									detail: language,
+								}),
+							);
+						}
 					});
 				});
+
+				document.addEventListener("code-tab-select", (event) => {
+					const language = event.detail;
+					if (available.includes(language)) select(language);
+				});
+
 				if (initial) select(initial);
 			});
 	};
