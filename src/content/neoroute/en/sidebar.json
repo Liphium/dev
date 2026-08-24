@@ -42,15 +42,36 @@
 		"links": []
 	},
 	{
-		"name": "Client libraries",
+		"name": "Official client SDKs",
 		"links": [
 			{
 				"name": "TypeScript",
-				"link": "/client/typescript"
+				"link": "/sdk/typescript"
 			},
 			{
 				"name": "Golang",
-				"link": "/client/go"
+				"link": "/sdk/go"
+			}
+		]
+	},
+	{
+		"name": "Client guide",
+		"links": [
+			{
+				"name": "HTTP",
+				"link": "/client/http"
+			},
+			{
+				"name": "WebSocket",
+				"link": "/client/websocket"
+			},
+			{
+				"name": "Receiving events",
+				"link": "/client/events"
+			},
+			{
+				"name": "Sending requests",
+				"link": "/client/requests"
 			}
 		]
 	}
