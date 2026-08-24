@@ -39,10 +39,19 @@
 	},
 	{
 		"name": "Utility",
-		"links": []
+		"links": [
+			{
+				"name": "Code generation",
+				"link": "/utility/neogen"
+			},
+			{
+				"name": "Debugging & testing",
+				"link": "/utility/neodebug"
+			}
+		]
 	},
 	{
-		"name": "Official client SDKs",
+		"name": "Client SDKs",
 		"links": [
 			{
 				"name": "TypeScript",
@@ -55,7 +64,7 @@
 		]
 	},
 	{
-		"name": "Client guide",
+		"name": "Client guides",
 		"links": [
 			{
 				"name": "HTTP",
