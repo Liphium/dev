@@ -5,6 +5,7 @@
 
 	interface Props {
 		lang: string;
+		currentPath: string;
 		translations: {
 			name: string;
 			magic: string;
@@ -14,9 +15,14 @@
 		};
 	}
 
-	let { lang, translations }: Props = $props();
+	let { lang, currentPath, translations }: Props = $props();
 
 	let isMenuOpen = $state(false);
+
+	function isSelected(link: string) {
+		const project = link.match(/\/(magic|neoroute)(?:\/|$)/)?.[1];
+		return project !== undefined && currentPath.includes(`/${project}/`);
+	}
 
 	const links = [
 		{
@@ -69,7 +75,7 @@
 		<!-- Desktop navigation links -->
 		{#each links as link}
 			<a
-				class="border-b-2 border-transparent hover:border-bg-100 transition-colors"
+				class={`border-b-2 transition-colors ${isSelected(link.link) ? "border-p-blue-100 text-p-blue-100" : "border-transparent"} hover:border-bg-100`}
 				href={link.link}
 			>
 				{link.name}
@@ -137,7 +143,7 @@
 		{#each links as link}
 			<a
 				onclick={closeMenu}
-				class="text-2xl border-b-2 border-transparent hover:border-bg-100 transition-colors"
+				class={`text-2xl border-b-2 transition-colors ${isSelected(link.link) ? "border-p-blue-200 text-p-blue-200" : "border-transparent"} hover:border-bg-100`}
 				href={link.link}
 			>
 				{link.name}

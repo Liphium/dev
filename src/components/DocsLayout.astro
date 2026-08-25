@@ -39,57 +39,69 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 	};
 
 	const initCodeTabs = () => {
+		document.querySelectorAll("[data-code-tabs]").forEach((group) => {
+			const buttons = [...group.querySelectorAll("[data-code-tab]")];
+			const panels = [...group.querySelectorAll("[data-code-panel]")];
+			const available = buttons
+				.map((button) => button.dataset.codeTab)
+				.filter(Boolean);
+			const prefix = buttons[0]?.dataset.codePrefix || null;
+			const groupStorageKey = prefix ? `${storageKey}:${prefix}` : null;
+			let savedLanguage = null;
+			try {
+				savedLanguage = groupStorageKey
+					? localStorage.getItem(groupStorageKey)
+					: null;
+			} catch {}
+			const initial =
+				savedLanguage && available.includes(savedLanguage)
+					? savedLanguage
+					: available[0];
 
-		document
-			.querySelectorAll("[data-code-tabs]")
-			.forEach((group) => {
-				const buttons = [
-					...group.querySelectorAll("[data-code-tab]"),
-				];
-				const panels = [
-					...group.querySelectorAll("[data-code-panel]"),
-				];
-				const available = buttons
-					.map((button) => button.dataset.codeTab)
-					.filter(Boolean);
-				const prefix = buttons[0]?.dataset.codePrefix || null;
-				const groupStorageKey = prefix ? `${storageKey}:${prefix}` : null;
-				let savedLanguage = null;
-				try { savedLanguage = groupStorageKey ? localStorage.getItem(groupStorageKey) : null; } catch {}
-				const initial = savedLanguage && available.includes(savedLanguage) ? savedLanguage : available[0];
-
-				const select = (language, broadcast = false) => {
-					if (!available.includes(language)) return;
-					buttons.forEach((button) => {
-						const active = button.dataset.codeTab === language;
-						button.setAttribute("aria-selected", String(active));
-						button.toggleAttribute("data-active", active);
-					});
-					panels.forEach((panel) => {
-						panel.hidden = panel.dataset.codePanel !== language;
-					});
-					if (groupStorageKey) {
-						try { localStorage.setItem(groupStorageKey, language); } catch {}
-					}
-					if (broadcast && prefix) document.dispatchEvent(new CustomEvent("code-tab-select", { detail: { prefix, language } }));
-				};
-
+			const select = (language, broadcast = false) => {
+				if (!available.includes(language)) return;
 				buttons.forEach((button) => {
-					button.addEventListener("click", () => {
-						const language = button.dataset.codeTab;
-						if (language) {
-							select(language, true);
-						}
-					});
+					const active = button.dataset.codeTab === language;
+					button.setAttribute("aria-selected", String(active));
+					button.toggleAttribute("data-active", active);
 				});
-
-				document.addEventListener("code-tab-select", (event) => {
-					const { prefix: eventPrefix, language } = event.detail;
-					if (prefix && eventPrefix === prefix && available.includes(language)) select(language);
+				panels.forEach((panel) => {
+					panel.hidden = panel.dataset.codePanel !== language;
 				});
+				if (groupStorageKey) {
+					try {
+						localStorage.setItem(groupStorageKey, language);
+					} catch {}
+				}
+				if (broadcast && prefix)
+					document.dispatchEvent(
+						new CustomEvent("code-tab-select", {
+							detail: { prefix, language },
+						}),
+					);
+			};
 
-				if (initial) select(initial);
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const language = button.dataset.codeTab;
+					if (language) {
+						select(language, true);
+					}
+				});
 			});
+
+			document.addEventListener("code-tab-select", (event) => {
+				const { prefix: eventPrefix, language } = event.detail;
+				if (
+					prefix &&
+					eventPrefix === prefix &&
+					available.includes(language)
+				)
+					select(language);
+			});
+
+			if (initial) select(initial);
+		});
 	};
 
 	if (document.readyState === "loading") {
@@ -109,9 +121,7 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 	software={software}
 	sections={sections}
 >
-	<div
-		class="flex items-center justify-center px-4 sm:px-6 overflow-x-hidden min-w-0"
-	>
+	<div class="flex items-center justify-center overflow-x-hidden min-w-0">
 		<div
 			class="flex flex-col gap-2 font-mono max-w-4xl w-full prose-spec min-w-0"
 		>

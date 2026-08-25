@@ -75,26 +75,23 @@
 <svelte:window onkeydown={handleEscape} />
 
 <div class="flex w-full justify-center">
-	<div class="flex w-full max-w-6xl font-mono text-bg-100">
+	<div class="flex w-full max-w-6xl px-4 font-mono text-bg-100">
 		<!-- Desktop Navigation sidebar -->
 		<div
-			class="hidden lg:flex sticky inset-0 h-screen min-w-60 justify-center pl-4 pr-2 bg-bg-800"
+			class="hidden lg:flex sticky inset-0 h-screen min-w-60 justify-center bg-bg-800"
 		>
 			<!-- Sidebar content -->
 			<div
-				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-2"
+				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-6"
 			>
 				<div class="flex w-full flex-col gap-6 py-4">
-					<!-- Version and software indicator -->
-					<div class="align-center flex gap-2">
-						<p class="font-bold text-p-blue-200">{software}</p>
-					</div>
-
 					<!-- Links at the top of the sidebar -->
 					{#each processedSections as section}
 						<div class="flex flex-col gap-3">
 							{#if section.name}
-								<p class="font-bold text-bg-100">
+								<p
+									class="font-bold text-p-bg-100 border-b-2 border-b-p-blue-300"
+								>
 									{section.name}
 								</p>
 							{/if}
@@ -123,7 +120,7 @@
 		</div>
 
 		<!-- Content for the page -->
-		<div class="w-full p-4 lg:p-4 px-2 overflow-x-hidden min-w-0">
+		<div class="w-full py-4 lg:py-4 lg:pl-6 overflow-x-hidden min-w-0">
 			{@render children()}
 		</div>
 	</div>
@@ -155,16 +152,11 @@
 	>
 		<div class="h-full overflow-y-auto p-6 flex-1">
 			<div class="flex flex-col gap-6 font-mono text-bg-100">
-				<!-- Version and software indicator -->
-				<div class="align-center flex gap-2">
-					<p class="font-bold text-p-blue-200">{software}</p>
-				</div>
-
 				<!-- Links -->
 				{#each processedSections as section}
 					<div class="flex flex-col gap-3">
 						{#if section.name}
-							<p class="font-bold text-bg-100">
+							<p class="font-bold text-p-blue-200">
 								{section.name}
 							</p>
 						{/if}
