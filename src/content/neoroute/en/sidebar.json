@@ -17,11 +17,11 @@
 		"links": [
 			{
 				"name": "HTTP",
-				"link": "/guides/http"
+				"link": "/transporter/http"
 			},
 			{
 				"name": "WebSocket",
-				"link": "/guides/websocket"
+				"link": "/transporter/websocket"
 			}
 		]
 	},

@@ -34,7 +34,7 @@ sender := client.NewSender(client.Config{
 })
 
 // 3. Make the sender send HTTP requests
-http.UseHTTP(sender, "POST" /* method used, depends on your server */, url)
+http.ApplyHTTP(sender, "POST" /* method used, depends on your server */, url)
 ```
 
 ```ts prefix="sdk"
@@ -49,7 +49,7 @@ const sender = new Sender({
 });
 
 // 2. Let the sender send HTTP requests
-useHTTP(
+applyHTTP(
 	sender,
 	"POST" /* request method, depends on your server */,
 	"http://example.com",

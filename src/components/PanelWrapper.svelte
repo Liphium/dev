@@ -89,9 +89,7 @@
 					{#each processedSections as section}
 						<div class="flex flex-col gap-3">
 							{#if section.name}
-								<p
-									class="font-bold text-p-bg-100 border-b-2 border-b-p-blue-300"
-								>
+								<p class="font-bold text-p-blue-200">
 									{section.name}
 								</p>
 							{/if}
