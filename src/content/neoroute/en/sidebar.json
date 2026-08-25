@@ -88,12 +88,8 @@
 				"link": "/client/websocket"
 			},
 			{
-				"name": "Receiving events",
-				"link": "/client/events"
-			},
-			{
-				"name": "Sending requests",
-				"link": "/client/requests"
+				"name": "Events & requests",
+				"link": "/client/events-and-requests"
 			}
 		]
 	}
