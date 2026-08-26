@@ -31,7 +31,9 @@ So, let's get into how you get that kind of functionality.
 
 ## Implementing debug functionality
 
-Neodebug actually only exposes one function, `neodebug.Run`. The `Config` object it takes in is how you tell it what transporter it should connect to. Here's what that could look like in your code:
+In general, the entrypoint to neodebug should live in your server code or some package you have in your server (for example `your_project/cmd/debug`). While we usually put it in [Magic scripts](/magic/documentation/magic-scripts) so we can execute it quite easily, checking for an argument or creating a separate `cmd/debug` folder that you can then execute with `go run ./cmd/debug` are both things you can do.
+
+Neodebug actually only exposes one function, `neodebug.Run`. After calling it, neodebug will generate your schema and open up a debugger CLI interface. Here's how you use the `Run` function:
 
 ```go
 import (
@@ -51,8 +53,6 @@ neodebug.Run(config.DebugConfig{
 	TransporterURL:  "http://localhost:6121",
 })
 ```
-
-That's quite literally it. You can now execute this in [Magic scripts](/magic/documentation/magic-scripts) or after checking if a certain argument is set.
 
 We hope you enjoy your new debugger. But let's actually learn how to use it.
 
