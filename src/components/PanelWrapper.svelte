@@ -78,11 +78,11 @@
 	<div class="flex w-full max-w-6xl px-4 font-mono text-bg-100">
 		<!-- Desktop Navigation sidebar -->
 		<div
-			class="hidden lg:flex sticky inset-0 h-screen min-w-60 justify-center bg-bg-800"
+			class="hidden lg:flex sticky inset-0 h-screen max-w-60 justify-center bg-bg-800"
 		>
 			<!-- Sidebar content -->
 			<div
-				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-6"
+				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-10"
 			>
 				<div class="flex w-full flex-col gap-6 py-4">
 					<!-- Links at the top of the sidebar -->
@@ -118,7 +118,7 @@
 		</div>
 
 		<!-- Content for the page -->
-		<div class="w-full py-4 lg:py-4 lg:pl-6 overflow-x-hidden min-w-0">
+		<div class="w-full py-4 lg:py-4 lg:pl-10 overflow-x-hidden min-w-0">
 			{@render children()}
 		</div>
 	</div>

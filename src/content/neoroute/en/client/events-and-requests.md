@@ -49,4 +49,32 @@ if err != nil {
 
 ## Receiving events
 
-**TODO**
+**Hint:** To synchronize your event structs with the ones you have on your server, we recommend using [neogen](/neoroute/utility/neogen). That way you get end-to-end type safety.
+
+For receiving events, there is really just one function. One important thing however is that there **can only be one event handler per event**. Read more below if you want to know the reasoning behind this decision.
+
+```go prefix="sdk"
+// c is the client object
+c.Receive("some_event", func(c *client.Ctx, event SomeEvent) {
+	// Your handling logic
+})
+
+// You can of course also use external functions to receive events
+c.Receive("some_event", SomeFunction)
+func SomeFunction(c *client.Ctx, event SomeEvent) { /* your logic */ }
+```
+
+```ts prefix="sdk"
+
+```
+
+### Why only one event handler?
+
+Only giving you the ability to register one event handler has the following reasons:
+
+- **Main reason:** Handling events in multiple places can lead to a lot of chaos in your architecture.
+- If we gave you a way to register multiple event handlers, we would also need to give you a way to unregister them which will lead to you having to somehow manage all of the event handlers you have registered.
+  - With one event handler, you can just register a new one and know that no-one else will hear about the event.
+- **Minor:** When there are multiple event handlers, we need to also iterate through a slice of functions, instead of just calling the function you gave us. This leads to a lot of overhead when there is just one function handling the event most of the time.
+
+We hope you understand our reasoning. If you have some kind of special need that you think requires multiple event handlers, feel free to implement your own solution on top of our client SDK. It should not be so difficult.
