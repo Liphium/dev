@@ -3,16 +3,27 @@ title: "Introduction"
 description: "Neoroute."
 ---
 
-Welcome to neoroute. **TODO**
+Neoroute is a **batteries-included RPC framework** for Golang, running exclusively on top of Web primitives (currently HTTP and WebSocket). With our rich tooling, you get **code generation**, an **interactive debugger** for sending requests and a lot more with minimal setup. We have everything you love about RPC and web frameworks, all in one **fully integrated package and ecosystem**.
 
 ## Installation
 
-To use Neoroute you need Go version `1.26` or higher. <br>
-Then you can install Neoroute using
+To use Neoroute you need Go version `1.27` or higher. Just install it using `go`:
 
 ```bash
-go get github.com/Liphium/neoroute@latest
+go get -u github.com/Liphium/neoroute@latest
 ```
+
+## Features
+
+- Use the same handlers over multiple protocols
+- Rich [routing system](/neoroute/guides/routing) with support for middlewares, groups and more
+- Full support for [HTTP](/neoroute/transporter/http) and [WebSocket](/neoroute/transporter/websocket) transporters
+- Fast and small messages thanks to [MessagePack](https://msgpack.org/)
+  - Some of the fastest encoding and decoding thanks to [msgp](https://github.com/tinylib/msgp)'s code generation
+- Client SDKs for [Go](/neoroute/sdk/go) and [TypeScript](/neoroute/sdk/typescript)
+- Full code generation support for Go and TypeScript using [neogen](/neoroute/utility/neogen)
+- Interactive debugging CLI using [neodebug](/neoroute/utility/neodebug)
+- Lots of [testing utilities](/neoroute/guides/testing)
 
 ## Hello World
 
