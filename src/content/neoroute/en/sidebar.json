@@ -13,7 +13,7 @@
 		]
 	},
 	{
-		"name": "Your first server (TODO)",
+		"name": "Your first app",
 		"links": []
 	},
 	{
@@ -34,6 +34,10 @@
 			{
 				"name": "WebSocket",
 				"link": "/guides/websocket"
+			},
+			{
+				"name": "Events & adapters",
+				"link": "/guides/events-adapters"
 			}
 		]
 	},
