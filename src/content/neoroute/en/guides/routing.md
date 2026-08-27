@@ -1,6 +1,6 @@
 ---
 title: "Routing"
-description: "Routing with Neoroute."
+description: "How Neoroute's Router works, the different routing functions and advanced routing."
 ---
 
 The base of all routing in Neoroute is the `Router` object. It's gonna be routing requests to all of your different routes. You can create one like this:
@@ -13,7 +13,7 @@ router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
 })
 ```
 
-Now, the place where `neoroute.NoData` currently is, is a generic value for any data associated with the connection. This data object is the one created in the `HandshakeFunc` of your transporter (most likely [HTTP](/neoroute/transporter/http) or [WebSocket](/neoroute/transporter/websocket)). You could use it to store account information, or anything else related to the connection.
+Now, the place where `neoroute.NoData` currently is, is a generic value for any data associated with the connection. This data object is the one created in the `HandshakeFunc` of your transporter (most likely [HTTP](/neoroute/guides/http) or [WebSocket](/neoroute/guides/websocket)). You could use it to store account information, or anything else related to the connection.
 
 ## Creating routes
 
