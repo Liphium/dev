@@ -20,6 +20,10 @@
 		"name": "Guides",
 		"links": [
 			{
+				"name": "MessagePack",
+				"link": "/guides/msgp"
+			},
+			{
 				"name": "Routing",
 				"link": "/guides/routing"
 			},
