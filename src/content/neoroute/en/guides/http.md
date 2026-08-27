@@ -57,7 +57,15 @@ mux := http.NewServeMux()
 // 2. Mount the hook from NewTransporter into the mux
 mux.HandleFunc("POST /", hook)
 
-// 3. Listen for HTTP requests on port 8080
+// 3. Configure CORS so your endpoint can actually be called
+mux.HandleFunc("OPTIONS /", func(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.WriteHeader(http.StatusOK)
+})
+
+// 4. Listen for HTTP requests on port 8080
 http.ListenAndServe(":8080", mux)
 ```
 
@@ -69,6 +77,7 @@ app := fiber.New()
 
 // 2. Mount the hook from NewTransporter into Fiber
 app.Post("/", hook)
+// You should look up how to configure CORS for Fiber here
 
 // 3. Open the server on :8080
 app.Listen(":8080")
@@ -82,6 +91,7 @@ e := echo.New()
 
 // 2. Mount the hook from NewTransporter into Echo
 e.POST("/", echo.WrapHandler(hook))
+// You should look up how to configure CORS for Echo here
 
 // 3. Start the server on :8080
 e.Start(":8080")

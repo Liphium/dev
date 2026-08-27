@@ -71,9 +71,17 @@ import "net/http"
 mux := http.NewServeMux()
 
 // 2. Mount the hook from NewTransporter into the mux
-mux.HandleFunc("POST /", hook)
+mux.HandleFunc("GET /", hook)
 
-// 3. Listen for HTTP requests on port 8080
+// 3. Configure CORS so your endpoint can actually be called
+mux.HandleFunc("OPTIONS /", func(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.WriteHeader(http.StatusOK)
+})
+
+// 4. Listen for HTTP requests on port 8080
 http.ListenAndServe(":8080", mux)
 ```
 
@@ -84,7 +92,8 @@ import "github.com/gofiber/fiber/v3"
 app := fiber.New()
 
 // 2. Mount the hook from NewTransporter into Fiber
-app.Post("/", hook)
+app.Get("/", hook)
+// You should look up how to configure CORS for Fiber here
 
 // 3. Open the server on :8080
 app.Listen(":8080")
@@ -97,7 +106,8 @@ import "github.com/labstack/echo/v5"
 e := echo.New()
 
 // 2. Mount the hook from NewTransporter into Echo
-e.POST("/", echo.WrapHandler(hook))
+e.GET("/", echo.WrapHandler(hook))
+// You should look up how to configure CORS for Echo here
 
 // 3. Start the server on :8080
 e.Start(":8080")
