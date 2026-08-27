@@ -87,6 +87,28 @@ neogen -command 'go run -tags release . --neo-generate'
 neogen -target typescript -v
 ```
 
+### Integrating the command properly
+
+```go prefix="sdk"
+// For Go we recommend you create a separate folder for the generated code.
+// You can then create a file in there with the following comment:
+
+//go:generate neogen -path './path/to/your/server' -target go
+
+// Whenever you now run "go generate ./..." in your project, the definitions will
+// be generated.
+```
+
+```json name="TypeScript" prefix="sdk" key="ts"
+{
+	"scripts": {
+		// For TypeScript we recommend adding this script to your package.json.
+		// We would also strongly encourage using a separate folder for generation output.
+		"generate": "cd ./generated && neogen -path './path/to/your/server' -target typescript"
+	}
+}
+```
+
 ## Using the generated code
 
 On every client SDK, usage of the code is basically the same. What you get always are all of the structs you defined in your Go server, together with wrappers around the actual transporter implementation of the client SDK you chose.
