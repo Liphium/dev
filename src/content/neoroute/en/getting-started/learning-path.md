@@ -27,7 +27,7 @@ Now that you have a router, you somehow need to expose some routes you have to t
 
 Choose your character (transporter): [HTTP](/neoroute/guides/http) or [WebSocket](/neoroute/guides/websocket). Do this based on the type of app you're trying to build.
 
-**Optional:** If you chose WebSocket, you may also want to learn how to use [events & adapters](/neoroute/guides/events-adapters) to send your clients data straight from the server.
+**Optional:** If you chose WebSocket, you may also want to learn how to use [events & adapters](/neoroute/guides/events-adapters) to send your client some data from the server.
 
 With the guide for the transporters, you should now also have a running web server. And what can I say, that's it for the server part, below we have listed some of the things we now always add in. And we **strongly encourage** you do too! Or skip to the [client part](#4-connecting-to-your-server).
 
