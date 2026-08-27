@@ -5,25 +5,16 @@
 			{
 				"name": "Introduction",
 				"link": "/getting-started/introduction"
+			},
+			{
+				"name": "Learning path",
+				"link": "/getting-started/learning-path"
 			}
 		]
 	},
 	{
 		"name": "Your first server (TODO)",
 		"links": []
-	},
-	{
-		"name": "Transporters",
-		"links": [
-			{
-				"name": "HTTP",
-				"link": "/transporter/http"
-			},
-			{
-				"name": "WebSocket",
-				"link": "/transporter/websocket"
-			}
-		]
 	},
 	{
 		"name": "Guides",
@@ -33,20 +24,12 @@
 				"link": "/guides/routing"
 			},
 			{
-				"name": "Route Variants",
-				"link": "/guides/route-variants"
+				"name": "HTTP",
+				"link": "/guides/http"
 			},
 			{
-				"name": "Grouping",
-				"link": "/guides/grouping"
-			},
-			{
-				"name": "Router Grouping",
-				"link": "/guides/router-grouping"
-			},
-			{
-				"name": "Middleware",
-				"link": "/guides/middleware"
+				"name": "WebSocket",
+				"link": "/guides/websocket"
 			}
 		]
 	},
