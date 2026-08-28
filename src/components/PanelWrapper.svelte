@@ -76,6 +76,11 @@
 
 <div class="flex w-full justify-center">
 	<div class="flex w-full max-w-6xl px-4 font-mono text-bg-100">
+		<pagefind-config bundle-path="/pagefind/{software}/"></pagefind-config>
+
+		<pagefind-modal-trigger></pagefind-modal-trigger>
+		<pagefind-modal></pagefind-modal>
+
 		<!-- Desktop Navigation sidebar -->
 		<div
 			class="hidden lg:flex sticky inset-0 h-screen max-w-60 justify-center bg-bg-800"
@@ -118,7 +123,10 @@
 		</div>
 
 		<!-- Content for the page -->
-		<div class="w-full py-4 lg:py-4 lg:pl-10 overflow-x-hidden min-w-0">
+		<div
+			class="w-full py-4 lg:py-4 lg:pl-10 overflow-x-hidden min-w-0"
+			data-pagefind-body
+		>
 			{@render children()}
 		</div>
 	</div>

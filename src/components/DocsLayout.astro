@@ -22,22 +22,6 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 <script define:vars={{ software }}>
 	const storageKey = `docs-code-language:${software ?? "default"}`;
 
-	const readSavedLanguage = () => {
-		try {
-			return localStorage.getItem(storageKey);
-		} catch {
-			return null;
-		}
-	};
-
-	const saveLanguage = (language) => {
-		try {
-			localStorage.setItem(storageKey, language);
-		} catch {
-			// Storage unavailable. Tab selection still works for current page.
-		}
-	};
-
 	const initCodeTabs = () => {
 		document.querySelectorAll("[data-code-tabs]").forEach((group) => {
 			const buttons = [...group.querySelectorAll("[data-code-tab]")];

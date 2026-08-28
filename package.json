@@ -4,9 +4,10 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro build",
+		"build": "astro build && pnpm run build-search",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"build-search": "pnpx -y pagefind --site dist --glob 'neoroute/**/*.html' --output-subdir pagefind/neoroute && pnpx -y pagefind --site dist --glob 'magic/**/*.html' --output-subdir pagefind/magic"
 	},
 	"dependencies": {
 		"@astrojs/mdx": "^7.0.7",

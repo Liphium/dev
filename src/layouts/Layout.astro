@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import favicon from "../assets/favicon.png";
 
-const { language, title, summary } = Astro.props;
+const { language, title, summary, software } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,6 +20,12 @@ const { language, title, summary } = Astro.props;
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={summary} />
 		<meta content="#00cdf9" data-react-helmet="true" name="theme-color" />
+
+		<!-- Pagefind stuff -->
+		{software !== "" && (
+			<link href={`/pagefind/${software}/pagefind-component-ui.css`} rel="stylesheet" />
+			<script src={`/pagefind/${software}/pagefind-component-ui.js`} type="module"></script>
+		)}
 	</head>
 	<body class="bg-bg-800">
 		<slot />

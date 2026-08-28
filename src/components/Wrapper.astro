@@ -3,10 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import FooterNav from "./FooterNav.astro";
 import Nav from "./Nav.astro";
 
-const { language, title, summary } = Astro.props;
+const { language, title, summary, software } = Astro.props;
 ---
 
-<Layout {language} {title} {summary}>
+<Layout {language} {title} {summary} {software}>
 	<div class="flex flex-col">
 		<Nav />
 		<div class="flex flex-col">
