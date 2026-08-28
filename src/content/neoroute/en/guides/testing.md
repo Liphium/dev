@@ -95,7 +95,37 @@ neoroute.AssertResponse(t, err, ExampleResponse{
 
 ## Testing event sending
 
-**TODO**
+**Note:** For testing your events, the `AdapterRegistry` through which the events are sent **needs to be accessible** in the test.
+
+**1.** Create a new testing adapter and session:
+
+```go
+session := neoroute.NewTestingSession(neoroute.NoData{}, "connection")
+
+// Add any event registries you want to receive from on this adapter.
+// This function can take multiple.
+adapter := neoroute.NewTestingAdapter(eventRegistry)
+```
+
+**2.** Add them to your `AdapterRegistry`:
+
+```go
+adapterRegistry.Register(session.Id(), adapter)
+```
+
+Any events will now be caught inside of the testing adapter. You can now use the following assertion functions with the adapter to see what events arrived:
+
+```go
+// First make sure the expected number of events arrived:
+events := neoroute.AssertEvents(t, adapter, 1 /* number of events */)
+
+// Then make sure the event you expect arrived
+neoroute.AssertEvent(t, events, 0 /* index */, SomeEvent{ /* ... */ })
+
+// Optional: You can also pass any cmp.Option to this for like this:
+neoroute.AssertEvent(t, events, 0, SomeEvent{ /* ... */ }, 
+	cmpopts.IgnoreFields(SomeEvent{}, "SomeField"))
+```
 
 ## Testing with a real connection
 
