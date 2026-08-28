@@ -137,7 +137,8 @@
 
 	async function loadPagefind() {
 		if (pagefind) return pagefind;
-		pagefind = await import("/pagefind/pagefind.js");
+		const pagefindScriptPath = "/pagefind/pagefind.js";
+		pagefind = await import(/* @vite-ignore */ pagefindScriptPath);
 		return pagefind;
 	}
 
