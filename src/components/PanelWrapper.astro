@@ -7,12 +7,14 @@ const {
 	title,
 	summary,
 	software,
+	collection,
 	linkPrefix,
 	sections: sectionsUnparsed,
 } = Astro.props;
 
 const sections: {
 	name: string;
+	collection: "magic" | "neoroute";
 	linkPrefix: string;
 	links: {
 		name: string;
@@ -26,6 +28,7 @@ const currentPath = Astro.url.pathname;
 <Wrapper {language} {title} {summary}>
 	<PanelWrapperComponent
 		{software}
+		{collection}
 		{linkPrefix}
 		{sections}
 		{currentPath}

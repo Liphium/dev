@@ -15,6 +15,7 @@
 		"@lucide/svelte": "^1.33.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.2.4",
+		"astro-pagefind": "^2.0.1",
 		"rehype-pretty-code": "^0.14.5",
 		"rehype-raw": "^7.0.0",
 		"svelte": "^5.56.10",

@@ -4,6 +4,7 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 import svelte from "@astrojs/svelte";
+import pagefind from "astro-pagefind";
 
 import mdx from "@astrojs/mdx";
 import { unified } from "@astrojs/markdown-remark";
@@ -17,7 +18,7 @@ export default defineConfig({
 		locales: ["en"],
 		defaultLocale: "en",
 	},
-	integrations: [svelte(), mdx()],
+	integrations: [svelte(), mdx(), pagefind()],
 	markdown: {
 		processor: unified({
 			remarkPlugins: [codeTabs],

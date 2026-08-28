@@ -1,8 +1,16 @@
 ---
 import PanelWrapper from "./PanelWrapper.astro";
 
-const { title, pageTitle, summary, language, linkPrefix, software, sections } =
-	Astro.props;
+const {
+	title,
+	pageTitle,
+	summary,
+	language,
+	linkPrefix,
+	software,
+	collection,
+	sections,
+} = Astro.props;
 ---
 
 <script>
@@ -119,6 +127,7 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 	language={language}
 	linkPrefix={linkPrefix}
 	software={software}
+	collection={collection}
 	sections={sections}
 >
 	<div class="flex items-center justify-center overflow-x-hidden min-w-0">
