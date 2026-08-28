@@ -38,6 +38,14 @@
 			{
 				"name": "Events & adapters",
 				"link": "/guides/events-adapters"
+			},
+			{
+				"name": "Error handling",
+				"link": "/guides/error-handling"
+			},
+			{
+				"name": "Testing",
+				"link": "/guides/testing"
 			}
 		]
 	},
@@ -81,6 +89,19 @@
 			{
 				"name": "Events & requests",
 				"link": "/client/events-and-requests"
+			}
+		]
+	},
+	{
+		"name": "Links",
+		"links": [
+			{
+				"name": "Report an issue",
+				"link": "https://github.com/Liphium/neoroute/issues"
+			},
+			{
+				"name": "GitHub",
+				"link": "https://github.com/Liphium/neoroute"
 			}
 		]
 	}
