@@ -101,11 +101,25 @@ router.RoutePing("some-route", func(c *neoroute.Ctx[neoroute.NoData]) {
 })
 ```
 
-Returned errors will be handled in the `ErrorHandler` of the router. Returning `nil` **will cause a panic**. You can also return a UserError directly like this:
+### Session
+
+When you're in a route, you get access to the `Session[neoroute.NoData]` object you might already know from the transporter guides. You can get this object in routes as well, by calling `ctx.Session()`.
+
+Here are some useful things to know:
+
+- `ctx.Session().Modify()` lets you modify the session data in case you want to, this is fully concurrency safe.
+- `ctx.Session().Id()` is a unique id assigned to the session. It is guaranteed to be unique for the connection backing this session.
+- `ctx.Session().Adapt()` gives you a new [adapter](/neoroute/guides/events-adapters).
+
+### Error handling
+
+Returned errors will be handled in the `ErrorHandler` of the router. Returning `nil` **will cause a panic**. You can also return an error message to the client directly like this:
 
 ```go
 return neoroute.NewError("your error message")
 ```
+
+This is just a short excerpt, [here](/neoroute/guides/error-handling) you can learn more about error handling.
 
 ## Advanced routing
 
