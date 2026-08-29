@@ -29,7 +29,7 @@ For how to actually connect, follow the [WebSocket](/neoroute/client/websocket) 
 
 ## Notes
 
-- When sending requests, you do not need to surround them with a try-catch. All errors are first passed to the central error handler in the `Config` object you give to a `Receiver` or `Sender`. The `string` you return there is packaged into a `UserError`, the object returned by almost all send functions.
+- When sending requests, you do not need to surround them with a try-catch. All errors are first passed to the central error handler in the `Config` object you give to a `Client`. The `string` you return there is packaged into a `UserError`, the object returned by almost all send functions.
 
 ## Examples
 

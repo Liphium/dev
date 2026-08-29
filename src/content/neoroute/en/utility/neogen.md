@@ -29,7 +29,7 @@ On top of that, any of the things Neoroute [requires by default](/neoroute/getti
 After that, try running:
 
 ```sh
-neogen --help
+neogen --version
 ```
 
 If the command can't be found, you might have to add the Go binary directory to your `PATH`. The official guide can be found [here](https://go.dev/doc/install) (just choose your operating system).
