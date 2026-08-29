@@ -24,6 +24,10 @@
 				"link": "/guides/routing"
 			},
 			{
+				"name": "Advanced routing",
+				"link": "/guides/advanced-routing"
+			},
+			{
 				"name": "HTTP",
 				"link": "/guides/http"
 			},
