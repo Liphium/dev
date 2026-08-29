@@ -73,3 +73,55 @@
 	scroll-behavior: smooth;
 	scroll-padding-top: 5rem;
 }
+
+/* Pagefind Component UI theming (dark only, matches site palette) */
+:root {
+	--pf-font: "JetBrains Mono", monospace;
+
+	/* Colors */
+	--pf-text: #ffffff;
+	--pf-text-secondary: #b4b4b4;
+	--pf-text-muted: #858585;
+	--pf-background: #1b1b1b;
+	--pf-border: #3d3d3d;
+	--pf-border-focus: #00cdf9;
+	--pf-skeleton: #272727;
+	--pf-skeleton-shine: #3d3d3d;
+	--pf-hover: #272727;
+	--pf-mark: #0cf1ff;
+	--pf-scroll-shadow: rgba(255, 255, 255, 0.1);
+
+	/* Shadows */
+	--pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+	--pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+	--pf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.7);
+
+	/* Error states */
+	--pf-error-bg: #2a1518;
+	--pf-error-border: #571c27;
+	--pf-error-text: #f5555d;
+	--pf-error-text-secondary: #ea323c;
+
+	/* Focus ring */
+	--pf-outline-focus: #0cf1ff;
+	--pf-outline-width: 2px;
+	--pf-outline-offset: 2px;
+
+	/* Modal */
+	--pf-modal-backdrop: rgba(19, 19, 19, 0.85);
+	--pf-modal-max-width: 560px;
+
+	/* Sizing */
+	--pf-border-radius: 0.5rem;
+
+	/* Dropdown */
+	--pf-dropdown-z-index: 9999;
+}
+
+pagefind-modal dialog.pf-modal {
+	border: 2px solid var(--color-bg-500);
+}
+
+pagefind-input input {
+	caret-color: var(--color-p-blue-100);
+}

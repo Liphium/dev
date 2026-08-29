@@ -5,8 +5,6 @@ description: "The best way to learn Neoroute and how a server is generally const
 
 While we do consider Neoroute a relatively simple framework, we do also recognize that we've introduced a lot of layers and objects that need explanations. This page is supposed to provide a structure and route through this documentation that allows you to learn Neoroute in a sensible way.
 
-Or you could just follow our chat server guide [here](/neoroute/first-app/backend) to **learn by doing**. Whichever way you prefer.
-
 ## 0. Base knowledge
 
 Before we get any of this started, I want to let you know that using Neoroute requires at least an intermediate understanding of [Go](https://go.dev). We use a lot of Go's recent features, which is why we literally require Go 1.27, the newest release as of writing this.

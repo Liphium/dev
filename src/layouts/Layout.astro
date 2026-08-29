@@ -22,7 +22,7 @@ const { language, title, summary, software } = Astro.props;
 		<meta content="#00cdf9" data-react-helmet="true" name="theme-color" />
 
 		<!-- Pagefind stuff -->
-		{software !== "" && (
+		{software && software !== "" && (
 			<link href={`/pagefind/${software}/pagefind-component-ui.css`} rel="stylesheet" />
 			<script src={`/pagefind/${software}/pagefind-component-ui.js`} type="module"></script>
 		)}

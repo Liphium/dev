@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Menu, X } from "@lucide/svelte";
+	import { Menu, Search, X } from "@lucide/svelte";
+	import { onMount } from "svelte";
 	import type { Snippet } from "svelte";
 
 	interface LinkItem {
@@ -51,6 +52,36 @@
 
 	let isSidebarOpen = $state(false);
 
+	let searchOpen = $state(false);
+	let modalEl: any;
+
+	function openSearch() {
+		modalEl?.open?.();
+	}
+
+	function handleSearchKeydown(e: KeyboardEvent) {
+		if (e.key.toLowerCase() === "/") {
+			const target = e.target as HTMLElement;
+			if (
+				target.tagName === "INPUT" ||
+				target.tagName === "TEXTAREA" ||
+				target.isContentEditable
+			) {
+				return;
+			}
+			e.preventDefault();
+			openSearch();
+		}
+	}
+
+	onMount(() => {
+		const onClose = () => {
+			searchOpen = false;
+		};
+		modalEl?.addEventListener("close", onClose);
+		return () => modalEl?.removeEventListener("close", onClose);
+	});
+
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;
 		if (isSidebarOpen) {
@@ -72,49 +103,84 @@
 	}
 </script>
 
-<svelte:window onkeydown={handleEscape} />
+<svelte:window
+	onkeydown={(e) => {
+		handleEscape(e);
+		handleSearchKeydown(e);
+	}}
+/>
+
+{#snippet searchTrigger()}
+	<button
+		type="button"
+		onclick={openSearch}
+		aria-haspopup="dialog"
+		aria-controls="docs-search-modal"
+		aria-expanded={searchOpen}
+		class="flex items-center w-full gap-2 rounded-lg border-2 border-bg-500 bg-bg-700 p-2 text-sm text-bg-300 transition-colors hover:border-bg-300 hover:text-bg-100 cursor-pointer"
+	>
+		<Search class="h-4 w-4 shrink-0" />
+		<span class="flex-1 truncate text-left">Search</span>
+		<kbd
+			class="hidden shrink-0 rounded border border-bg-500 bg-bg-600 px-1.5 py-0.5 text-xs text-bg-300 sm:inline"
+		>
+			/
+		</kbd>
+	</button>
+{/snippet}
 
 <div class="flex w-full justify-center">
 	<div class="flex w-full max-w-6xl px-4 font-mono text-bg-100">
 		<pagefind-config bundle-path="/pagefind/{software}/"></pagefind-config>
 
-		<pagefind-modal-trigger></pagefind-modal-trigger>
-		<pagefind-modal></pagefind-modal>
+		<pagefind-modal
+			reset-on-close="true"
+			bind:this={modalEl}
+			id="docs-search-modal"
+			data-pf-theme="dark"
+		></pagefind-modal>
 
 		<!-- Desktop Navigation sidebar -->
 		<div
-			class="hidden lg:flex sticky inset-0 h-screen max-w-60 justify-center bg-bg-800"
+			class="hidden lg:flex sticky inset-0 h-screen w-60 justify-center bg-bg-800"
 		>
-			<!-- Sidebar content -->
-			<div
-				class="sidebar-scroll flex w-full flex-col justify-between gap-8 font-mono overflow-y-auto pr-10"
-			>
-				<div class="flex w-full flex-col gap-6 py-4">
-					<!-- Links at the top of the sidebar -->
-					{#each processedSections as section}
-						<div class="flex flex-col gap-3">
-							{#if section.name}
-								<p class="font-bold text-p-blue-200">
-									{section.name}
-								</p>
-							{/if}
+			<div class="flex h-full w-full flex-col">
+				<!-- Search trigger -->
+				<div class="flex w-full pt-4 pr-10">
+					{@render searchTrigger()}
+				</div>
 
-							{#each section.links as link}
-								<a
-									class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
-									href={link.href}
-									target={link.external
-										? "_blank"
-										: undefined}
-									rel={link.external
-										? "noopener noreferrer"
-										: undefined}
-								>
-									{link.name}
-								</a>
-							{/each}
-						</div>
-					{/each}
+				<!-- Sidebar content -->
+				<div
+					class="sidebar-scroll flex w-full flex-col gap-8 font-mono overflow-y-auto pr-10"
+				>
+					<div class="flex w-full flex-col gap-6 py-4">
+						<!-- Links at the top of the sidebar -->
+						{#each processedSections as section}
+							<div class="flex flex-col gap-3">
+								{#if section.name}
+									<p class="font-bold text-p-blue-200">
+										{section.name}
+									</p>
+								{/if}
+
+								{#each section.links as link}
+									<a
+										class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
+										href={link.href}
+										target={link.external
+											? "_blank"
+											: undefined}
+										rel={link.external
+											? "noopener noreferrer"
+											: undefined}
+									>
+										{link.name}
+									</a>
+								{/each}
+							</div>
+						{/each}
+					</div>
 				</div>
 			</div>
 
@@ -156,32 +222,41 @@
 		class:-translate-x-full={!isSidebarOpen}
 		class:translate-x-0={isSidebarOpen}
 	>
-		<div class="h-full overflow-y-auto p-6 flex-1">
-			<div class="flex flex-col gap-6 font-mono text-bg-100">
-				<!-- Links -->
-				{#each processedSections as section}
-					<div class="flex flex-col gap-3">
-						{#if section.name}
-							<p class="font-bold text-p-blue-200">
-								{section.name}
-							</p>
-						{/if}
+		<div class="flex h-full w-full flex-col">
+			<!-- Search trigger -->
+			<div class="p-6 pb-3">
+				{@render searchTrigger()}
+			</div>
 
-						{#each section.links as link}
-							<a
-								onclick={closeSidebar}
-								class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
-								href={link.href}
-								target={link.external ? "_blank" : undefined}
-								rel={link.external
-									? "noopener noreferrer"
-									: undefined}
-							>
-								{link.name}
-							</a>
-						{/each}
-					</div>
-				{/each}
+			<!-- Links -->
+			<div class="h-full flex-1 overflow-y-auto px-6 pb-6">
+				<div class="flex flex-col gap-6 font-mono text-bg-100">
+					{#each processedSections as section}
+						<div class="flex flex-col gap-3">
+							{#if section.name}
+								<p class="font-bold text-p-blue-200">
+									{section.name}
+								</p>
+							{/if}
+
+							{#each section.links as link}
+								<a
+									onclick={closeSidebar}
+									class={`w-max border-b-2 transition-colors ${currentPath.includes(link.link) ? "border-bg-100 text-bg-100" : "border-transparent text-bg-200"} hover:border-b-2 hover:border-bg-100`}
+									href={link.href}
+									target={link.external
+										? "_blank"
+										: undefined}
+									rel={link.external
+										? "noopener noreferrer"
+										: undefined}
+								>
+									{link.name}
+								</a>
+							{/each}
+						</div>
+					{/each}
+				</div>
 			</div>
 		</div>
 
