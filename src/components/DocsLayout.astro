@@ -1,15 +1,8 @@
 ---
 import PanelWrapper from "./PanelWrapper.astro";
 
-const {
-	title,
-	pageTitle,
-	summary,
-	language,
-	linkPrefix,
-	software,
-	sections,
-} = Astro.props;
+const { title, pageTitle, summary, language, linkPrefix, software, sections } =
+	Astro.props;
 ---
 
 <script>
@@ -26,6 +19,84 @@ const {
 		});
 </script>
 
+<script define:vars={{ software }}>
+	const storageKey = `docs-code-language:${software ?? "default"}`;
+
+	const initCodeTabs = () => {
+		document.querySelectorAll("[data-code-tabs]").forEach((group) => {
+			const buttons = [...group.querySelectorAll("[data-code-tab]")];
+			const panels = [...group.querySelectorAll("[data-code-panel]")];
+			const available = buttons
+				.map((button) => button.dataset.codeTab)
+				.filter(Boolean);
+			const prefix = buttons[0]?.dataset.codePrefix || null;
+			const groupStorageKey = prefix ? `${storageKey}:${prefix}` : null;
+			let savedLanguage = null;
+			try {
+				savedLanguage = groupStorageKey
+					? localStorage.getItem(groupStorageKey)
+					: null;
+			} catch {}
+			const initial =
+				savedLanguage && available.includes(savedLanguage)
+					? savedLanguage
+					: available[0];
+
+			const select = (language, broadcast = false) => {
+				if (!available.includes(language)) return;
+				buttons.forEach((button) => {
+					const active = button.dataset.codeTab === language;
+					button.setAttribute("aria-selected", String(active));
+					button.toggleAttribute("data-active", active);
+				});
+				panels.forEach((panel) => {
+					panel.hidden = panel.dataset.codePanel !== language;
+				});
+				if (groupStorageKey) {
+					try {
+						localStorage.setItem(groupStorageKey, language);
+					} catch {}
+				}
+				if (broadcast && prefix)
+					document.dispatchEvent(
+						new CustomEvent("code-tab-select", {
+							detail: { prefix, language },
+						}),
+					);
+			};
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const language = button.dataset.codeTab;
+					if (language) {
+						select(language, true);
+					}
+				});
+			});
+
+			document.addEventListener("code-tab-select", (event) => {
+				const { prefix: eventPrefix, language } = event.detail;
+				if (
+					prefix &&
+					eventPrefix === prefix &&
+					available.includes(language)
+				)
+					select(language);
+			});
+
+			if (initial) select(initial);
+		});
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initCodeTabs, {
+			once: true,
+		});
+	} else {
+		initCodeTabs();
+	}
+</script>
+
 <PanelWrapper
 	title={title}
 	summary={summary}
@@ -34,9 +105,7 @@ const {
 	software={software}
 	sections={sections}
 >
-	<div
-		class="flex items-center justify-center px-4 sm:px-6 overflow-x-hidden min-w-0"
-	>
+	<div class="flex items-center justify-center overflow-x-hidden min-w-0">
 		<div
 			class="flex flex-col gap-2 font-mono max-w-4xl w-full prose-spec min-w-0"
 		>
@@ -164,11 +233,58 @@ const {
 		word-break: break-word;
 	}
 
-	.prose-spec pre {
+	.prose-spec .code-tabs {
 		background-color: var(--color-bg-700);
+		border-radius: 0.75rem;
+		border: 2px solid var(--color-bg-500);
+		overflow: hidden;
+		margin-bottom: 0.75rem;
+
+		pre {
+			border: none;
+			margin-bottom: 0;
+		}
+	}
+
+	.prose-spec .code-tab-list {
+		display: flex;
+		gap: 1rem;
+		padding: 0.75rem;
+		overflow-x: auto;
+		border-bottom: 2px solid var(--color-bg-500);
+	}
+
+	.prose-spec .code-tab {
+		border: 0;
+		background: transparent;
+		color: var(--color-bg-300);
+		cursor: pointer;
+		font: inherit;
+		font-size: 0.9rem;
+		white-space: nowrap;
+		border-bottom: 2px solid transparent;
+		transition: 100ms all ease;
+
+		&:hover {
+			color: var(--color-bg-150);
+		}
+	}
+
+	.prose-spec .code-tab[data-active] {
 		color: var(--color-bg-150);
-		padding: 1rem;
-		border-radius: 0.375rem;
+		border-bottom: 2px solid var(--color-bg-150);
+	}
+
+	.prose-spec .code-tab-panel {
+		margin: 0;
+	}
+
+	.prose-spec pre {
+		background-color: var(--color-bg-700) !important;
+		color: var(--color-bg-150);
+		padding: 0.75rem;
+		border-radius: 0.75rem;
+		border: 2px solid var(--color-bg-500);
 		overflow-x: auto;
 		margin-bottom: 0.75rem;
 		max-width: 100%;

@@ -1,0 +1,108 @@
+[
+	{
+		"name": "Getting Started",
+		"links": [
+			{
+				"name": "Introduction",
+				"link": "/getting-started/introduction"
+			},
+			{
+				"name": "Learning path",
+				"link": "/getting-started/learning-path"
+			}
+		]
+	},
+	{
+		"name": "Guides",
+		"links": [
+			{
+				"name": "MessagePack",
+				"link": "/guides/msgp"
+			},
+			{
+				"name": "Routing",
+				"link": "/guides/routing"
+			},
+			{
+				"name": "Advanced routing",
+				"link": "/guides/advanced-routing"
+			},
+			{
+				"name": "HTTP",
+				"link": "/guides/http"
+			},
+			{
+				"name": "WebSocket",
+				"link": "/guides/websocket"
+			},
+			{
+				"name": "Events & adapters",
+				"link": "/guides/events-adapters"
+			},
+			{
+				"name": "Error handling",
+				"link": "/guides/error-handling"
+			},
+			{
+				"name": "Testing",
+				"link": "/guides/testing"
+			}
+		]
+	},
+	{
+		"name": "Utility",
+		"links": [
+			{
+				"name": "Code generation",
+				"link": "/utility/neogen"
+			},
+			{
+				"name": "Debugging CLI",
+				"link": "/utility/neodebug"
+			}
+		]
+	},
+	{
+		"name": "Client SDKs",
+		"links": [
+			{
+				"name": "TypeScript",
+				"link": "/sdk/typescript"
+			},
+			{
+				"name": "Golang",
+				"link": "/sdk/go"
+			}
+		]
+	},
+	{
+		"name": "Client guides",
+		"links": [
+			{
+				"name": "HTTP",
+				"link": "/client/http"
+			},
+			{
+				"name": "WebSocket",
+				"link": "/client/websocket"
+			},
+			{
+				"name": "Events & requests",
+				"link": "/client/events-and-requests"
+			}
+		]
+	},
+	{
+		"name": "Links",
+		"links": [
+			{
+				"name": "Report an issue",
+				"link": "https://github.com/Liphium/neoroute/issues"
+			},
+			{
+				"name": "GitHub",
+				"link": "https://github.com/Liphium/neoroute"
+			}
+		]
+	}
+]

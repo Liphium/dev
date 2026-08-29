@@ -3,15 +3,21 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import NavComponent from "./Nav.svelte";
 
 const lang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname;
 const t = useTranslations(lang);
 
 const translations = {
 	name: t("nav.name"),
 	magic: t("nav.magic"),
-	scaff: t("nav.scaff"),
+	neoroute: t("nav.neoroute"),
 	main: t("nav.main"),
 	github: t("nav.github"),
 };
 ---
 
-<NavComponent lang={lang} translations={translations} client:load />
+<NavComponent
+	lang={lang}
+	currentPath={currentPath}
+	translations={translations}
+	client:load
+/>

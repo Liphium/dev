@@ -4,7 +4,7 @@ import { getLangFromUrl } from "../../i18n/utils";
 import DocsLayout from "../../components/DocsLayout.astro";
 
 export async function getStaticPaths() {
-	const pages = await getCollection("scaff");
+	const pages = await getCollection("neoroute");
 
 	const paths = pages.map((page) => {
 		const [_, ...slug] = page.id.split("/");
@@ -22,17 +22,17 @@ const { Content } = await render(page);
 const lang = getLangFromUrl(Astro.url);
 
 // Load sidebar data based on language
-const sidebarData = await import(`../../content/scaff/${lang}/sidebar.json`);
+const sidebarData = await import(`../../content/neoroute/${lang}/sidebar.json`);
 const sections = sidebarData.default;
 ---
 
 <DocsLayout
-	title={page.data.title + " - Scaff Engine Docs"}
+	title={page.data.title + " - Neoroute Docs"}
 	pageTitle={page.data.title}
 	summary={page.data.description}
 	language={lang}
-	linkPrefix={lang != "en" ? `/${lang}/scaff` : "/scaff"}
-	software="Scaff (alpha)"
+	linkPrefix={lang != "en" ? `/${lang}/neoroute` : "/neoroute"}
+	software="neoroute"
 	sections={sections}
 >
 	<Content />

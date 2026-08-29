@@ -1,0 +1,55 @@
+---
+import MatrixAscii from "../components/MatrixAscii.astro";
+import Wrapper from "../components/Wrapper.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Wrapper
+	title={t("notfound.header")}
+	summary={t("notfound.description")}
+	language={lang}
+>
+	<div
+		class="flex items-center justify-center bg-bg-800 overflow-hidden relative w-full min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-7.5rem)]"
+	>
+		<div
+			class="flex flex-col justify-center items-center gap-10 w-full font-mono"
+		>
+			<MatrixAscii
+				template={[
+					"XXX     XXX",
+					" XXX   XXX ",
+					"  XXX XXX  ",
+					"   XXXXX   ",
+					"  XXX XXX  ",
+					" XXX   XXX ",
+					"XXX     XXX",
+				]}
+				textClass="text-p-red-200 font-bold text-xl lg:text-2xl"
+				glow="var(--color-p-red-400)"
+			/>
+
+			<div
+				class="flex flex-col items-center justify-center max-w-4xl w-full gap-5 shrink-0 z-10 text-center px-4"
+			>
+				<h1 class="text-bg-100 font-bold leading-normal text-2xl mb-2">
+					{t("notfound.header")}
+				</h1>
+
+				<p class="text-bg-200 max-w-96">
+					{t("notfound.description")}
+				</p>
+
+				<a
+					class="border-b-2 border-transparent text-p-blue-200 transition-colors hover:border-p-blue-200"
+					href="/"
+				>
+					{t("notfound.back")}
+				</a>
+			</div>
+		</div>
+	</div>
+</Wrapper>

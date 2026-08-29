@@ -10,8 +10,8 @@ const magicCollection = defineCollection({
 	}),
 });
 
-const scaffCollection = defineCollection({
-	loader: glob({ base: "./src/content/scaff", pattern: "**/*.{md,mdx}" }),
+const neorouteCollection = defineCollection({
+	loader: glob({ base: "./src/content/neoroute", pattern: "**/*.{md,mdx}" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
@@ -20,5 +20,5 @@ const scaffCollection = defineCollection({
 
 export const collections = {
 	magic: magicCollection,
-	scaff: scaffCollection,
+	neoroute: neorouteCollection,
 };

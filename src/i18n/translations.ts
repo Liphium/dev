@@ -10,7 +10,7 @@ export const ui = {
 		"nav.name": "liphium.dev",
 		"nav.main": "For users",
 		"nav.magic": "Magic",
-		"nav.scaff": "Scaff",
+		"nav.neoroute": "Neoroute",
 		"nav.github": "GitHub",
 
 		// Translations for the footer
@@ -25,5 +25,11 @@ export const ui = {
 			"On this website, you'll find documentation on how to use or interact with all of Liphium's services, development tools & platforms. ",
 		"welcome.warning":
 			"Documentation is not yet available for all projects. This site is still in early stages. ",
+
+		// Translations for the 404 page
+		"notfound.header": "Page not found",
+		"notfound.description":
+			"Nothing to see here. If this is a broken link please let us know...",
+		"notfound.back": "Back to the home page",
 	},
 } as const;

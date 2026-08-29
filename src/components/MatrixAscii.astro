@@ -1,0 +1,97 @@
+---
+interface Props {
+	/** Each string is one row of the ASCII art. Spaces are left untouched. */
+	template: string[];
+	/** Tailwind classes for the <pre> element */
+	textClass?: string;
+	/** CSS color used for the text glow */
+	glow?: string;
+	/** Additional classes for the floating wrapper */
+	class?: string;
+}
+
+const {
+	template,
+	textClass = "text-p-blue-200 font-bold text-2xl lg:text-3xl",
+	glow = "var(--color-p-blue-400)",
+	class: className = "",
+} = Astro.props;
+
+const encodedTemplate = JSON.stringify(template);
+---
+
+<style>
+	@keyframes float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(-2deg);
+		}
+		50% {
+			transform: translateY(-20px) rotate(2deg);
+		}
+	}
+	@keyframes color-shift {
+		0%,
+		100% {
+			filter: hue-rotate(-15deg);
+		}
+		50% {
+			filter: hue-rotate(25deg);
+		}
+	}
+	.animate-float {
+		animation: float 8s ease-in-out infinite;
+	}
+	.matrix-logo {
+		/* Adjusted so letters don't collide. Monospace fonts use ~2:1 height/width ratio, so standard line-height often works best for ASCII block art */
+		line-height: 1;
+		letter-spacing: normal;
+		animation: color-shift 6s ease-in-out infinite;
+	}
+</style>
+
+<div class={`relative shrink-0 flex items-center justify-center animate-float ${className}`}>
+	<pre
+		class={`matrix-logo select-none ${textClass}`}
+		style={`text-shadow: 0 0 8px ${glow}; line-height: 1.1;`}
+		data-matrix-template={encodedTemplate}>{template.join("\n")}</pre
+	>
+</div>
+
+<script>
+	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>?";
+
+	const logos = document.querySelectorAll<HTMLElement>("[data-matrix-template]");
+
+	logos.forEach((logo) => {
+		const template: string[] = JSON.parse(
+			logo.dataset.matrixTemplate ?? "[]",
+		);
+		if (template.length === 0) return;
+
+		let currentState = template.map((row) => row.split(""));
+
+		const render = () => {
+			let result = "";
+
+			for (let r = 0; r < template.length; r++) {
+				for (let c = 0; c < template[r].length; c++) {
+					if (template[r][c] !== " ") {
+						// Pure random chance to change on any given frame (5% probability)
+						if (Math.random() < 0.05) {
+							currentState[r][c] = chars.charAt(
+								Math.floor(Math.random() * chars.length),
+							);
+						}
+					}
+					result += currentState[r][c];
+				}
+				if (r < template.length - 1) result += "\n";
+			}
+			logo.textContent = result;
+		};
+
+		render();
+		setInterval(render, 50);
+	});
+</script>

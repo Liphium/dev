@@ -1,39 +1,10 @@
 ---
+import MatrixAscii from "./MatrixAscii.astro";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
-
-<style>
-	@keyframes float {
-		0%,
-		100% {
-			transform: translateY(0) rotate(-2deg);
-		}
-		50% {
-			transform: translateY(-20px) rotate(2deg);
-		}
-	}
-	@keyframes color-shift {
-		0%,
-		100% {
-			filter: hue-rotate(-15deg);
-		}
-		50% {
-			filter: hue-rotate(25deg);
-		}
-	}
-	.animate-float {
-		animation: float 8s ease-in-out infinite;
-	}
-	#matrix-logo {
-		/* Adjusted so letters don't collide. Monospace fonts use ~2:1 height/width ratio, so standard line-height often works best for ASCII block art */
-		line-height: 1;
-		letter-spacing: normal;
-		animation: color-shift 6s ease-in-out infinite;
-	}
-</style>
 
 <div
 	class="flex items-center justify-center bg-bg-800 overflow-hidden relative w-full mb-10 min-h-[calc(100vh-5rem)] sm:mb-30 sm:min-h-[calc(100vh-7.5rem)]"
@@ -41,19 +12,16 @@ const t = useTranslations(lang);
 	<div
 		class="flex flex-col justify-center items-center gap-10 w-full font-mono"
 	>
-		<div
-			class="relative shrink-0 flex items-center justify-center animate-float"
-		>
-			<pre
-				id="matrix-logo"
-				class="text-p-blue-200 font-bold text-2xl lg:text-3xl select-none"
-				style="text-shadow: 0 0 8px var(--color-p-blue-400); line-height: 1.1;">LI  PHIU
-M.    SPACEI
-SO  URNE
-XT      ADVE
-NT  UR
-ESEEYOUTHERE</pre>
-		</div>
+		<MatrixAscii
+			template={[
+				"LI  PHIU    ",
+				"M.    SPACEI",
+				"SO  URNE    ",
+				"XT      ADVE",
+				"NT  UR      ",
+				"ESEEYOUTHERE",
+			]}
+		/>
 
 		<div
 			class="flex flex-col items-center justify-center max-w-4xl w-full gap-5 shrink-0 z-10 text-center px-4"
@@ -74,41 +42,3 @@ ESEEYOUTHERE</pre>
 		</div>
 	</div>
 </div>
-
-<script>
-	const template = [
-		"LI  PHIU    ",
-		"M.    SPACEI",
-		"SO  URNE    ",
-		"XT      ADVE",
-		"NT  UR      ",
-		"ESEEYOUTHERE",
-	];
-	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>?";
-
-	const matrixLogo = document.getElementById("matrix-logo");
-
-	if (matrixLogo) {
-		let currentState = template.map((row) => row.split(""));
-
-		setInterval(() => {
-			let result = "";
-
-			for (let r = 0; r < template.length; r++) {
-				for (let c = 0; c < template[r].length; c++) {
-					if (template[r][c] !== " ") {
-						// Pure random chance to change on any given frame (5% probability)
-						if (Math.random() < 0.05) {
-							currentState[r][c] = chars.charAt(
-								Math.floor(Math.random() * chars.length),
-							);
-						}
-					}
-					result += currentState[r][c];
-				}
-				if (r < template.length - 1) result += "\n";
-			}
-			matrixLogo.textContent = result;
-		}, 50);
-	}
-</script>

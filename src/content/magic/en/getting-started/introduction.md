@@ -46,6 +46,18 @@ We would also love to upstream your driver, so feel free to **create a pull requ
 - [CI/CD Support](/magic/documentation/ci-cd/)
 - Run any dockerized services along with your app using [custom drivers](/magic/documentation/custom-drivers/)
 
+## Use with AI
+
+We provide the entire documentation you're seeing right now for AI as well. It's index is available at [ai.liphium.dev/magic/index.md](https://ai.liphium.dev/magic/index.md).
+
+You can install our `liphium-magic` skill that contains this information and some rules for Magic using:
+
+```sh
+npx skills add liphium/dev@liphium-magic
+```
+
+Your agent will love it.
+
 ## Add Magic to your project
 
 **Note:** This is just the quick version of this guide, you'll find a much more detailed version [on this page](/magic/documentation/integrating-magic).
