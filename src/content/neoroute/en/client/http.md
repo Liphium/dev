@@ -5,6 +5,8 @@ description: "How to use the different client SDKs to connect to Neoroute using 
 
 No matter what client SDK you use, this guide will teach you how to connect to your server using a HTTP transporter.
 
+**Hint:** You can make your life a lot easier by using [code generation](/neoroute/utility/neogen). Just pointing it out, this guide will basically be equivalent.
+
 ## Creating the client
 
 Before opening the actual connection, you need to create a `Client` (this is the object you'll be using to send requests).

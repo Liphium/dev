@@ -5,6 +5,8 @@ description: "How to use the different client SDKs to connect to Neoroute using 
 
 No matter what client SDK you use, this guide will teach you how to connect to your server using a WebSocket transporter.
 
+**Hint:** You can make your life a lot easier by using [code generation](/neoroute/utility/neogen). Just pointing it out, this guide will basically be equivalent.
+
 ## Creating the client
 
 Before opening the actual connection, you need to create a client (this is the object you'll be using to send requests).
@@ -38,7 +40,25 @@ transporter := websocket.NewWebSocketTransporter(c)
 ```ts prefix="sdk"
 // Import @liphium/neoroute-ts
 
-// TODO
+// ...
+
+// 1. Create a new client
+const client = new Client({
+	// Called for any errors that happen (also in the transporter).
+	errorHandler: (err: Error) => {
+		console.error("websocket error:", err);
+
+		// In case this error handler was called from a request, this
+		// will be returned in the UserError.
+		return "Something went wrong!";
+	},
+});
+
+// 2. Create the WebSocket transporter
+const transporter = new WebSocketTransporter(client, {
+	// Implement to handle the WebSocket connection opening
+	onOpen: () => {},
+});
 ```
 
 ## Connecting to the server
@@ -56,7 +76,10 @@ done, err := transporter.Connect(url)
 ```
 
 ```ts prefix="sdk"
-// TODO
+// Just connect to the URL, you don't actually have to handle the error here.
+// Any errors from this will be forwarded to errorHandler, if the connection opens
+// onOpen is called.
+transporter.connect("ws://localhost:6121/ws");
 ```
 
 ## Closing the connection
@@ -69,7 +92,8 @@ err := transporter.Close()
 ```
 
 ```ts prefix="sdk"
-// TODO
+// This will also call the errorHandler, regardless of a closing error.
+transporter.close();
 ```
 
 ## From now

@@ -44,7 +44,15 @@ if err != nil {
 ```
 
 ```ts prefix="sdk"
-// TODO
+const response = await client.Send<SomeRequest, SomeResponse>("your_route", {
+	/* data */
+});
+if (response instanceof UserError) {
+	console.error("something went wrong with some_route:", response);
+	return;
+}
+
+// You can now safely use response
 ```
 
 ## Receiving events
@@ -65,7 +73,9 @@ func SomeFunction(c *client.Ctx, event SomeEvent) { /* your logic */ }
 ```
 
 ```ts prefix="sdk"
-
+client.receive("some_event", (c: Ctx, event: YourEvent) => {
+	/* handle */
+});
 ```
 
 ### Why only one event handler?

@@ -59,9 +59,11 @@
 </script>
 
 <!-- Desktop nav -->
-<div class="hidden md:flex justify-center sticky top-1 left-0 z-10 px-4 py-2">
+<div
+	class="hidden md:flex justify-center sticky top-1 left-0 z-10 px-4 py-2 pointer-events-none"
+>
 	<div
-		class="flex items-center gap-6 rounded-full border-2 border-bg-500 px-4 py-2 font-mono text-bg-100 backdrop-blur-2xl"
+		class="flex items-center gap-6 pointer-events-auto rounded-full border-2 border-bg-500 px-4 py-2 font-mono text-bg-100 backdrop-blur-2xl"
 	>
 		<!-- Logo and brand -->
 		<div class="flex items-center gap-2">
