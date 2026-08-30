@@ -58,4 +58,6 @@ We hope you enjoy your new debugger. But let's actually learn how to use it.
 
 ## Usage
 
-**TODO** (with images plz)
+While Neodebug is designed to be as simple as possible, it can be a little much in the beginning. Showing everything here with images is something we could do, but I think a video makes more sense here.
+
+So go watch it: [https://www.youtube.com/watch?v=EM6WdF-U8go](https://www.youtube.com/watch?v=EM6WdF-U8go).
