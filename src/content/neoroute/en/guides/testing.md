@@ -39,7 +39,7 @@ func TestGetSecret(t *testing.T) {
 		session := neoroute.NewTestingSession(neoroute.NoData{}, "session1")
 
 		// The string there (currently get_secret) is the route name
-		err := GetSecret(session.ResCtx[ExampleResponse]("get_secret"), ExampleRequest{
+		err := GetSecret(session.NewTestingResCtx[ExampleResponse]("get_secret"), ExampleRequest{
 			Password: "invalid",
 		})
 
@@ -50,7 +50,7 @@ func TestGetSecret(t *testing.T) {
 		session := neoroute.NewTestingSession(neoroute.NoData{}, "session1")
 
 		// The string there (currently get_secret) is the route name
-		err := GetSecret(session.ResCtx[ExampleResponse]("get_secret"), ExampleRequest{
+		err := GetSecret(session.NewTestingResCtx[ExampleResponse]("get_secret"), ExampleRequest{
 			Password: "secret_password",
 		})
 
@@ -68,7 +68,7 @@ You should of course test more thoroughly in actual applications, but this shows
 Here are some more advanced use cases:
 
 ```go name="Run after functions" key="after"
-ctx := session.ResCtx[ExampleResponse]("get_secret")
+ctx := session.NewTestingResCtx[ExampleResponse]("get_secret")
 err := GetSecret(ctx, ExampleRequest{
 	Password: "secret_password",
 })
@@ -81,12 +81,12 @@ neoroute.EvaluateCtxTesting(ctx)
 // Neoroute's assertions are built on gocmp, import it for advanced stuff
 import "github.com/google/go-cmp/cmp/cmpopts"
 
-ctx := session.ResCtx[ExampleResponse]("get_secret")
+ctx := session.NewTestingResCtx[ExampleResponse]("get_secret")
 err := GetSecret(ctx, ExampleRequest{
 	Password: "secret_password",
 })
 
-// Here this doesn't make sense, but you can use all kinds of things from cmpopts. 
+// Here this doesn't make sense, but you can use all kinds of things from cmpopts.
 // Here is a demo of ignoring Secret for comparison:
 neoroute.AssertResponse(t, err, ExampleResponse{
 	Secret: "Apples are red.",
@@ -123,7 +123,7 @@ events := neoroute.AssertEvents(t, adapter, 1 /* number of events */)
 neoroute.AssertEvent(t, events, 0 /* index */, SomeEvent{ /* ... */ })
 
 // Optional: You can also pass any cmp.Option to this for like this:
-neoroute.AssertEvent(t, events, 0, SomeEvent{ /* ... */ }, 
+neoroute.AssertEvent(t, events, 0, SomeEvent{ /* ... */ },
 	cmpopts.IgnoreFields(SomeEvent{}, "SomeField"))
 ```
 
