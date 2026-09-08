@@ -23,6 +23,7 @@ Magic only officially supports a limited list of services, but you can easily in
 
 - [PostgreSQL](/magic/databases/postgresql/) v18
 - [Redis](/magic/databases/redis/) v7-8
+- [SurrealDB](/magic/databases/surrealdb/) v3
 
 ### Supported S3 Storage
 

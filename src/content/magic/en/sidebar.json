@@ -55,6 +55,10 @@
 			{
 				"name": "Redis",
 				"link": "/databases/redis"
+			},
+			{
+				"name": "SurrealDB",
+				"link": "/databases/surrealdb"
 			}
 		]
 	},
