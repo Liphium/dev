@@ -19,6 +19,27 @@ group.RoutePing("some-ping", func(c *neoroute.Ctx[neoroute.NoData]) {})
 
 This is useful when you have a lot of routes that are related or in another module. But another thing they are useful for is middlewares, so let's learn what those are finally.
 
+## Configuring routes (max request size)
+
+You can add size limitations for requests directly in the router like this:
+
+```go
+router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
+	MaxRequestSize: 1024, // In bytes (default: 2 MB, 0 = unlimited)
+	// ...
+})
+```
+
+You can also customize the max request size for a route directly like this:
+
+```go
+router.Route("some-route", /* route function */, neoroute.WithMaxRequestSize(512))
+```
+
+We may also add more options into this in the future. If you feel like we're missing anything, let us know!
+
+Just for reference, the reason we don't do this with middlewares like many other frameworks is that Neoroute supports all kinds of different client-server relationships (e.g. Request-Response for HTTP and Client-Server for WebSocket).
+
 ## Middlewares
 
 A middleware is a function that lives in front of your actual route functions. You can use them to stop requests before they reach the route function. This is useful for things like checking permissions.
