@@ -74,6 +74,59 @@
 	scroll-padding-top: 5rem;
 }
 
+/* Keep page, sidebar, and code-block scrollbars quiet against the dark UI. */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #363636 var(--color-bg-800);
+}
+
+*:hover,
+*:focus-within {
+	scrollbar-color: #535353 var(--color-bg-800);
+}
+
+/* Chromium/WebKit allow an inset, rounded thumb with no visible track or buttons. */
+@supports selector(::-webkit-scrollbar) {
+	*,
+	*:hover,
+	*:focus-within {
+		scrollbar-width: auto;
+		scrollbar-color: auto;
+	}
+
+	*::-webkit-scrollbar {
+		width: 12px;
+		height: 12px;
+		background: var(--color-bg-800);
+	}
+
+	*::-webkit-scrollbar-track,
+	*::-webkit-scrollbar-corner {
+		/* Match the page so shadows cannot show through the scrollbar lane. */
+		background: var(--color-bg-800);
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: #363636;
+		background-clip: padding-box;
+		border: 3px solid var(--color-bg-800);
+		border-radius: 999px;
+	}
+
+	*:hover::-webkit-scrollbar-thumb,
+	*:focus-within::-webkit-scrollbar-thumb {
+		background-color: #535353;
+	}
+
+	*::-webkit-scrollbar-thumb:hover {
+		background-color: #717171;
+	}
+
+	*::-webkit-scrollbar-button {
+		display: none;
+	}
+}
+
 /* Pagefind Component UI theming (dark only, matches site palette) */
 :root {
 	--pf-font: "JetBrains Mono", monospace;
