@@ -29,7 +29,7 @@ router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
 	// Defaults to 1 minute (= 0 value). -1 means no timeout.
 	ReadTimeout: 1 * time.Minute,
 
-	// Maximum size of a request body. In bytes (default: 2 MB, 0 = unlimited).
+	// Maximum size of a request body. In bytes (default (for 0 value): 2 MB, -1 = unlimited).
 	MaxRequestSize: 1024,
 })
 ```

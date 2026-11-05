@@ -38,8 +38,8 @@ hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Co
 
 	// Accept options for the underlying websocket library we use.
 	AcceptOptions: &websocket.AcceptOptions{
-		// We usually disable verify, because we don't want to deal with TLS certificates
-		// in development. If you turn this on, you'll need a valid certificate.
+		// We usually disable verify, because we don't want to deal with origin verification (CORS)
+		// while testing. You should probably configure this properly for production.
 		InsecureSkipVerify: true,
 	},
 
@@ -117,7 +117,7 @@ If your framework is not covered here, you can just look up how to mount a `http
 
 ### Adding events
 
-If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events). When you actually have one, you can add it to the transporter like this:
+If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events-and-requests). When you actually have one, you can add it to the transporter like this:
 
 ```go
 transporter.AddEventRegistry(registry)

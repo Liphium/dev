@@ -16,8 +16,8 @@ This is an abstraction we put over the actual connection since you could also be
 ```go prefix="sdk"
 // Import both the transporter (client version) and the client package.
 import (
-	"github.com/Liphium/neoroute/client"
-	"github.com/Liphium/neoroute/client/transporter/http"
+	client "github.com/Liphium/neoroute/client/sdk/v2"
+	"github.com/Liphium/neoroute/client/transporter/http/v2"
 )
 
 // ...
@@ -47,7 +47,10 @@ const client = new Client({
 	// THIS IS REQUIRED.
 	// This also has the responsibility of converting any error into a string, that
 	// will be returned inside of the UserError returned by send functions.
-	errorHandler: (err: Error) => console.log("Global HTTP receiver error:", err),
+	errorHandler: (err: Error) => {
+		console.log("Global HTTP receiver error:", err);
+		return "Something went wrong"; // The string that will be in UserError
+	},
 });
 
 // 2. Let the client send HTTP requests
@@ -64,4 +67,4 @@ applyHTTP(
 
 ## Sending requests
 
-Depending on what SDK you use, you can now send requests to your server using HTTP. Follow [this guide](/neoroute/client/requests) to learn how.
+Depending on what SDK you use, you can now send requests to your server using HTTP. Follow [this guide](/neoroute/client/events-and-requests) to learn how.

@@ -80,13 +80,20 @@ Especially for games, this is kind of important and we've already got a test imp
 
 We'll update you when we have it ready.
 
-### Closing the code generation moat
+### Neodebug improvements
 
-While [neogen](/neoroute/utility/neogen) is already super powerful and can generate a lot of code for you, there are certain aspects of [msgp](https://github.com/tinylib/msgp), the library we use for MessagePack, that we don't currently support.
+Neodebug can already be a really powerful tool when testing neoroute servers. However, there are still a few things we would like to add to it:
 
-Those are mainly the following things:
+- **MCP Support**: Find a way to let AI agents use it to test servers. Makes it a whole lot easier for them to identify problems.
+- **Better mouse support**: Selecting with the mouse is currently a little awkward in neodebug. We want to make it a lot easier to select text and copy it to the clipboard.
+- **Debugging running connections**: Just an idea, but it would be really nice to have a tool that can see what's going on in connections and not just being limited to sending requests.
 
-- **Tuples:** When you don't have string keys anymore and just put everything in one huge array. This would unlock better encoding and decoding performance across the board.
-- **Custom types:** While MessagePack provides a lot of types, when you do something with inheritance or have different kinds of structured objects in your messages, you might want to use custom types. While we of course can't port code from Golang to TypeScript, we would at least like to give you the option to define custom encoding and decoding functions instead of relying on the generator.
+We'll keep you posted if we add anything here.
 
-We don't know when we'll work on any of these features, but this is what the future holds for Neoroute. If you of course feel like anything important is missing from the framework, let use know!
+### MCP support
+
+We know this might sound like it's impossible, but having routes exported to a MCP server has been a dream I've had for a long time.
+
+As AI gets more important this is something we'll look into. Since we're using MessagePack, this is probably easier said then done.
+
+I've got ideas for how we could implement this, so it's on this list, but it probably won't be worked on for a while.

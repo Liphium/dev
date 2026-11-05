@@ -44,7 +44,7 @@ if err != nil {
 ```
 
 ```ts prefix="sdk"
-const response = await client.Send<SomeRequest, SomeResponse>("your_route", {
+const response = await client.send<SomeRequest, SomeResponse>("your_route", {
 	/* data */
 });
 if (response instanceof UserError) {

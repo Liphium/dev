@@ -9,7 +9,7 @@ The base of all routing in Neoroute is the `Router` object. It's gonna be routin
 router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
 	// This function is pretty important, it converts any error you return from a handler
 	// function to an error message that will be sent to the client.
-	ErrorHandler: func(err error, c *Ctx[D]) string {}
+	ErrorHandler: func(err error, c *Ctx[neoroute.NoData]) string {}
 })
 ```
 
@@ -54,7 +54,7 @@ type SomeRequest struct { /* some fields */ }
 type SomeResponse struct { /* some fields */ }
 
 router.Route("some-route", func(c *neoroute.ResCtx[neoroute.NoData, SomeResponse], req SomeRequest) error {
-    return c.Respond(ResponseData{ /* fill out your struct */ })
+    return c.Respond(SomeResponse{ /* fill out your struct */ })
 })
 ```
 
@@ -64,8 +64,8 @@ router.Route("some-route", func(c *neoroute.ResCtx[neoroute.NoData, SomeResponse
 
 type SomeResponse struct { /* some fields */ }
 
-router.Route("some-route", func(c *neoroute.ResCtx[neoroute.NoData, SomeResponse]) error {
-	return c.Respond(ResponseData{ /* fill out your struct */ })
+router.RouteNoRequest("some-route", func(c *neoroute.ResCtx[neoroute.NoData, SomeResponse]) error {
+	return c.Respond(SomeResponse{ /* fill out your struct */ })
 })
 ```
 
@@ -92,8 +92,8 @@ router.RouteOkNoRequest("some-route", func(c *neoroute.OkCtx[neoroute.NoData]) e
 
 type SomeRequest struct { /* some fields */ }
 
-router.RouteNoResponse("some-route", func(c *neoroute.Ctx[neoroute.NoData], req SomeRequest) error {
-    return c.RespondOk()
+router.RouteNoResponse("some-route", func(c *neoroute.Ctx[neoroute.NoData], req SomeRequest) {
+	 // Do something
 })
 ```
 

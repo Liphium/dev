@@ -19,7 +19,7 @@ That `ErrorHandler` converts any error that happens to a `string` message that c
 
 ### Default value
 
-The default `ErrorHandler` always returns `"Something went wrong"` and logs the error to the console using Neoroute's default logger. Learn how to change it below.
+The default `ErrorHandler` always returns `"Internal Server Error"` and logs the error to the console using Neoroute's default logger. Learn how to change it below.
 
 ## Setting the logger
 

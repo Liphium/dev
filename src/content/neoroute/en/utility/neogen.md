@@ -14,7 +14,7 @@ Neoroute supports this code generation functionality for **all official client S
 It's just this one command (I hope you have [the Go toolchain installed](https://go.dev/dl)):
 
 ```sh
-go install github.com/Liphium/neoroute/cmd/neogen/v2@latest
+go install github.com/Liphium/neoroute/v2/cmd/neogen@latest
 ```
 
 On top of that, any of the things Neoroute [requires by default](/neoroute/getting-started/introduction) (like msgp) need to be installed as well.
@@ -38,7 +38,7 @@ This is how you use it (the neoschema packages is included in neoroute by defaul
 g := neoschema.NewGenerator()
 g.Transporter("<NAME>", t) // t is any transporter you created
 
-// Then let the program panic and print the schema when --neo-generate is set
+// Then let the program exits successfully and prints the schema when --neo-generate is set
 g.PrintIfDesired()
 ```
 
@@ -86,7 +86,7 @@ neogen -target typescript -v
 // For Go we recommend you create a separate folder for the generated code.
 // You can then create a file in there with the following comment:
 
-//go:generate neogen -path './path/to/your/server' -target go
+//go:generate neogen -path "./path/to/your/server" -target go
 
 // Whenever you now run "go generate ./..." in your project, the definitions will
 // be generated.
@@ -165,13 +165,13 @@ export class YourConnector /* extends SomeTransporter */ {
 // ...
 
 // Creating a new connector
-const connector = new YourConnector();
+const connector = new YourConnector(/* some parameters */);
 
 // Registering an event handler
 connector.onYourEvent((event) => {});
 
 // Sending a request
-let response = connector.yourRoute(/* request object */);
+let response = await connector.yourRoute(/* request object / options */);
 ```
 
 ## Advanced
@@ -185,7 +185,7 @@ To properly use [tuples](/neoroute/guides/msgp#tuples) with code generation, you
 For this reason, if your struct is marked with a `//msgp:tuple` comment, please add the following to your struct:
 
 ```go
-//msg:tuple Person
+//msgp:tuple Person
 type Person struct {
 	neoschema.IsTuple `msg:"-"`
 	/* other fields */

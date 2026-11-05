@@ -3,7 +3,7 @@ title: "Neoroute Go Client SDK"
 description: "How to connect to a Neoroute server straight from Golang."
 ---
 
-Official SDK for **Go** - [GitHub](https://github.com/Liphium/neoroute/tree/main/client) - [go doc](https://pkg.go.dev/github.com/Liphium/neoroute/client)
+Official SDK for **Go** - [GitHub](https://github.com/Liphium/neoroute/tree/main/client/sdk) - [go doc](https://pkg.go.dev/github.com/Liphium/neoroute/client/sdk/v2)
 
 ## Installation
 

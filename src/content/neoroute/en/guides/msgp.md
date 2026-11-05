@@ -15,7 +15,7 @@ Just run the following command to install the CLI for code generation (this is d
 go install github.com/tinylib/msgp@latest
 ```
 
-As with all of the times you use `go install`, make sure your `$GOHOME/bin` directory is in your path. Otherwise the following examples will not work.
+As with all of the times you use `go install`, make sure your `$GOPATH/bin` directory is in your path. Otherwise the following examples will not work.
 
 ## Using msgp
 
