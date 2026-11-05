@@ -12,7 +12,7 @@ Using a HTTP transporter with Neoroute allows you to accept requests from client
 Install the `http_transporter` package with `go`:
 
 ```sh
-go get -u github.com/Liphium/neoroute/transporter/http@latest
+go get -u github.com/Liphium/neoroute/transporter/http/v2@latest
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ You can now create a new transporter like this:
 ```go
 import (
 	"net/http"
-	http_transporter "github.com/Liphium/neoroute/transporter/http"
+	http_transporter "github.com/Liphium/neoroute/transporter/http/v2"
 )
 
 hook, t := http_transporter.NewTransporter(router, http_transporter.Config[neoroute.NoData]{

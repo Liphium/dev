@@ -10,7 +10,7 @@ Using a WebSocket transporter with Neoroute allows clients to send requests to y
 Install the `websocket_transporter` package with `go`:
 
 ```sh
-go get -u github.com/Liphium/neoroute/transporter/websocket@latest
+go get -u github.com/Liphium/neoroute/transporter/websocket/v2@latest
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ You can now create a new transporter like this:
 import (
 	"net/http"
 	"github.com/coder/websocket"
-	websocket_transporter "github.com/Liphium/neoroute/transporter/websocket"
+	websocket_transporter "github.com/Liphium/neoroute/transporter/websocket/v2"
 )
 
 hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Config[neoroute.NoData]{

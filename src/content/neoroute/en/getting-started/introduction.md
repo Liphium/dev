@@ -10,7 +10,7 @@ Neoroute is a **batteries-included remote procedure call (RPC) framework** for G
 To use Neoroute you need Go version **1.27** or higher. Just add it to your project using `go`:
 
 ```bash
-go get -u github.com/Liphium/neoroute@latest
+go get -u github.com/Liphium/neoroute/v2@latest
 ```
 
 ## Features

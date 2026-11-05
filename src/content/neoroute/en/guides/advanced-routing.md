@@ -19,26 +19,34 @@ group.RoutePing("some-ping", func(c *neoroute.Ctx[neoroute.NoData]) {})
 
 This is useful when you have a lot of routes that are related or in another module. But another thing they are useful for is middlewares, so let's learn what those are finally.
 
-## Configuring routes (max request size)
+## Configuring routes
 
-You can add size limitations for requests directly in the router like this:
+You can configure size limitations and other options for requests directly in the router like this:
 
 ```go
 router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
-	MaxRequestSize: 1024, // In bytes (default: 2 MB, 0 = unlimited)
-	// ...
+	// The maximum time a request can take to arrive before timing it out.
+	// Defaults to 1 minute (= 0 value). -1 means no timeout.
+	ReadTimeout: 1 * time.Minute,
+
+	// Maximum size of a request body. In bytes (default: 2 MB, 0 = unlimited).
+	MaxRequestSize: 1024,
 })
 ```
 
-You can also customize the max request size for a route directly like this:
+You can also customize the options for a route directly like this:
 
-```go
+```go name="Max request size" key="size"
 router.Route("some-route", /* route function */, neoroute.WithMaxRequestSize(512))
+```
+
+```go name="Read timeout" key="timeout"
+router.Route("some-route", /* route function */, neoroute.WithReadTimeout(-1))
 ```
 
 We may also add more options into this in the future. If you feel like we're missing anything, let us know!
 
-Just for reference, the reason we don't do this with middlewares like many other frameworks is that Neoroute supports all kinds of different client-server relationships (e.g. Request-Response for HTTP and Client-Server for WebSocket).
+Just for reference, the reason we don't do this with middlewares like many other frameworks is that Neoroute supports all kinds of different client-server relationships (e.g. Request-Response for HTTP and Client-Server for WebSocket). This means these kind of things can only be checked on the transporter level.
 
 ## Middlewares
 
