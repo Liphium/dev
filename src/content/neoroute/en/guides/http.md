@@ -5,7 +5,7 @@ description: "How to allow clients to send requests to your Neoroute server over
 
 Using a HTTP transporter with Neoroute allows you to accept requests from clients over HTTP. However, unlike traditional HTTP frameworks, all of the routes are called through one central endpoint.
 
-**Note:** The HTTP transporter **only supports accepting requests**. Events can not be sent through it since HTTP is a request-response protocol. If you want to send events as well, you could consider [WebSocket](/neoroute/transporter/websocket).
+**Note:** The HTTP transporter **only supports accepting requests**. Events can not be sent through it since HTTP is a request-response protocol. If you want to send events as well, you could consider [WebSocket](/neoroute/guides/websocket).
 
 ## Installation
 
@@ -54,19 +54,17 @@ import "net/http"
 // 1. Register the hook as a handler for the root path
 mux := http.NewServeMux()
 
-// 2. Mount the hook from NewTransporter into the mux
+// 2. Mount the hook and accept CORS preflight requests
 mux.HandleFunc("POST /", hook)
+mux.HandleFunc("OPTIONS /", func(w http.ResponseWriter, r *http.Request) {})
 
-// 3. Configure CORS so your endpoint can actually be called
-mux.HandleFunc("OPTIONS /", func(w http.ResponseWriter, r *http.Request) {
+// 3. Set CORS headers for both preflight and actual requests
+http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.WriteHeader(http.StatusOK)
-})
-
-// 4. Listen for HTTP requests on port 8080
-http.ListenAndServe(":8080", mux)
+	mux.ServeHTTP(w, r)
+}))
 ```
 
 ```go prefix="framework" name="Fiber" key="fiber"

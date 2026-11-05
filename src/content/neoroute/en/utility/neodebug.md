@@ -74,7 +74,7 @@ neodebug.Run(config.DebugConfig{
 				/* ... */
 			},
 		},
-	}
+	},
 })
 ```
 

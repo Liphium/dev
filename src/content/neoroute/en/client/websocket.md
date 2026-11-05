@@ -16,15 +16,15 @@ This is an abstraction we put over the actual connection since you could also be
 ```go prefix="sdk"
 // Import both the transporter (client version) and the client package.
 import (
-	"github.com/Liphium/neoroute/client"
-	"github.com/Liphium/neoroute/client/transporter/websocket"
+	"github.com/Liphium/neoroute/client/sdk/v2"
+	"github.com/Liphium/neoroute/client/transporter/websocket/v2"
 )
 
 // ...
 
 // 1. Create a new client (there are more options, we just showcase the most important ones)
 c := client.NewClient(client.Config{
-	// The ErrorHandler will be called for every error that happens inside of the client.
+	// ErrorHandler receives errors that cannot be returned to the caller.
 	//
 	// Errors like that aren't returned from requests, like invalid events, are also returned
 	// through here which is why we recommend definitely using this for WebSocket.
@@ -98,4 +98,4 @@ transporter.close();
 
 ## From now
 
-Depending on what SDK you use, you can now [send requests](/neoroute/client/requests) to your server or [receive events](/neoroute/client/events) from your server over the WebSocket connection. Click on any of the links to learn more about those capabilities.
+Depending on what SDK you use, you can now [send requests to your server or receive events from your server](/neoroute/client/events-and-requests) over the WebSocket connection. Click on any of the links to learn more about those capabilities.

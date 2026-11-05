@@ -6,10 +6,12 @@ description: "How Neoroute's Router works and the different routing functions."
 The base of all routing in Neoroute is the `Router` object. It's gonna be routing requests to all of your different routes. You can create one like this:
 
 ```go
-router := neoroute.NewRouter[neoroute.NoData](neoroute.Config{
+router := neoroute.NewRouter[neoroute.NoData](neoroute.Config[neoroute.NoData]{
 	// This function is pretty important, it converts any error you return from a handler
 	// function to an error message that will be sent to the client.
-	ErrorHandler: func(err error, c *Ctx[neoroute.NoData]) string {}
+	ErrorHandler: func(err error, c *neoroute.Ctx[neoroute.NoData]) string {
+		return "Something went wrong!"
+	},
 })
 ```
 

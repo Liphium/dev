@@ -28,7 +28,7 @@ if err != nil { /* handle error */ }
 
 // 2. Create a new client (there are more options, we just showcase the most important ones)
 c := client.NewClient(client.Config{
-	// The ErrorHandler will be called for every error that happens inside of the client.
+	// ErrorHandler receives errors that cannot be returned to the caller.
 	// For HTTP though, you should probably handle the errors directly when sending requests.
 	ErrorHandler: func(err error) {
 		log.Println("HTTP error", err)

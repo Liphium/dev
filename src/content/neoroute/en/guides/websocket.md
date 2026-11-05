@@ -49,7 +49,7 @@ hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Co
 	EnterNetworkFunc: func(session *neoroute.Session[neoroute.NoData]) {},
 
 	// Function called when a connection is closed.
-	DisconnectHandler: func(session *neoroute.Session[neoroute.NoData]) {}
+	DisconnectHandler: func(session *neoroute.Session[neoroute.NoData]) {},
 })
 ```
 
@@ -117,7 +117,7 @@ If your framework is not covered here, you can just look up how to mount a `http
 
 ### Adding events
 
-If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events-and-requests). When you actually have one, you can add it to the transporter like this:
+If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events-adapters). When you actually have one, you can add it to the transporter like this:
 
 ```go
 transporter.AddEventRegistry(registry)
