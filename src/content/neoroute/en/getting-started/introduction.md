@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "Neoroute."
+description: "A brief overview of Neoroute and all of its features."
 ---
 
 Neoroute is a **batteries-included remote procedure call (RPC) framework** for Golang, running exclusively on top of Web primitives (currently HTTP and WebSocket). With our rich tooling, you get **code generation**, an **interactive debugger** for sending requests and a lot more with minimal setup. We have everything you love about RPC and web frameworks, all in one **fully integrated package and ecosystem**.
