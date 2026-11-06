@@ -135,6 +135,7 @@
 		}
 	}}
 	class="fixed inset-0 bg-bg-800/80 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+	class:invisible={!isMenuOpen}
 	class:opacity-0={!isMenuOpen}
 	class:opacity-100={isMenuOpen}
 	class:pointer-events-none={!isMenuOpen}

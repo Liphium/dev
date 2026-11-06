@@ -38,7 +38,17 @@ Their properties explained:
 
 If there is no response data and no error returned, it means that the client will not expect any confirmation for the request they sent. All of the different routes are handy in different use cases. Choose which route you want to use based on your minimum requirements.
 
-## Naming conventions for routes
+## Rules for routes
+
+We have a few rules that are enforced by the router when defining routes. Please follow them to make sure you don't hit weird behavior.
+
+### Supported types
+
+Neoroute only supports `struct` or a pointer to a struct as a request, response and event type. This is mainly done to keep code generation and schemas simple.
+
+You should also keep in mind that you sometimes have to pass your struct into a route as a pointer. This is because `msgp` generates the encoding and decoding functions on the pointer type for large structs (mainly for performance reasons). If you don't do this, you will get a build error by the compiler.
+
+### Naming
 
 For naming your routes, we only the following characters: `-`, `/`, `_`, `~`, `.`, all lowercase letters (`a`-`z`) and all numbers (`0`-`9`). Any uppercase letters will be made lowercase and any other characters will be truncated, so please just don't use them.
 

@@ -5,6 +5,7 @@
 	src: url("../assets/mono.ttf") format("truetype");
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
@@ -177,4 +178,10 @@ pagefind-modal dialog.pf-modal {
 
 pagefind-input input {
 	caret-color: var(--color-p-blue-100);
+}
+
+/* Keep client-side navigation as an immediate swap without snapshot animations. */
+html {
+	view-transition-name: none;
+	background-color: var(--color-bg-800);
 }

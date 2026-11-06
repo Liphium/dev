@@ -152,6 +152,7 @@
 
 				<!-- Sidebar content -->
 				<div
+					data-sidebar-scroll={`${software}:desktop`}
 					class="sidebar-scroll flex w-full flex-col gap-8 font-mono overflow-y-auto pr-10"
 				>
 					<div class="flex w-full flex-col gap-6 py-4">
@@ -213,6 +214,7 @@
 		}
 	}}
 	class="fixed inset-0 bg-bg-800/80 backdrop-blur-sm lg:hidden transition-opacity duration-300 z-50"
+	class:invisible={!isSidebarOpen}
 	class:opacity-0={!isSidebarOpen}
 	class:opacity-100={isSidebarOpen}
 	class:pointer-events-none={!isSidebarOpen}
@@ -229,7 +231,7 @@
 			</div>
 
 			<!-- Links -->
-			<div class="h-full flex-1 overflow-y-auto px-6 pb-6">
+			<div data-sidebar-scroll={`${software}:mobile`} class="h-full flex-1 overflow-y-auto px-6 pb-6">
 				<div class="flex flex-col gap-6 font-mono text-bg-100">
 					{#each processedSections as section}
 						<div class="flex flex-col gap-3">
