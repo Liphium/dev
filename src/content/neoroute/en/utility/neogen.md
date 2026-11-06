@@ -290,15 +290,17 @@ Let us know your use case and what you feel like is missing in the framework. We
 
 ## Known limitations
 
+Although like 99% of codebases should be fine, in case you use something very specific to MessagePack, there are a few known limitations with code generation.
+
 ### Map keys
 
 Map fields must use string keys, such as `map[string]User`. Schema generation and loading reject non-string keys, including numeric keys such as those in `map[int]User`.
 
-### Custom types
+Read more [here](/neoroute/guides/msgp#map-keys).
 
-Although like 99% of codebases should be fine, in case you use something very specific to MessagePack, there are a few known limitations with code generation.
+### Custom and advanced types
 
-- Custom MessagePack types are currently **not supported**.
+- MessagePack types you add yourself with custom encoders are currently **not supported**.
 - Complex number types are not supported.
 
 A good alternative to both of these problems is just using `[]byte` and encoding your custom type into that. That way the responsibility for handling it can all live in your code.

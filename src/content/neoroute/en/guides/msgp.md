@@ -95,6 +95,14 @@ type Person struct {
 
 There are quite a few things we don't support officially for MessagePack. If you use the defaults `msgp` provides, you should largely not have problems, but there are a few things we'd like to point out.
 
+### Extension type limitations
+
+We actively make use of extension type `5` for support of time stamps in Neoroute and compatibility with how `msgp` does things. Please do not use it for other things.
+
+If you're wondering about dates, all SDKs support both `-1` and `5` extension types for dates. Feel free to use any of them, we'll handle the conversion under the hood.
+
+If you don't know what any of this means, you're probably just fine, so don't worry! The MessagePack rabbit hole is pretty deep.
+
 ### Map keys
 
 Neoroute schemas only support string map keys, such as `map[string]User`. Non-string keys, including numeric keys, are rejected. Use string keys to keep your models compatible with [neogen](/neoroute/utility/neogen) and [neodebug](/neoroute/utility/neodebug).
