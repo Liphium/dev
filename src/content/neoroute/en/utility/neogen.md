@@ -94,11 +94,11 @@ neogen -target typescript -v
 
 ```json name="TypeScript" prefix="sdk" key="ts"
 {
-	"scripts": {
-		// For TypeScript we recommend adding this script to your package.json.
-		// We would also strongly encourage using a separate folder for generation output.
-		"generate": "cd ./generated && neogen -path './path/to/your/server' -target typescript"
-	}
+  "scripts": {
+    // For TypeScript we recommend adding this script to your package.json.
+    // We would also strongly encourage using a separate folder for generation output.
+    "generate": "cd ./generated && neogen -path './path/to/your/server' -target typescript"
+  }
 }
 ```
 
@@ -151,15 +151,13 @@ export function toYourEventWire(event: YourEvent): YourEventWire {}
 
 // This class will be generated as a wrapper around the normal transporter
 export class YourConnector /* extends SomeTransporter */ {
-	// ...
+  // ...
 
-	// Generated function for receiving an event
-	public onYourEvent(handler: (event: YourEvent) => void): void {}
+  // Generated function for receiving an event
+  public onYourEvent(handler: (event: YourEvent) => void): void {}
 
-	// Generated function for sending a request (might be different based on route type)
-	public async yourRoute(
-		payload: YourRequest,
-	): Promise<YourResponse | UserError> {}
+  // Generated function for sending a request (might be different based on route type)
+  public async yourRoute(payload: YourRequest): Promise<YourResponse | UserError> {}
 }
 
 // ...
@@ -275,10 +273,10 @@ import { type Dog, type DogWire, fromDogWire, type Animal } from "./generated";
 // We need to use the wire types here since those are the encoded forms.
 // This is done by neogen so this also works with tuples.
 switch (animal.type) {
-	case "dog":
-		const dogWire = decode(animal.data) as DogWire;
-		const dog: Dog = fromDogWire(dogWire);
-	// Same for Cat...
+  case "dog":
+    const dogWire = decode(animal.data) as DogWire;
+    const dog: Dog = fromDogWire(dogWire);
+  // Same for Cat...
 }
 ```
 
@@ -291,6 +289,10 @@ _It would probably be really cool to have some kind of helper function that does
 Let us know your use case and what you feel like is missing in the framework. We might have a solution already and you just don't know about it yet!
 
 ## Known limitations
+
+### Map keys
+
+Map fields must use string keys, such as `map[string]User`. Schema generation and loading reject non-string keys, including numeric keys such as those in `map[int]User`.
 
 ### Custom types
 

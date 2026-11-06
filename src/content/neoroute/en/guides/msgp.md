@@ -95,6 +95,12 @@ type Person struct {
 
 There are quite a few things we don't support officially for MessagePack. If you use the defaults `msgp` provides, you should largely not have problems, but there are a few things we'd like to point out.
 
+### Map keys
+
+Neoroute schemas only support string map keys, such as `map[string]User`. Non-string keys, including numeric keys, are rejected. Use string keys to keep your models compatible with [neogen](/neoroute/utility/neogen) and [neodebug](/neoroute/utility/neodebug).
+
+This is mainly because of the fact that `msgp` does not support non-string map keys in the code generator without extra flags. We do not want you to shoot your foot with this, which is why we just decided to disable them completely. You can of course still use them with the main framework, but our code generator (neogen) will not handle them as it doesn't know if you enabled them or not.
+
 ### Custom types
 
 - **Complex numbers:** `msgp` has support for `complex64` and `complex128`, but the code generator does not support them yet and `msgp` seems to be the only library capable of handling these types. **Be careful with them**.
