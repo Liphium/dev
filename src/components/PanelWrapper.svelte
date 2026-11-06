@@ -58,6 +58,7 @@
 
 	function openSearch() {
 		modalEl?.open?.();
+		searchOpen = true;
 	}
 
 	function handleSearchKeydown(e: KeyboardEvent) {
@@ -79,8 +80,27 @@
 		const onClose = () => {
 			searchOpen = false;
 		};
-		modalEl?.addEventListener("close", onClose);
-		return () => modalEl?.removeEventListener("close", onClose);
+		const modal = modalEl;
+		const closeSearch = () => {
+			modal?.close?.();
+			searchOpen = false;
+		};
+		const onResultClick = (event: MouseEvent) => {
+			if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+			const link = (event.target as Element).closest("a[href]");
+			if (link && link.getAttribute("target") !== "_blank") {
+				// Let the router read the result before closing resets the search DOM.
+				queueMicrotask(closeSearch);
+			}
+		};
+		modal?.addEventListener("close", onClose);
+		modal?.addEventListener("click", onResultClick);
+		document.addEventListener("astro:before-preparation", closeSearch);
+		return () => {
+			modal?.removeEventListener("close", onClose);
+			modal?.removeEventListener("click", onResultClick);
+			document.removeEventListener("astro:before-preparation", closeSearch);
+		};
 	});
 
 	function toggleSidebar() {
