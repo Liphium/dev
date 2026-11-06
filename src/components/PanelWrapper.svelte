@@ -51,6 +51,7 @@
 	);
 
 	let isSidebarOpen = $state(false);
+	let mobileSidebarScroll: HTMLDivElement;
 
 	let searchOpen = $state(false);
 	let modalEl: any;
@@ -85,6 +86,7 @@
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;
 		if (isSidebarOpen) {
+			if (mobileSidebarScroll) mobileSidebarScroll.scrollTop = 0;
 			document.body.style.overflow = "hidden";
 		} else {
 			document.body.style.overflow = "";
@@ -117,9 +119,9 @@
 		aria-haspopup="dialog"
 		aria-controls="docs-search-modal"
 		aria-expanded={searchOpen}
-		class="flex items-center w-full gap-2 rounded-lg border-2 border-bg-500 bg-bg-700 p-2 text-sm text-bg-300 transition-colors hover:border-bg-300 hover:text-bg-100 cursor-pointer"
+		class="flex items-center w-full gap-2 rounded-lg border-2 border-bg-500 bg-bg-700 p-2 font-mono text-sm text-bg-300 transition-colors hover:border-bg-300 hover:text-bg-100 cursor-pointer"
 	>
-		<Search class="h-4 w-4 shrink-0" />
+		<Search class="h-4 w-4 shrink-0 text-bg-300" />
 		<span class="flex-1 truncate text-left">Search</span>
 		<kbd
 			class="hidden shrink-0 rounded border border-bg-500 bg-bg-600 px-1.5 py-0.5 text-xs text-bg-300 sm:inline"
@@ -213,8 +215,8 @@
 			closeSidebar();
 		}
 	}}
-	class="fixed inset-0 bg-bg-800/80 backdrop-blur-sm lg:hidden transition-opacity duration-300 z-50"
-	class:invisible={!isSidebarOpen}
+	class="sidebar-overlay fixed inset-0 bg-bg-800/80 backdrop-blur-sm lg:hidden z-50"
+	class:sidebar-open={isSidebarOpen}
 	class:opacity-0={!isSidebarOpen}
 	class:opacity-100={isSidebarOpen}
 	class:pointer-events-none={!isSidebarOpen}
@@ -231,7 +233,7 @@
 			</div>
 
 			<!-- Links -->
-			<div data-sidebar-scroll={`${software}:mobile`} class="h-full flex-1 overflow-y-auto px-6 pb-6">
+			<div bind:this={mobileSidebarScroll} class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 pb-6">
 				<div class="flex flex-col gap-6 font-mono text-bg-100">
 					{#each processedSections as section}
 						<div class="flex flex-col gap-3">
@@ -283,6 +285,16 @@
 </button>
 
 <style>
+	.sidebar-overlay {
+		visibility: hidden;
+		transition: opacity 300ms, visibility 0s 300ms;
+	}
+
+	.sidebar-overlay.sidebar-open {
+		visibility: visible;
+		transition-delay: 0s;
+	}
+
 	.sidebar-scroll {
 		-webkit-mask-image: linear-gradient(
 			180deg,

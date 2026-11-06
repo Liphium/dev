@@ -73,6 +73,8 @@
 :root {
 	scroll-behavior: smooth;
 	scroll-padding-top: 5rem;
+	/* Keep fixed controls in place when a menu hides the page scrollbar. */
+	scrollbar-gutter: stable;
 }
 
 /* Keep page, sidebar, and code-block scrollbars quiet against the dark UI. */
