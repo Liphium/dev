@@ -33,6 +33,10 @@ c := client.NewClient(client.Config{
 	ErrorHandler: func(err error) {
 		log.Println("HTTP error", err)
 	},
+
+	// Configure how long requests take before timing out.
+	// Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+	RequestTimeout: 10 * time.Second,
 })
 
 // 3. Make the client send HTTP requests
@@ -44,21 +48,21 @@ http.ApplyHTTP(c, "POST" /* method used, depends on your server */, url)
 
 // 1. Create a new client
 const client = new Client({
-	// THIS IS REQUIRED.
-	// This also has the responsibility of converting any error into a string, that
-	// will be returned inside of the UserError returned by send functions.
-	errorHandler: (err: Error) => {
-		console.log("Global HTTP receiver error:", err);
-		return "Something went wrong"; // The string that will be in UserError
-	},
+  // THIS IS REQUIRED.
+  // This also has the responsibility of converting any error into a string, that
+  // will be returned inside of the UserError returned by send functions.
+  errorHandler: (err: Error) => {
+    console.log("Global HTTP receiver error:", err);
+    return "Something went wrong"; // The string that will be in UserError
+  },
+
+  // Configure how long requests take before timing out (in milliseconds).
+  // Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+  requestTimeout: 10000,
 });
 
 // 2. Let the client send HTTP requests
-applyHTTP(
-	client,
-	"POST" /* request method, depends on your server */,
-	"http://example.com",
-);
+applyHTTP(client, "POST" /* request method, depends on your server */, "http://example.com");
 ```
 
 ## Important things

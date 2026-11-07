@@ -63,11 +63,11 @@ You can improve the performance of your encoding and decoding even more. We've c
 
 ### Tuples
 
-By default, MessagePack encodes your structs like a map. This means when decoding a field we have to do a lookup for which type the field name has, and then decode into it properly.
+By default, MessagePack encodes your structs like a map. This means when decoding a field we have to do a lookup for which type the field name has, and then decode into it properly. By using `msgp`'s tuple feature, you can lay your structs out as a list instead, meaning field order is consistent and decoding becomes a lot faster because we don't need to do any lookups.
 
 The main wins summarized:
 
-- Encoding large structs is **a lot faster**
+- Decoding large structs is **a lot faster**
 - The size of the encoded output is smaller since we don't have to encode the field names anymore.
 - Changing field names and the `msg` tag for fields in a struct (while keeping their type and order the same) does not break compatibility with older versions.
 

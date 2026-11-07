@@ -31,6 +31,10 @@ c := client.NewClient(client.Config{
 	ErrorHandler: func(err error) {
 		log.Println("WebSocket error", err)
 	},
+
+	// Configure how long requests take before timing out.
+	// Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+	RequestTimeout: 10 * time.Second,
 })
 
 // 2. Create a new WebSocket transporter
@@ -44,20 +48,24 @@ transporter := websocket.NewWebSocketTransporter(c)
 
 // 1. Create a new client
 const client = new Client({
-	// Called for any errors that happen (also in the transporter).
-	errorHandler: (err: Error) => {
-		console.error("websocket error:", err);
+  // Called for any errors that happen (also in the transporter).
+  errorHandler: (err: Error) => {
+    console.error("websocket error:", err);
 
-		// In case this error handler was called from a request, this
-		// will be returned in the UserError.
-		return "Something went wrong!";
-	},
+    // In case this error handler was called from a request, this
+    // will be returned in the UserError.
+    return "Something went wrong!";
+  },
+
+  // Configure how long requests take before timing out (in milliseconds).
+  // Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+  requestTimeout: 10000,
 });
 
 // 2. Create the WebSocket transporter
 const transporter = new WebSocketTransporter(client, {
-	// Implement to handle the WebSocket connection opening
-	onOpen: () => {},
+  // Implement to handle the WebSocket connection opening
+  onOpen: () => {},
 });
 ```
 

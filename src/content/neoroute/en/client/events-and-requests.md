@@ -44,16 +44,32 @@ if err != nil {
 ```
 
 ```ts prefix="sdk"
-const response = await client.send<SomeRequest, SomeResponse>("your_route", {
-	/* data */
-});
+const response = await client.send<SomeRequest, SomeResponse>("your_route", {/* data */});
 if (response instanceof UserError) {
-	console.error("something went wrong with some_route:", response);
-	return;
+  console.error("something went wrong with some_route:", response);
+  return;
 }
 
 // You can now safely use response
 ```
+
+### Setting custom timeouts
+
+Some requests might be allowed to take longer than the default request timeout on your client. For these requests you can configure a custom one:
+
+```go prefix="sdk"
+response, err := c.Send[SomeResponse]("your_route", SomeRequest{/* data */}, client.WithMaxRequestTimeout(30*time.Second))
+```
+
+```ts prefix="sdk"
+const response = await client.send<SomeRequest, SomeResponse>(
+  "your_route",
+  {/* data */},
+  { requestTimeout: 30000 },
+);
+```
+
+If you have wishes for other stuff you want to be able to configure, feel free to create an issue in the main repository on GitHub.
 
 ## Receiving events
 
@@ -74,7 +90,7 @@ func SomeFunction(c *client.Ctx, event SomeEvent) { /* your logic */ }
 
 ```ts prefix="sdk"
 client.receive("some_event", (c: Ctx, event: YourEvent) => {
-	/* handle */
+  /* handle */
 });
 ```
 
