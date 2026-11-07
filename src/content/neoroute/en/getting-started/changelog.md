@@ -120,7 +120,3 @@ Admittedly, this version was still pretty fragile looking at it from the future,
 ## Other changelogs
 
 If you are interested in changelogs before this version, please refer to our `CHANGELOG.md` files. They are maintained automatically in every folder of the [Neoroute repository](https://github.com/Liphium/neoroute) automatically. Sometimes there are weird messages in there, just ignore those. Mistakes sometimes happen.
-
-```
-
-```
