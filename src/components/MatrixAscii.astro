@@ -61,37 +61,47 @@ const encodedTemplate = JSON.stringify(template);
 <script>
 	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+<>?";
 
-	const logos = document.querySelectorAll<HTMLElement>("[data-matrix-template]");
+	const intervals = new Set<ReturnType<typeof setInterval>>();
 
-	logos.forEach((logo) => {
-		const template: string[] = JSON.parse(
-			logo.dataset.matrixTemplate ?? "[]",
-		);
-		if (template.length === 0) return;
+	const initLogos = () => {
+		const logos = document.querySelectorAll<HTMLElement>("[data-matrix-template]");
 
-		let currentState = template.map((row) => row.split(""));
+		logos.forEach((logo) => {
+			const template: string[] = JSON.parse(
+				logo.dataset.matrixTemplate ?? "[]",
+			);
+			if (template.length === 0) return;
 
-		const render = () => {
-			let result = "";
+			let currentState = template.map((row) => row.split(""));
 
-			for (let r = 0; r < template.length; r++) {
-				for (let c = 0; c < template[r].length; c++) {
-					if (template[r][c] !== " ") {
-						// Pure random chance to change on any given frame (5% probability)
-						if (Math.random() < 0.05) {
-							currentState[r][c] = chars.charAt(
-								Math.floor(Math.random() * chars.length),
-							);
+			const render = () => {
+				let result = "";
+
+				for (let r = 0; r < template.length; r++) {
+					for (let c = 0; c < template[r].length; c++) {
+						if (template[r][c] !== " ") {
+							// Pure random chance to change on any given frame (5% probability)
+							if (Math.random() < 0.05) {
+								currentState[r][c] = chars.charAt(
+									Math.floor(Math.random() * chars.length),
+								);
+							}
 						}
+						result += currentState[r][c];
 					}
-					result += currentState[r][c];
+					if (r < template.length - 1) result += "\n";
 				}
-				if (r < template.length - 1) result += "\n";
-			}
-			logo.textContent = result;
-		};
+				logo.textContent = result;
+			};
 
-		render();
-		setInterval(render, 50);
+			render();
+			intervals.add(setInterval(render, 50));
+		});
+	};
+
+	document.addEventListener("astro:page-load", initLogos);
+	document.addEventListener("astro:before-swap", () => {
+		intervals.forEach(clearInterval);
+		intervals.clear();
 	});
 </script>

@@ -16,21 +16,25 @@ This is an abstraction we put over the actual connection since you could also be
 ```go prefix="sdk"
 // Import both the transporter (client version) and the client package.
 import (
-	"github.com/Liphium/neoroute/client"
-	"github.com/Liphium/neoroute/client/transporter/websocket"
+	"github.com/Liphium/neoroute/client/sdk/v2"
+	"github.com/Liphium/neoroute/client/transporter/websocket/v2"
 )
 
 // ...
 
 // 1. Create a new client (there are more options, we just showcase the most important ones)
 c := client.NewClient(client.Config{
-	// The ErrorHandler will be called for every error that happens inside of the client.
+	// ErrorHandler receives errors that cannot be returned to the caller.
 	//
 	// Errors like that aren't returned from requests, like invalid events, are also returned
 	// through here which is why we recommend definitely using this for WebSocket.
 	ErrorHandler: func(err error) {
 		log.Println("WebSocket error", err)
 	},
+
+	// Configure how long requests take before timing out.
+	// Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+	RequestTimeout: 10 * time.Second,
 })
 
 // 2. Create a new WebSocket transporter
@@ -44,20 +48,24 @@ transporter := websocket.NewWebSocketTransporter(c)
 
 // 1. Create a new client
 const client = new Client({
-	// Called for any errors that happen (also in the transporter).
-	errorHandler: (err: Error) => {
-		console.error("websocket error:", err);
+  // Called for any errors that happen (also in the transporter).
+  errorHandler: (err: Error) => {
+    console.error("websocket error:", err);
 
-		// In case this error handler was called from a request, this
-		// will be returned in the UserError.
-		return "Something went wrong!";
-	},
+    // In case this error handler was called from a request, this
+    // will be returned in the UserError.
+    return "Something went wrong!";
+  },
+
+  // Configure how long requests take before timing out (in milliseconds).
+  // Defaults to 5 seconds if not set, you can customize this per route (see sending docs)
+  requestTimeout: 10000,
 });
 
 // 2. Create the WebSocket transporter
 const transporter = new WebSocketTransporter(client, {
-	// Implement to handle the WebSocket connection opening
-	onOpen: () => {},
+  // Implement to handle the WebSocket connection opening
+  onOpen: () => {},
 });
 ```
 
@@ -98,4 +106,4 @@ transporter.close();
 
 ## From now
 
-Depending on what SDK you use, you can now [send requests](/neoroute/client/requests) to your server or [receive events](/neoroute/client/events) from your server over the WebSocket connection. Click on any of the links to learn more about those capabilities.
+Depending on what SDK you use, you can now [send requests to your server or receive events from your server](/neoroute/client/events-and-requests) over the WebSocket connection. Click on any of the links to learn more about those capabilities.

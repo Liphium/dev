@@ -3,24 +3,24 @@ title: "Neoroute Go Client SDK"
 description: "How to connect to a Neoroute server straight from Golang."
 ---
 
-Official SDK for **Go** - [GitHub](https://github.com/Liphium/neoroute/tree/main/client) - [go doc](https://pkg.go.dev/github.com/Liphium/neoroute/client)
+Official SDK for **Go** - [GitHub](https://github.com/Liphium/neoroute/tree/main/client/sdk) - [go doc](https://pkg.go.dev/github.com/Liphium/neoroute/client/sdk/v2)
 
 ## Installation
 
 Run the following command in your Go project:
 
 ```sh
-go get -u github.com/Liphium/neoroute/client@latest
+go get -u github.com/Liphium/neoroute/client/sdk/v2@latest
 ```
 
 Depending on which transporter you would like to use, run one of the following commands as well:
 
 ```sh name="HTTP" key="http"
-go get -u github.com/Liphium/neoroute/client/transporter/http@latest
+go get -u github.com/Liphium/neoroute/client/transporter/http/v2@latest
 ```
 
 ```sh name="WebSocket" key="ws"
-go get -u github.com/Liphium/neoroute/client/transporter/websocket@latest
+go get -u github.com/Liphium/neoroute/client/transporter/websocket/v2@latest
 ```
 
 ## Features
