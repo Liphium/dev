@@ -17,9 +17,23 @@ The main reason for a new major version this time around is breaking changes for
 
 ### New install paths
 
-We didn't really ship anything breaking in terms of code, but due to an internal releasing issue, the Go client SDK has changed its path from `github.com/Liphium/neoroute/client` to `github.com/Liphium/neoroute/client/sdk`.
+The Go client SDK has moved from `github.com/Liphium/neoroute/client` (or `/client/sdk` if you already migrated) to `github.com/Liphium/neoroute/client/sdk/v2`.
 
-Please also be aware that all of the neoroute packages now contain `v2`. You have to change the paths in your entire codebase!
+Update your Go imports and installation commands to use these v2 paths:
+
+| Module/package | New install/import path |
+| --- | --- |
+| Core framework | `github.com/Liphium/neoroute/v2` |
+| Neogen command | `github.com/Liphium/neoroute/v2/cmd/neogen` |
+| Server HTTP transporter | `github.com/Liphium/neoroute/transporter/http/v2` |
+| Server WebSocket transporter | `github.com/Liphium/neoroute/transporter/websocket/v2` |
+| Go client SDK | `github.com/Liphium/neoroute/client/sdk/v2` |
+| Client HTTP transporter | `github.com/Liphium/neoroute/client/transporter/http/v2` |
+| Client WebSocket transporter | `github.com/Liphium/neoroute/client/transporter/websocket/v2` |
+| Neodebug | `github.com/Liphium/neoroute/pkg/neodebug/v2` |
+| Neodebug config | `github.com/Liphium/neoroute/pkg/neodebug/v2/config` |
+
+Each Go module has its own `/v2` suffix. Packages within a module come after that suffix, as shown by Neogen and Neodebug config above.
 
 ### New wire format
 
