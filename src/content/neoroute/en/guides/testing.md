@@ -5,6 +5,8 @@ description: "How to test Neoroute routes, create fake sessions and more."
 
 We all hate it, we all need to do it: Testing the slop we actually wrote. Neoroute luckily comes with a lot of helpers, including lots of assertion functions, built right into the library.
 
+**Note:** This documentation is currently incomplete. We've added some new testing capabilities since `v1.0.0` that aren't documented in here. This will be updated in the coming weeks.
+
 ## Testing routes
 
 **Note:** To test your routes, we **recommend** you **not embed them in the router**, but instead make them **separate functions**. We do this because this way you can keep type safety and get basically the same experience as with a simulated connection.
