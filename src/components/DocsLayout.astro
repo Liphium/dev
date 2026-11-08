@@ -6,43 +6,37 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 ---
 
 <script>
-	const anchorHeadings = document.querySelectorAll("h2, h3, h4, h5, h6");
+	let codeTabsController: AbortController | undefined;
 
-	[...anchorHeadings]
-		.filter((heading: Element) => heading.id !== "table-of-contents")
-		.forEach((heading) => {
+	const initDocs = () => {
+		codeTabsController?.abort();
+		codeTabsController = new AbortController();
+		const { signal } = codeTabsController;
+
+		document.querySelectorAll(".prose-spec h2, .prose-spec h3, .prose-spec h4, .prose-spec h5, .prose-spec h6").forEach((heading) => {
+			if (heading.id === "table-of-contents" || heading.parentElement?.classList.contains("hidden-link")) return;
 			const anchor = document.createElement("a");
 			anchor.className = "hidden-link";
 			anchor.href = `#${heading.id}`;
-			heading.parentNode!.insertBefore(anchor, heading);
+			heading.before(anchor);
 			anchor.appendChild(heading);
 		});
-</script>
 
-<script define:vars={{ software }}>
-	const storageKey = `docs-code-language:${software ?? "default"}`;
-
-	const initCodeTabs = () => {
+		const software = document.querySelector<HTMLElement>("[data-docs-software]")?.dataset.docsSoftware;
+		const storageKey = `docs-code-language:${software ?? "default"}`;
 		document.querySelectorAll("[data-code-tabs]").forEach((group) => {
-			const buttons = [...group.querySelectorAll("[data-code-tab]")];
-			const panels = [...group.querySelectorAll("[data-code-panel]")];
-			const available = buttons
-				.map((button) => button.dataset.codeTab)
-				.filter(Boolean);
+			const buttons = [...group.querySelectorAll<HTMLElement>("[data-code-tab]")];
+			const panels = [...group.querySelectorAll<HTMLElement>("[data-code-panel]")];
+			const available = buttons.map((button) => button.dataset.codeTab).filter(Boolean);
 			const prefix = buttons[0]?.dataset.codePrefix || null;
 			const groupStorageKey = prefix ? `${storageKey}:${prefix}` : null;
-			let savedLanguage = null;
+			let savedLanguage: string | null = null;
 			try {
-				savedLanguage = groupStorageKey
-					? localStorage.getItem(groupStorageKey)
-					: null;
+				savedLanguage = groupStorageKey ? localStorage.getItem(groupStorageKey) : null;
 			} catch {}
-			const initial =
-				savedLanguage && available.includes(savedLanguage)
-					? savedLanguage
-					: available[0];
+			const initial = savedLanguage && available.includes(savedLanguage) ? savedLanguage : available[0];
 
-			const select = (language, broadcast = false) => {
+			const select = (language: string, broadcast = false) => {
 				if (!available.includes(language)) return;
 				buttons.forEach((button) => {
 					const active = button.dataset.codeTab === language;
@@ -53,48 +47,27 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 					panel.hidden = panel.dataset.codePanel !== language;
 				});
 				if (groupStorageKey) {
-					try {
-						localStorage.setItem(groupStorageKey, language);
-					} catch {}
+					try { localStorage.setItem(groupStorageKey, language); } catch {}
 				}
-				if (broadcast && prefix)
-					document.dispatchEvent(
-						new CustomEvent("code-tab-select", {
-							detail: { prefix, language },
-						}),
-					);
+				if (broadcast && prefix) document.dispatchEvent(new CustomEvent("code-tab-select", { detail: { prefix, language } }));
 			};
 
 			buttons.forEach((button) => {
 				button.addEventListener("click", () => {
 					const language = button.dataset.codeTab;
-					if (language) {
-						select(language, true);
-					}
-				});
+					if (language) select(language, true);
+				}, { signal });
 			});
-
 			document.addEventListener("code-tab-select", (event) => {
-				const { prefix: eventPrefix, language } = event.detail;
-				if (
-					prefix &&
-					eventPrefix === prefix &&
-					available.includes(language)
-				)
-					select(language);
-			});
-
+				const { prefix: eventPrefix, language } = (event as CustomEvent<{ prefix: string; language: string }>).detail;
+				if (prefix && eventPrefix === prefix && available.includes(language)) select(language);
+			}, { signal });
 			if (initial) select(initial);
 		});
 	};
 
-	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", initCodeTabs, {
-			once: true,
-		});
-	} else {
-		initCodeTabs();
-	}
+	document.addEventListener("astro:page-load", initDocs);
+	document.addEventListener("astro:before-swap", () => codeTabsController?.abort());
 </script>
 
 <PanelWrapper
@@ -105,7 +78,7 @@ const { title, pageTitle, summary, language, linkPrefix, software, sections } =
 	software={software}
 	sections={sections}
 >
-	<div class="flex items-center justify-center overflow-x-hidden min-w-0">
+	<div data-docs-software={software} class="flex items-center justify-center overflow-x-hidden min-w-0">
 		<div
 			class="flex flex-col gap-2 font-mono max-w-4xl w-full prose-spec min-w-0"
 		>

@@ -10,7 +10,7 @@ Using a WebSocket transporter with Neoroute allows clients to send requests to y
 Install the `websocket_transporter` package with `go`:
 
 ```sh
-go get -u github.com/Liphium/neoroute/transporter/websocket@latest
+go get -u github.com/Liphium/neoroute/transporter/websocket/v2@latest
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ You can now create a new transporter like this:
 import (
 	"net/http"
 	"github.com/coder/websocket"
-	websocket_transporter "github.com/Liphium/neoroute/transporter/websocket"
+	websocket_transporter "github.com/Liphium/neoroute/transporter/websocket/v2"
 )
 
 hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Config[neoroute.NoData]{
@@ -38,8 +38,8 @@ hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Co
 
 	// Accept options for the underlying websocket library we use.
 	AcceptOptions: &websocket.AcceptOptions{
-		// We usually disable verify, because we don't want to deal with TLS certificates
-		// in development. If you turn this on, you'll need a valid certificate.
+		// We usually disable verify, because we don't want to deal with origin verification (CORS)
+		// while testing. You should probably configure this properly for production.
 		InsecureSkipVerify: true,
 	},
 
@@ -49,7 +49,7 @@ hook, t := websocket_transporter.NewTransporter(router, websocket_transporter.Co
 	EnterNetworkFunc: func(session *neoroute.Session[neoroute.NoData]) {},
 
 	// Function called when a connection is closed.
-	DisconnectHandler: func(session *neoroute.Session[neoroute.NoData]) {}
+	DisconnectHandler: func(session *neoroute.Session[neoroute.NoData]) {},
 })
 ```
 
@@ -117,7 +117,7 @@ If your framework is not covered here, you can just look up how to mount a `http
 
 ### Adding events
 
-If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events). When you actually have one, you can add it to the transporter like this:
+If you don't have an `EventRegistry` yet, learn how to create one [here](/neoroute/guides/events-adapters). When you actually have one, you can add it to the transporter like this:
 
 ```go
 transporter.AddEventRegistry(registry)

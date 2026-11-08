@@ -5,6 +5,7 @@
 	src: url("../assets/mono.ttf") format("truetype");
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
@@ -72,6 +73,8 @@
 :root {
 	scroll-behavior: smooth;
 	scroll-padding-top: 5rem;
+	/* Keep fixed controls in place when a menu hides the page scrollbar. */
+	scrollbar-gutter: stable;
 }
 
 /* Keep page, sidebar, and code-block scrollbars quiet against the dark UI. */
@@ -171,10 +174,21 @@
 	--pf-dropdown-z-index: 9999;
 }
 
+/* Set this on the component so Pagefind's later :root defaults cannot override it. */
+pagefind-modal {
+	--pf-font: "JetBrains Mono", monospace;
+}
+
 pagefind-modal dialog.pf-modal {
 	border: 2px solid var(--color-bg-500);
 }
 
 pagefind-input input {
 	caret-color: var(--color-p-blue-100);
+}
+
+/* Keep client-side navigation as an immediate swap without snapshot animations. */
+html {
+	view-transition-name: none;
+	background-color: var(--color-bg-800);
 }

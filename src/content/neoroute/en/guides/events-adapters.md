@@ -9,6 +9,15 @@ Events are Neoroute's primary way to send information from the server to the cli
 
 Before creating or sending any events, you first need to register them with Neoroute. We need this to couple event names and the structs you use for them.
 
+### Important rules
+
+There are a few things I'd like you to keep in mind when creating events:
+
+- Only `struct` is supported as a type for events (mainly code generation reasons + hard for us to support other types).
+- You may have to pass in the struct as a pointer. For large structs `msgp` generates the encoding functions on the pointer type (mainly for performance reasons).
+
+### Actually registering
+
 To do this, create a new `EventRegistry` like this:
 
 ```go
@@ -22,7 +31,7 @@ You can then add new events to it like this:
 
 type SomeEvent struct { /* your data */ }
 
-var CreateSomeEvent = EventRegistry.Register[SomeEvent]("some_event")
+var CreateSomeEvent = EventRegistry.Register[*SomeEvent]("some_event")
 ```
 
 To explain this a little further:

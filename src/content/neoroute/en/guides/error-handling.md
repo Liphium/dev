@@ -13,13 +13,15 @@ That `ErrorHandler` converts any error that happens to a `string` message that c
 
 ### Errors that are forwarded to it
 
-- **Any connection errors:** In case anything goes wrong before the Handshake, any errors like a missing upgrade for WebSocket, are forwarded to the `ErrorHandler`. The message will be sent along with the response to the client.
+- **Any connection errors:** In case anything goes wrong before the Handshake, any errors like a missing upgrade for WebSocket, are forwarded to the `ErrorHandler`. Connection failures are reported to the handler, but its returned message is not guaranteed to be sent to the client.
 - **Errors in any routes:** Route errors (that are not created with `neoroute.NewError`) are passed to the function to get the text for the error message.
 - Any other types of errors may also be forwarded to it.
 
+Error messages are returned for route requests made through a Neoroute client, not for connection attempts.
+
 ### Default value
 
-The default `ErrorHandler` always returns `"Something went wrong"` and logs the error to the console using Neoroute's default logger. Learn how to change it below.
+The default `ErrorHandler` always returns `"Internal Server Error"` and logs the error to the console using Neoroute's default logger. Learn how to change it below.
 
 ## Setting the logger
 

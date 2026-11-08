@@ -5,7 +5,7 @@ description: "How to connect to your Neoroute server with our in-house debugger 
 
 When you want to test out some new routes or events you've created, you might want to test them before they're actually implemented in your client. That's where [neodebug](https://github.com/Liphium/neoroute/tree/main/pkg/neodebug) can come in handy.
 
-**Note:** If you want to write actual tests with Neoroute, you can follow [this guide](https://www.youtube.com/watch?v=dQw4w9WgXcQ) instead. Here we only cover manual testing.
+**Note:** If you want to write actual tests with Neoroute, you can follow [this guide](/neoroute/guides/testing) instead. Here we only cover manual testing.
 
 ## Requirements
 
@@ -16,7 +16,7 @@ Neodebug builds on top of the [schema generation](/neoroute/utility/neogen) powe
 Quite simple:
 
 ```sh
-go get -u github.com/Liphium/neoroute/pkg/neodebug@latest
+go get -u github.com/Liphium/neoroute/pkg/neodebug/v2@latest
 ```
 
 The reason why neodebug is a package and not a CLI tool is actually quite simple: That way it integrates better with [Magic](/magic).
@@ -37,8 +37,8 @@ Neodebug actually only exposes one function, `neodebug.Run`. After calling it, n
 
 ```go
 import (
-	"github.com/Liphium/neoroute/pkg/neodebug"
-	"github.com/Liphium/neoroute/pkg/neodebug/config"
+	"github.com/Liphium/neoroute/pkg/neodebug/v2"
+	"github.com/Liphium/neoroute/pkg/neodebug/v2/config"
 )
 
 neodebug.Run(config.DebugConfig{
@@ -55,6 +55,34 @@ neodebug.Run(config.DebugConfig{
 ```
 
 We hope you enjoy your new debugger. But let's actually learn how to use it.
+
+## Presets (since v2.0.0)
+
+With `v2.0.0` of Neoroute we shipped a new feature in neodebug that allows you to define custom request presets for routes in your server.
+
+This allows you to define templates (presets) for requests you send often directly in your `config.DebugConfig` and use them in the CLI. This is really useful for giving other people more tools to more easily and quickly test your application.
+
+You can add presets in the following way:
+
+```go
+neodebug.Run(config.DebugConfig{
+	Presets: []config.Preset{
+	  {
+			Name: "test",
+			Route: "some_route", // Whatever the name of your route is
+			Data: SomeRequest{
+				/* ... */
+			},
+		},
+	},
+})
+```
+
+A few things to keep in mind:
+
+- You can define invalid presets to see how neoroute handles that kind of request
+- The data you put in needs to be serializable using [MessagePack](/neoroute/guides/msgp)
+- To be able to edit presets in neodebug (for changing the template slightly), you need to use the same struct as the request to your handler
 
 ## Usage
 

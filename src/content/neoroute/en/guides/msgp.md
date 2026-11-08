@@ -15,7 +15,7 @@ Just run the following command to install the CLI for code generation (this is d
 go install github.com/tinylib/msgp@latest
 ```
 
-As with all of the times you use `go install`, make sure your `$GOHOME/bin` directory is in your path. Otherwise the following examples will not work.
+As with all of the times you use `go install`, make sure your `$GOPATH/bin` directory is in your path. Otherwise the following examples will not work.
 
 ## Using msgp
 
@@ -57,10 +57,70 @@ And just like this, you're done!
 
 Since [msgp](https://github.com/tinylib/msgp) has lots of really cool features that you can all also use with Neoroute, except for the ones listed below, you can check out their wiki for everything that's possible.
 
+## Further optimization
+
+You can improve the performance of your encoding and decoding even more. We've collected a few ways for you to do this here. For even more fine-tuning though, the [msgp wiki](https://github.com/tinylib/msgp/wiki) is a great place.
+
+### Tuples
+
+By default, MessagePack encodes your structs like a map. This means when decoding a field we have to do a lookup for which type the field name has, and then decode into it properly. By using `msgp`'s tuple feature, you can lay your structs out as a list instead, meaning field order is consistent and decoding becomes a lot faster because we don't need to do any lookups.
+
+The main wins summarized:
+
+- Decoding large structs is **a lot faster**
+- The size of the encoded output is smaller since we don't have to encode the field names anymore.
+- Changing field names and the `msg` tag for fields in a struct (while keeping their type and order the same) does not break compatibility with older versions.
+
+But it also has a few drawbacks, mainly these ones:
+
+- If you change the **field order** of the struct, you have to regenerate the code and recompile your application.
+- **Adding fields will break compatibility** with older versions.
+
+However, since `v2.0.0`, [neogen](/neoroute/utility/neogen) can at least generate code for you to make sure tuples are properly handled. However, **TUPLE GENERATION REQUIRES ADDITIONAL SETUP**. Please check the [neogen documentation](/neoroute/utility/neogen#tuples-if-youre-using-them) to learn how to do this.
+
+To make a struct a tuple, you can just add a `//msgp:tuple` comment above a struct in the following way:
+
+```go
+//msgp:tuple Person
+type Person struct {
+	Name       string `msg:"name"`
+	Address    string `msg:"address"`
+	Age        int    `msg:"age"`
+	Hidden     string `msg:"-"` // this field is ignored
+	unexported bool             // this field is also ignored
+}
+```
+
 ## Current limitations
 
-- **Tuples:** Using `//msgp:tuple <struct>` you can make the encoding and decoding of a lot of structs a lot faster. However, Neoroute does not currently support this feature very well, as **our code generator** for example still **doesn't know how to handle it**.
-- **Custom types:** You can also specify your own encoding and decoding functions, as with every other encoding format. As with tuples though, we **do not recommend** doing this due to the **lack of support** in the **code generator**.
+There are quite a few things we don't support officially for MessagePack. If you use the defaults `msgp` provides, you should largely not have problems, but there are a few things we'd like to point out.
+
+### Extension type limitations
+
+We actively make use of extension type `5` for support of time stamps in Neoroute and compatibility with how `msgp` does things. Please do not use it for other things.
+
+If you're wondering about dates, all SDKs support both `-1` and `5` extension types for dates. Feel free to use any of them, we'll handle the conversion under the hood.
+
+If you don't know what any of this means, you're probably just fine, so don't worry! The MessagePack rabbit hole is pretty deep.
+
+### Map keys
+
+Neoroute schemas only support string map keys, such as `map[string]User`. Non-string keys, including numeric keys, are rejected. Use string keys to keep your models compatible with [neogen](/neoroute/utility/neogen) and [neodebug](/neoroute/utility/neodebug).
+
+This is mainly because of the fact that `msgp` does not support non-string map keys in the code generator without extra flags. We do not want you to shoot your foot with this, which is why we just decided to disable them completely. You can of course still use them with the main framework, but our code generator (neogen) will not handle them as it doesn't know if you enabled them or not.
+
+### Custom types
+
+- **Complex numbers:** `msgp` has support for `complex64` and `complex128`, but the code generator does not support them yet and `msgp` seems to be the only library capable of handling these types. **Be careful with them**.
+- **Custom types:** You can also specify your own encoding and decoding functions, as with every other encoding format. We **do not recommend** doing this due to the **lack of support** in the **code generator**. The main framework is of course capable of decoding and encoding these types though.
+
+A good alternative to both of these problems is just using `[]byte` and encoding your custom type into that. That way the responsibility for handling it can all live in your code.
+
+### Custom flags
+
+You can have a lot of different flags in your generation command for `msgp`. We do not support any of them (like encoding unexported fields). Please be aware of this limitation.
+
+We may add support for some flags in the future.
 
 ## Why MessagePack?
 
@@ -68,9 +128,9 @@ Since this will be asked anyway, here is a summary of all the reasons why we use
 
 - **VS Protobuf:** No extra file format, extensions and other shit required.
 - **VS JSON:** Smaller and faster thanks to binary encoding and code generation.
-- **VS JSON:** `[]byte` can be decoded without Base64 or some other kind of hack.
+- **VS JSON:** `[]byte` can be encoded and decoded without Base64 or some other kind of hack.
 
 We acknowledge the following downsides, but think that the positives far outweigh the negatives:
 
-- **VS JSON:** Not human readable.
-- **VS Protobuf:** No code generation support for all languages.
+- **VS JSON:** Not human readable, but [neodebug](/neoroute/utility/neodebug) exists.
+- **VS Protobuf:** Not as optimized in the default configuration. Performance highly varies per configuration and programming language for MessagePack. You can use [tuples](#tuples) to get close to Protobuf-level size and performance, at least for Go.
