@@ -15,6 +15,12 @@ The full changelog is available [here](https://github.com/Liphium/neoroute/relea
 
 The main reason for a new major version this time around is breaking changes for things that go on under the hood. If you've been using Neoroute correctly until now, you should just be able to upgrade without any kind of hassle. You just get a lot more options now. `v2` SDKs are only compatible with `v2` client SDKs. We don't provide options for backwards-compatability since this framework is not being used in important production apps, at least to our knowledge.
 
+### New install paths
+
+We didn't really ship anything breaking in terms of code, but due to an internal releasing issue, the Go client SDK has changed its path from `github.com/Liphium/neoroute/client` to `github.com/Liphium/neoroute/client/sdk`.
+
+Please also be aware that all of the neoroute packages now contain `v2`. You have to change the paths in your entire codebase!
+
 ### New wire format
 
 By far the most important change since the last version of the `v1` family is our new wire format.
